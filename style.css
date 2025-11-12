@@ -1,109 +1,121 @@
-:root{
-  --pink-1: #ffb6d9;
-  --pink-2: #ff66a3;
-  --accent: #ff3385;
-  --white: #ffffff;
-  --dark: #222;
-  --glass: rgba(255,255,255,0.7);
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffd6f9, #fff, #ffb6c1);
+  background-size: 400% 400%;
+  animation: bgMove 10s infinite alternate;
+  overflow-x: hidden;
+  color: #4a004a;
 }
 
-/* RESET */
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-
-/* BODY */
-body{
-  font-family: "Poppins", system-ui, sans-serif;
-  background: linear-gradient(135deg,#ffe6f2,#ffffff);
-  color:var(--dark);
-  overflow-x:hidden;
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
-/* LOADING */
-#loading{
-  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-  flex-direction:column; gap:10px; z-index:9999;
-  background: linear-gradient(135deg, var(--pink-2), #ffd6ec);
-  color:white; text-align:center;
-}
-.spinner{
-  width:90px; height:90px; border-radius:50%;
-  border:10px solid rgba(255,255,255,0.3); border-top-color:white;
-  animation:spin 1.6s linear infinite;
-}
-@keyframes spin{100%{transform:rotate(360deg)}}
-#loading .sub{opacity:0.9;font-size:14px;margin-top:6px}
-
-/* MAIN LAYOUT */
-header{
-  position:sticky; top:0; z-index:60; display:flex; align-items:center; justify-content:space-between;
-  padding:12px 20px; gap:10px; background: linear-gradient(90deg,var(--pink-2),var(--accent));
-  color:white; box-shadow:0 5px 20px rgba(0,0,0,0.15);
-}
-.brand{display:flex;align-items:center;gap:12px}
-.brand img{width:52px;height:52px;border-radius:12px;object-fit:cover}
-.brand h1{font-size:18px;letter-spacing:0.4px}
-.header-controls{display:flex;align-items:center;gap:8px}
-.header-controls button{background:rgba(255,255,255,0.12);border:none;color:white;padding:8px 10px;border-radius:10px;cursor:pointer}
-nav ul{list-style:none;display:flex;gap:16px;align-items:center}
-nav a{color:rgba(255,255,255,0.95);text-decoration:none;font-weight:600}
-
-/* HERO */
-.hero{display:flex;min-height:80vh;align-items:stretch}
-.hero-left{flex:1;padding:48px 36px;display:flex;flex-direction:column;gap:16px;justify-content:center}
-.hero-left h2{color:var(--accent);font-size:32px;text-shadow:0 6px 20px rgba(255,102,163,0.12)}
-.lead{font-weight:600;color:#333}
-.cta{display:flex;gap:12px;margin-top:8px}
-.cta button{background:var(--accent);color:white;padding:12px 20px;border-radius:14px;border:none;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(255,51,133,0.18)}
-.cta .ticket{display:inline-flex;align-items:center;gap:8px;background:transparent;padding:12px 18px;border-radius:14px;border:2px solid var(--accent);color:var(--accent);text-decoration:none}
-
-/* hero right: big image half screen */
-.hero-right{
-  flex:1; min-height:400px; background-image:url('images/sman1-ngadiluwih.jpg');
-  background-size:cover;background-position:center; border-left:6px solid rgba(255,255,255,0.06);
-  position:relative;
-}
-.hero-right::after{
-  content:""; position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.18));
+header {
+  text-align: center;
+  padding: 40px 10px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 20px #ff8fcf;
+  border-bottom: 3px solid #ff66b2;
+  animation: fadeIn 2s ease;
 }
 
-/* PANELS */
-.panel{padding:60px 36px;text-align:center}
-.panel h2{color:var(--accent);margin-bottom:18px}
-
-/* ARTISTS */
-.artists{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
-.artist{background:var(--white);padding:18px;border-radius:14px;max-width:320px;box-shadow:0 10px 30px rgba(0,0,0,0.08)}
-.artist img{width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:12px}
-.btn{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:10px;background:var(--pink-1);text-decoration:none;color:var(--dark);font-weight:700}
-
-/* SERVICES GRID */
-.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;max-width:1000px;margin:18px auto}
-.service-card{background:var(--white);padding:16px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.06);font-weight:700}
-
-/* TIMELINE */
-.timeline{max-width:700px;margin:0 auto;text-align:left;padding-left:18px}
-.timeline li{padding:10px 0;border-left:3px dashed rgba(0,0,0,0.06);margin-left:10px}
-
-/* FOOTER */
-footer{padding:20px;text-align:center;background:linear-gradient(90deg,var(--pink-2),var(--accent));color:white;margin-top:30px}
-
-/* CHAT POPUP */
-#chat-popup{position:fixed;right:20px;bottom:20px;width:320px;background:var(--white);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.2);overflow:hidden;z-index:80}
-#chat-popup.hidden{display:none}
-#chat-header{background:linear-gradient(90deg,var(--pink-2),var(--accent));color:white;padding:10px 12px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
-#chat-body{padding:12px;height:170px;overflow:auto;font-size:14px}
-#chat-input-wrap{padding:10px;border-top:1px solid #eee}
-#chat-input-wrap input{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;outline:none}
-
-/* FIREWORKS */
-#fireworks{position:fixed;inset:0;pointer-events:none;z-index:40}
-
-/* TRANSITIONS & RESPONSIVE */
-button, a.btn{transition:transform .18s ease, box-shadow .18s ease}
-@media(max-width:900px){
-  .hero{flex-direction:column}
-  .hero-right{min-height:260px;border-left:none;border-top:6px solid rgba(255,255,255,0.06);border-radius:0 0 14px 14px}
-  nav ul{display:none}
+main {
+  padding: 20px;
 }
+
+.intro {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  animation: slideUp 1.5s ease;
+}
+
+.intro .text {
+  max-width: 500px;
+}
+
+.intro .image img {
+  width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #ff8fcf;
+}
+
+.artist-card {
+  background: rgba(255,255,255,0.8);
+  border-radius: 20px;
+  margin: 20px auto;
+  padding: 20px;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 0 15px #ffb6c1;
+  transition: transform 0.3s;
+}
+
+.artist-card:hover {
+  transform: scale(1.05);
+}
+
+.chatbox {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 0 20px #ff9ad9;
+}
+
+#chat-output {
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ff66b2;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #fff8fb;
+}
+
+#chat-input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ff66b2;
+}
+
+#send-btn {
+  background-color: #ff66b2;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#loading-screen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #fff, #ffcbe8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.loader {
+  width: 70px;
+  height: 70px;
+  border: 6px solid #fff;
+  border-top: 6px solid #ff66b2;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(80px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
