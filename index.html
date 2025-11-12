@@ -5,54 +5,387 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dies Natalis SMAN 1 Ngadiluwih 🎉</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-content">
+            <div class="school-logo">SMAN 1</div>
+            <h1>Dies Natalis</h1>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p>Menyiapkan pesta...</p>
+        </div>
+    </div>
+
+    <!-- Background Pattern -->
+    <div class="bg-pattern"></div>
+    <div class="confetti-container"></div>
     <div class="hearts"></div>
 
-    <header class="hero">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">SMAN 1 Ngadiluwih</div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Beranda</a>
+                <a href="#menu" class="nav-link">Info</a>
+                <a href="#gallery" class="nav-link">Galeri</a>
+                <a href="#contact" class="nav-link">Kontak</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
         <div class="overlay"></div>
         <div class="hero-content">
+            <div class="date-badge">
+                <span class="date-day">25</span>
+                <span class="date-month">Juli</span>
+                <span class="date-year">2025</span>
+            </div>
             <h1 class="animate-pop">Dies Natalis SMAN 1 Ngadiluwih 🎉</h1>
             <p class="animate-fade">Dirayakan dengan semangat dan kebersamaan!</p>
-            <p><strong>MC:</strong> Ajeng Febria | <strong>DJ:</strong> DJ Lancar</p>
+            <div class="host-info animate-slide">
+                <div class="host-card">
+                    <div class="host-avatar">👩‍🎤</div>
+                    <div class="host-details">
+                        <h4>MC</h4>
+                        <p>Ajeng Febria</p>
+                    </div>
+                </div>
+                <div class="host-card">
+                    <div class="host-avatar">🎧</div>
+                    <div class="host-details">
+                        <h4>DJ</h4>
+                        <p>DJ Lancar</p>
+                    </div>
+                </div>
+            </div>
             <a href="#menu" class="btn animate-bounce">Jelajahi Acara</a>
         </div>
     </header>
 
+    <!-- Countdown Timer -->
+    <section class="countdown-section">
+        <h2>Hitung Mundur Menuju Acara</h2>
+        <div class="countdown-container">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Hari</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Jam</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Menit</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Detik</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
     <section id="menu" class="menu-section">
         <h2>Pilih Informasi</h2>
         <div class="menu-buttons">
-            <button class="menu-btn" onclick="showSection('sman1')">Tentang SMAN 1 Ngadiluwih</button>
-            <button class="menu-btn" onclick="showSection('ajeng')">Profil Ajeng Febria</button>
-            <button class="menu-btn" onclick="showSection('dj')">Profil DJ Lancar</button>
+            <button class="menu-btn" onclick="showSection('sman1')">
+                <span class="btn-icon">🏫</span>
+                <span class="btn-text">Tentang SMAN 1 Ngadiluwih</span>
+            </button>
+            <button class="menu-btn" onclick="showSection('ajeng')">
+                <span class="btn-icon">💃</span>
+                <span class="btn-text">Profil Ajeng Febria</span>
+            </button>
+            <button class="menu-btn" onclick="showSection('dj')">
+                <span class="btn-icon">🎧</span>
+                <span class="btn-text">Profil DJ Lancar</span>
+            </button>
         </div>
     </section>
 
+    <!-- Content Section -->
     <section id="content-section" class="content-section hidden">
         <div id="sman1" class="content hidden">
-            <h3>SMAN 1 Ngadiluwih</h3>
-            <p>Sekolah Menengah Atas Negeri 1 Ngadiluwih merupakan salah satu sekolah terbaik di Kabupaten Kediri. 
-            Dikenal dengan prestasi akademik dan non-akademik yang gemilang, serta lingkungan belajar yang nyaman dan bersahabat.</p>
-            <p>Dies Natalis kali ini mengangkat tema <strong>"Bersatu dalam Kreasi dan Prestasi"</strong>, menampilkan semangat kolaborasi antara guru dan siswa dalam mewujudkan generasi hebat Indonesia!</p>
+            <div class="content-header">
+                <h3>SMAN 1 Ngadiluwih</h3>
+                <div class="content-close" onclick="closeContent()">&times;</div>
+            </div>
+            <div class="content-body">
+                <div class="content-image">
+                    <img src="https://picsum.photos/seed/sman1/800/500.jpg" alt="SMAN 1 Ngadiluwih">
+                </div>
+                <p>Sekolah Menengah Atas Negeri 1 Ngadiluwih merupakan salah satu sekolah terbaik di Kabupaten Kediri. 
+                Dikenal dengan prestasi akademik dan non-akademik yang gemilang, serta lingkungan belajar yang nyaman dan bersahabat.</p>
+                <p>Dies Natalis kali ini mengangkat tema <strong>"Bersatu dalam Kreasi dan Prestasi"</strong>, menampilkan semangat kolaborasi antara guru dan siswa dalam mewujudkan generasi hebat Indonesia!</p>
+                <div class="achievement-cards">
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🏆</div>
+                        <h4>Prestasi Akademik</h4>
+                        <p>Juara umum olimpiade sains tingkat provinsi 3 tahun berturut-turut</p>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🎨</div>
+                        <h4>Prestasi Non-Akademik</h4>
+                        <p>Juara 1 festival seni dan budaya tingkat nasional</p>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🌱</div>
+                        <h4>Lingkungan</h4>
+                        <p>Sekolah Adiwiyata Nasional dengan program kebun sekolah</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="ajeng" class="content hidden">
-            <h3>Ajeng Febria 💃</h3>
-            <p>MC paling energik dan berkarisma dari SMAN 1 Ngadiluwih! Dikenal karena pembawaannya yang ramah, penuh semangat, 
-            dan mampu membuat seluruh acara semakin hidup.</p>
-            <p>Ajeng juga aktif dalam berbagai kegiatan sekolah, termasuk organisasi OSIS dan lomba pidato tingkat kabupaten.</p>
+            <div class="content-header">
+                <h3>Ajeng Febria 💃</h3>
+                <div class="content-close" onclick="closeContent()">&times;</div>
+            </div>
+            <div class="content-body">
+                <div class="profile-container">
+                    <div class="profile-image">
+                        <img src="https://picsum.photos/seed/ajeng/400/400.jpg" alt="Ajeng Febria">
+                    </div>
+                    <div class="profile-info">
+                        <h4>Master of Ceremony</h4>
+                        <p>MC paling energik dan berkarisma dari SMAN 1 Ngadiluwih! Dikenal karena pembawaannya yang ramah, penuh semangat, 
+                        dan mampu membuat seluruh acara semakin hidup.</p>
+                        <p>Ajeng juga aktif dalam berbagai kegiatan sekolah, termasuk organisasi OSIS dan lomba pidato tingkat kabupaten.</p>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">Acara Dihosted</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">3</span>
+                                <span class="stat-label">Penghargaan MC</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">2</span>
+                                <span class="stat-label">Tahun Pengalaman</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="dj" class="content hidden">
-            <h3>DJ Lancar 🎧</h3>
-            <p>DJ profesional yang membawa suasana pesta semakin meriah! Dengan gaya khas dan remix yang membakar semangat, 
-            DJ Lancar siap mengguncang panggung Dies Natalis tahun ini!</p>
-            <p>Penampilan spesialnya akan menjadi puncak acara yang tidak boleh dilewatkan!</p>
+            <div class="content-header">
+                <h3>DJ Lancar 🎧</h3>
+                <div class="content-close" onclick="closeContent()">&times;</div>
+            </div>
+            <div class="content-body">
+                <div class="profile-container">
+                    <div class="profile-image">
+                        <img src="https://picsum.photos/seed/djlancar/400/400.jpg" alt="DJ Lancar">
+                    </div>
+                    <div class="profile-info">
+                        <h4>Professional DJ</h4>
+                        <p>DJ profesional yang membawa suasana pesta semakin meriah! Dengan gaya khas dan remix yang membakar semangat, 
+                        DJ Lancar siap mengguncang panggung Dies Natalis tahun ini!</p>
+                        <p>Penampilan spesialnya akan menjadi puncak acara yang tidak boleh dilewatkan!</p>
+                        <div class="music-genres">
+                            <span class="genre-tag">EDM</span>
+                            <span class="genre-tag">Pop</span>
+                            <span class="genre-tag">Dangdut Remix</span>
+                            <span class="genre-tag">Hip Hop</span>
+                        </div>
+                        <div class="dj-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">Penampilan</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">10K+</span>
+                                <span class="stat-label">Pengikut</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">5</span>
+                                <span class="stat-label">Tahun Pengalaman</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <h2>Galeri Kegiatan</h2>
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/event1/400/300.jpg" alt="Kegiatan 1">
+                <div class="gallery-overlay">
+                    <h3>Pentas Seni</h3>
+                    <p>Perayaan budaya tahunan</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/event2/400/300.jpg" alt="Kegiatan 2">
+                <div class="gallery-overlay">
+                    <h3>Olimpiade Sains</h3>
+                    <p>Kompetisi antar kelas</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/event3/400/300.jpg" alt="Kegiatan 3">
+                <div class="gallery-overlay">
+                    <h3>Pekan Olahraga</h3>
+                    <p>Festival olahraga sekolah</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/event4/400/300.jpg" alt="Kegiatan 4">
+                <div class="gallery-overlay">
+                    <h3>Pramuka</h3>
+                    <p>Kegiatan kepramukaan</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/event5/400/300.jpg" alt="Kegiatan 5">
+                <div class="gallery-overlay">
+                    <h3>Lokakarya</h3>
+                    <p>Pengembangan keterampilan</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/event6/400/300.jpg" alt="Kegiatan 6">
+                <div class="gallery-overlay">
+                    <h3>Outing Class</h3>
+                    <p>Kunjungan edukatif</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Schedule -->
+    <section class="schedule-section">
+        <h2>Jadwal Acara</h2>
+        <div class="schedule-container">
+            <div class="schedule-item">
+                <div class="schedule-time">08:00</div>
+                <div class="schedule-content">
+                    <h4>Pembukaan</h4>
+                    <p>Sambutan dari Kepala Sekolah</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">09:00</div>
+                <div class="schedule-content">
+                    <h4>Pentas Seni</h4>
+                    <p>Penampilan dari berbagai ekstrakurikuler</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">11:00</div>
+                <div class="schedule-content">
+                    <h4>Puncak Acara</h4>
+                    <p>DJ Lancar Live Performance</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">13:00</div>
+                <div class="schedule-content">
+                    <h4>Makan Bersama</h4>
+                    <p>Hiburan dan makan siang bersama</p>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">15:00</div>
+                <div class="schedule-content">
+                    <h4>Penutupan</h4>
+                    <p>Pengumuman pemenang lomba dan doorprize</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2>Hubungi Kami</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h4>Alamat</h4>
+                        <p>Jl. Ngadiluwih No. 123, Kediri, Jawa Timur</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h4>Telepon</h4>
+                        <p>(0354) 123456</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p>info@sman1ngadiluwih.sch.id</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h4>Kirim Pesan</h4>
+                <form id="contact-form">
+                    <input type="text" placeholder="Nama Lengkap" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Pesan Anda" required></textarea>
+                    <button type="submit" class="btn">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>© 2025 SMAN 1 Ngadiluwih | Website Dies Natalis by Bro Deril 😎</p>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>SMAN 1 Ngadiluwih</h3>
+                <p>Mewujudkan Generasi Unggul dan Berkarakter</p>
+            </div>
+            <div class="footer-links">
+                <h4>Link Cepat</h4>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#menu">Info</a></li>
+                    <li><a href="#gallery">Galeri</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Ikuti Kami</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">📘</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">🐦</a>
+                    <a href="#" class="social-icon">📺</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 SMAN 1 Ngadiluwih | Website Dies Natalis by Bro Deril 😎</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
