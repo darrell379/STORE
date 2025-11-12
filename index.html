@@ -1,78 +1,238 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dies Natalis SMAN 1 Ngadiluwih 💖</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dies Natalis SMAN 1 Ngadiluwih 🎉</title>
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(45deg, #ff99cc, #6600ff, #ff66b2, #00ccff);
+      background-size: 600% 600%;
+      animation: bgChange 20s ease infinite;
+      overflow-x: hidden;
+      color: white;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes bgChange {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header.hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      z-index: 2;
+      animation: slideDown 2s ease-in-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-60px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .photo-intro {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 6px solid white;
+      box-shadow: 0 0 40px rgba(255,255,255,0.6);
+      margin: 20px auto;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .hero-content h1 {
+      font-size: 3em;
+      color: #fff;
+      text-shadow: 0 0 20px #ffccff;
+    }
+
+    .hero-content p {
+      font-size: 1.2em;
+      margin: 10px 0;
+      text-shadow: 0 0 10px #ff99cc;
+    }
+
+    .btn {
+      background: #ff4081;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      box-shadow: 0 0 15px rgba(255, 0, 128, 0.6);
+    }
+
+    .btn:hover {
+      background: #ff80bf;
+      transform: scale(1.05);
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeIn 2s ease;
+    }
+
+    h2 {
+      font-size: 2.2em;
+      color: #fff;
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px #ffccff;
+    }
+
+    .timeline {
+      list-style: none;
+      max-width: 600px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .timeline li {
+      padding: 12px 0;
+      font-size: 1.2em;
+      position: relative;
+    }
+
+    .timeline li span {
+      color: #ffebf9;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.3);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      letter-spacing: 1px;
+    }
+
+    /* Efek cinta */
+    .love {
+      position: fixed;
+      font-size: 22px;
+      animation: fall 5s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: gold;
+      top: -10px;
+      animation: confettiFall 4s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+  </style>
 </head>
 <body>
-    <div class="hearts-container"></div>
+  <header class="hero">
+    <div class="hero-content">
+      <div class="photo-intro">
+        <img src="https://i.ibb.co/tQZtG8x/ajengfebria.jpg" alt="Ajeng Febria" width="100%" height="100%">
+      </div>
+      <h1>Dies Natalis SMAN 1 Ngadiluwih 🎉</h1>
+      <p>Persembahan istimewa dari <strong>Ajeng Febria</strong> & <strong>DJ Lancar</strong> 💃🎧</p>
+      <a href="#acara" class="btn">Lihat Susunan Acara</a>
+    </div>
+  </header>
 
-    <!-- 🎵 Audio Latar -->
-    <audio id="bg-music" loop>
-        <source src="music.mp3" type="audio/mpeg">
-        Browser kamu tidak mendukung audio tag.
-    </audio>
-    <button id="music-toggle" class="music-btn">🔈 Hidupkan Musik</button>
+  <section id="acara">
+    <h2>Susunan Acara</h2>
+    <ul class="timeline">
+      <li><span>07.30</span> Pembukaan dan Sambutan Kepala Sekolah</li>
+      <li><span>08.30</span> Tarian Pembuka oleh Ekstra Tari Tradisional</li>
+      <li><span>09.30</span> Penampilan Musik oleh Ajeng Febria 🎤</li>
+      <li><span>11.00</span> Lomba Kreativitas antar Kelas</li>
+      <li><span>13.00</span> DJ Lancar Performance - “Beat of Unity” 🎧</li>
+      <li><span>15.00</span> Penutupan & Foto Bersama</li>
+    </ul>
+  </section>
 
-    <header class="hero">
-        <div class="overlay"></div>
-        <div class="hero-content">
-            <h1>Dies Natalis SMAN 1 Ngadiluwih 🎉</h1>
-            <p>Dirayakan dengan semangat, cinta, dan kebersamaan!</p>
-            <p><strong>MC:</strong> Ajeng Febria 💐 | <strong>DJ:</strong> DJ Lancar 🎧</p>
-            <a href="#acara" class="btn">Lihat Acara</a>
-        </div>
-    </header>
+  <section>
+    <h2>Tentang Pengisi Acara</h2>
+    <p><strong>Ajeng Febria</strong> — pembawa acara utama dan penyanyi berbakat dari SMAN 1 Ngadiluwih. Dikenal dengan suara lembut dan aura yang memikat di setiap penampilan. 🌟</p>
+    <br>
+    <p><strong>DJ Lancar</strong> — DJ muda penuh semangat dengan gaya remix khasnya yang membuat suasana makin heboh dan energik. Siap mengguncang panggung Dies Natalis kali ini! 🎶🔥</p>
+  </section>
 
-    <section id="acara" class="section">
-        <h2>Susunan Acara</h2>
-        <ul class="timeline">
-            <li><span>08.00</span> Pembukaan & Sambutan Kepala Sekolah</li>
-            <li><span>09.00</span> Penampilan Seni Siswa dan Modern Dance</li>
-            <li><span>10.30</span> Lomba Kreativitas dan Fashion Show</li>
-            <li><span>13.00</span> DJ Lancar Performance 🎶</li>
-            <li><span>15.00</span> Penutupan & Foto Bersama</li>
-        </ul>
-    </section>
+  <footer>
+    <p>© 2025 SMAN 1 Ngadiluwih | Dibuat dengan ❤️ dan semangat kreativitas</p>
+  </footer>
 
-    <section id="mc-dj" class="section">
-        <h2>Bintang Acara Spesial 💫</h2>
-        <div class="profil-container">
-            <div class="kartu-profil">
-                <img src="ajeng.jpg" alt="Ajeng Febria">
-                <h3>Ajeng Febria 🌸</h3>
-                <p>MC berbakat dari SMAN 1 Ngadiluwih yang dikenal dengan suara lembut, humoris, dan pembawaan energik.  
-                Ia sering menjadi pembawa acara di berbagai kegiatan sekolah dan berhasil membuat suasana jadi ceria dan berkelas!</p>
-                <a href="https://www.instagram.com/" target="_blank" class="btn">Follow Ajeng</a>
-            </div>
+  <audio autoplay loop>
+    <source src="https://www.dropbox.com/s/3ug2p8v5gk6e6m4/festival-music.mp3?raw=1" type="audio/mp3">
+  </audio>
 
-            <div class="kartu-profil">
-                <img src="dj-lancar.jpg" alt="DJ Lancar">
-                <h3>DJ Lancar 🎧</h3>
-                <p>DJ muda yang punya ciri khas beat ceria dan remix lagu-lagu pelajar.  
-                Siap mengguncang panggung Dies Natalis dengan musik penuh energi dan semangat positif!</p>
-                <a href="https://www.instagram.com/" target="_blank" class="btn">Dengar Musik DJ Lancar</a>
-            </div>
-        </div>
-    </section>
+  <script>
+    // Efek cinta berjatuhan
+    const loveColors = ["#ff99cc", "#ff66b2", "#ff3385", "#ff80bf"];
+    setInterval(() => {
+      const love = document.createElement("div");
+      love.classList.add("love");
+      love.style.left = Math.random() * 100 + "vw";
+      love.style.animationDuration = 3 + Math.random() * 4 + "s";
+      love.innerHTML = "❤️";
+      love.style.color = loveColors[Math.floor(Math.random() * loveColors.length)];
+      document.body.appendChild(love);
+      setTimeout(() => love.remove(), 7000);
+    }, 300);
 
-    <section class="profil">
-        <div class="kartu-profil">
-            <img src="WhatsApp Image 2025-11-11 at 19.33.34.jpeg" alt="Foto Darrell">
-            <h3>DARRELL DZAKY PRADANA 💻</h3>
-            <p>Siswa SMAN 1 Ngadiluwih yang tertarik pada teknologi, desain, dan kreativitas.  
-            Website ini dibuat untuk mempersembahkan semangat Dies Natalis yang penuh cinta dan inovasi!</p>
-            <a href="https://www.instagram.com/dartod_marchentgt" target="_blank" class="btn">Kunjungi Instagram Saya</a>
-            <button id="sapaButton">Sapa Saya!</button>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2025 SMAN 1 Ngadiluwih | Dibuat dengan ❤️ oleh Darrell Dzaky Pradana</p>
-    </footer>
-
-    <script src="script.js"></script>
+    // Confetti warna-warni
+    const colors = ["#FFD700", "#FF69B4", "#00FFFF", "#ADFF2F", "#FF4500"];
+    setInterval(() => {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }, 200);
+  </script>
 </body>
 </html>
