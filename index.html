@@ -1,238 +1,193 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dies Natalis SMAN 1 Ngadiluwih 🎉</title>
-  <style>
-    /* RESET */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
-    body {
-      background: linear-gradient(45deg, #ff99cc, #6600ff, #ff66b2, #00ccff);
-      background-size: 600% 600%;
-      animation: bgChange 20s ease infinite;
-      overflow-x: hidden;
-      color: white;
-      animation: fadeIn 2s ease-in;
-    }
+body {
+  background: linear-gradient(135deg, #ff6ec7, #ffc371);
+  overflow-x: hidden;
+  color: #fff;
+}
 
-    @keyframes bgChange {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+/* 🌟 Tombol Musik */
+.music-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 25px;
+  cursor: pointer;
+  z-index: 999;
+  font-size: 14px;
+  transition: 0.3s;
+  backdrop-filter: blur(5px);
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+.music-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
 
-    header.hero {
-      height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-    }
+/* ✨ Partikel Background */
+.particles::before, .particles::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(white 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: moveParticles 20s linear infinite;
+  opacity: 0.15;
+  z-index: 0;
+}
 
-    .hero-content {
-      z-index: 2;
-      animation: slideDown 2s ease-in-out;
-    }
+.particles::after {
+  animation-duration: 35s;
+  opacity: 0.1;
+}
 
-    @keyframes slideDown {
-      from { transform: translateY(-60px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
+@keyframes moveParticles {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-50px, -50px); }
+}
 
-    .photo-intro {
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 6px solid white;
-      box-shadow: 0 0 40px rgba(255,255,255,0.6);
-      margin: 20px auto;
-      animation: float 4s ease-in-out infinite;
-    }
+/* 💫 Opening Screen */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #ff6ec7, #ffc371);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeOut 2s ease 4s forwards;
+}
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
+.intro-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  animation: zoomIn 2s ease;
+}
 
-    .hero-content h1 {
-      font-size: 3em;
-      color: #fff;
-      text-shadow: 0 0 20px #ffccff;
-    }
+.intro-title {
+  margin-top: 20px;
+  font-size: 2em;
+  text-align: center;
+  animation: fadeIn 3s ease;
+}
 
-    .hero-content p {
-      font-size: 1.2em;
-      margin: 10px 0;
-      text-shadow: 0 0 10px #ff99cc;
-    }
+@keyframes zoomIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
 
-    .btn {
-      background: #ff4081;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-      box-shadow: 0 0 15px rgba(255, 0, 128, 0.6);
-    }
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
 
-    .btn:hover {
-      background: #ff80bf;
-      transform: scale(1.05);
-    }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    section {
-      padding: 60px 20px;
-      text-align: center;
-      animation: fadeIn 2s ease;
-    }
+/* 🌈 Hero Section */
+.hero {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff5e99, #ffb347);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-    h2 {
-      font-size: 2.2em;
-      color: #fff;
-      margin-bottom: 25px;
-      text-shadow: 0 0 10px #ffccff;
-    }
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
 
-    .timeline {
-      list-style: none;
-      max-width: 600px;
-      margin: auto;
-      text-align: left;
-    }
+.hero-content {
+  position: relative;
+  z-index: 2;
+  animation: fadeInUp 1.5s ease-in-out;
+}
 
-    .timeline li {
-      padding: 12px 0;
-      font-size: 1.2em;
-      position: relative;
-    }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    .timeline li span {
-      color: #ffebf9;
-      font-weight: bold;
-      margin-right: 10px;
-    }
+.btn {
+  display: inline-block;
+  margin-top: 15px;
+  background: #fff;
+  color: #ff5e99;
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: bold;
+}
 
-    footer {
-      background: rgba(0, 0, 0, 0.3);
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      letter-spacing: 1px;
-    }
+.btn:hover {
+  background: #ff5e99;
+  color: white;
+  transform: scale(1.05);
+}
 
-    /* Efek cinta */
-    .love {
-      position: fixed;
-      font-size: 22px;
-      animation: fall 5s linear infinite;
-      opacity: 0.8;
-      z-index: 1;
-    }
+/* 📅 Section Agenda */
+.section {
+  padding: 60px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-radius: 20px;
+  margin: 40px auto;
+  width: 90%;
+  max-width: 800px;
+}
 
-    @keyframes fall {
-      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
+.timeline {
+  list-style: none;
+  margin-top: 20px;
+}
 
-    /* Confetti */
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background-color: gold;
-      top: -10px;
-      animation: confettiFall 4s linear infinite;
-      z-index: 1;
-    }
+.timeline li {
+  background: rgba(255, 255, 255, 0.2);
+  margin: 10px auto;
+  padding: 10px 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-    @keyframes confettiFall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
+.timeline span {
+  font-weight: bold;
+  color: #ffebf7;
+}
 
-  </style>
-</head>
-<body>
-  <header class="hero">
-    <div class="hero-content">
-      <div class="photo-intro">
-        <img src="https://i.ibb.co/tQZtG8x/ajengfebria.jpg" alt="Ajeng Febria" width="100%" height="100%">
-      </div>
-      <h1>Dies Natalis SMAN 1 Ngadiluwih 🎉</h1>
-      <p>Persembahan istimewa dari <strong>Ajeng Febria</strong> & <strong>DJ Lancar</strong> 💃🎧</p>
-      <a href="#acara" class="btn">Lihat Susunan Acara</a>
-    </div>
-  </header>
+footer {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 30px;
+}
 
-  <section id="acara">
-    <h2>Susunan Acara</h2>
-    <ul class="timeline">
-      <li><span>07.30</span> Pembukaan dan Sambutan Kepala Sekolah</li>
-      <li><span>08.30</span> Tarian Pembuka oleh Ekstra Tari Tradisional</li>
-      <li><span>09.30</span> Penampilan Musik oleh Ajeng Febria 🎤</li>
-      <li><span>11.00</span> Lomba Kreativitas antar Kelas</li>
-      <li><span>13.00</span> DJ Lancar Performance - “Beat of Unity” 🎧</li>
-      <li><span>15.00</span> Penutupan & Foto Bersama</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Tentang Pengisi Acara</h2>
-    <p><strong>Ajeng Febria</strong> — pembawa acara utama dan penyanyi berbakat dari SMAN 1 Ngadiluwih. Dikenal dengan suara lembut dan aura yang memikat di setiap penampilan. 🌟</p>
-    <br>
-    <p><strong>DJ Lancar</strong> — DJ muda penuh semangat dengan gaya remix khasnya yang membuat suasana makin heboh dan energik. Siap mengguncang panggung Dies Natalis kali ini! 🎶🔥</p>
-  </section>
-
-  <footer>
-    <p>© 2025 SMAN 1 Ngadiluwih | Dibuat dengan ❤️ dan semangat kreativitas</p>
-  </footer>
-
-  <audio autoplay loop>
-    <source src="https://www.dropbox.com/s/3ug2p8v5gk6e6m4/festival-music.mp3?raw=1" type="audio/mp3">
-  </audio>
-
-  <script>
-    // Efek cinta berjatuhan
-    const loveColors = ["#ff99cc", "#ff66b2", "#ff3385", "#ff80bf"];
-    setInterval(() => {
-      const love = document.createElement("div");
-      love.classList.add("love");
-      love.style.left = Math.random() * 100 + "vw";
-      love.style.animationDuration = 3 + Math.random() * 4 + "s";
-      love.innerHTML = "❤️";
-      love.style.color = loveColors[Math.floor(Math.random() * loveColors.length)];
-      document.body.appendChild(love);
-      setTimeout(() => love.remove(), 7000);
-    }, 300);
-
-    // Confetti warna-warni
-    const colors = ["#FFD700", "#FF69B4", "#00FFFF", "#ADFF2F", "#FF4500"];
-    setInterval(() => {
-      const confetti = document.createElement("div");
-      confetti.classList.add("confetti");
-      confetti.style.left = Math.random() * 100 + "vw";
-      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 5000);
-    }, 200);
-  </script>
-</body>
-</html>
+/* Sembunyikan main dulu */
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
