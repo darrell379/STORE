@@ -1,46 +1,37 @@
-window.addEventListener("load", () => {
-  const loading = document.getElementById("loading-screen");
-  setTimeout(() => {
-    loading.style.opacity = "0";
-    setTimeout(() => loading.style.display = "none", 500);
-  }, 2500);
-});
-
-document.getElementById("playMusic").addEventListener("click", () => {
-  document.getElementById("bgMusic").play();
-});
-
-// Mini AI Chat
 const chatOutput = document.getElementById("chat-output");
 const chatInput = document.getElementById("chat-input");
 const sendBtn = document.getElementById("send-btn");
 
 sendBtn.addEventListener("click", () => {
-  const text = chatInput.value.trim();
-  if (!text) return;
-
-  addMessage("Kamu", text);
+  const userText = chatInput.value.trim();
+  if (!userText) return;
+  addMessage("Kamu", userText);
   chatInput.value = "";
-
-  setTimeout(() => {
-    const reply = getAIResponse(text);
-    addMessage("Asisten", reply);
-  }, 700);
+  setTimeout(() => aiReply(userText), 800);
 });
 
-function addMessage(sender, message) {
+function addMessage(sender, text) {
   const msg = document.createElement("p");
-  msg.innerHTML = `<strong>${sender}:</strong> ${message}`;
+  msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
   chatOutput.appendChild(msg);
   chatOutput.scrollTop = chatOutput.scrollHeight;
 }
 
-function getAIResponse(input) {
-  input = input.toLowerCase();
-  if (input.includes("ajeng")) return "Ajeng Febria adalah penyanyi muda berbakat dengan suara merdu dari Kediri. Ia akan tampil membawakan lagu 'Pelangi di Matamu 2.0' 🎤";
-  if (input.includes("dj lancar")) return "DJ Lancar adalah DJ enerjik yang terkenal dengan remix khas 'Ngadiluwih Beat Party' 🔊";
-  if (input.includes("sman 1 ngadiluwih")) return "SMAN 1 Ngadiluwih adalah sekolah unggulan di Kediri dengan semangat prestasi dan kreativitas tinggi 🏫";
-  if (input.includes("acara") || input.includes("dies natalis")) return "Acara Dies Natalis ini akan menampilkan berbagai penampilan seni, musik, dan kreativitas siswa SMAN 1 Ngadiluwih 🎉";
-  if (input.includes("hai") || input.includes("halo")) return "Hai Bro Deril! Siap meriah bareng Ajeng Febria & DJ Lancar? 😎";
-  return "Wah, pertanyaan bagus! Coba tanyakan lagi seputar acara, Ajeng Febria, DJ Lancar, atau SMAN 1 Ngadiluwih 💡";
+function aiReply(text) {
+  let reply = "Maaf, aku belum paham pertanyaanmu 😅";
+  const lower = text.toLowerCase();
+
+  if (lower.includes("sman 1 ngadiluwih")) {
+    reply = "SMAN 1 Ngadiluwih adalah sekolah unggulan di Kediri yang berfokus pada prestasi, karakter, dan budaya.";
+  } else if (lower.includes("ajeng febria")) {
+    reply = "Ajeng Febria adalah penyanyi muda berbakat dengan lagu andalan 'Pelangi di Matamu 2.0'.";
+  } else if (lower.includes("dj lancar")) {
+    reply = "DJ Lancar adalah DJ asal Kediri yang dikenal dengan gaya EDM enerjik dan remix khas lokal.";
+  } else if (lower.includes("dies natalis")) {
+    reply = "Dies Natalis SMAN 1 Ngadiluwih adalah acara tahunan untuk merayakan hari jadi sekolah dengan berbagai kegiatan seru!";
+  } else if (lower.includes("halo") || lower.includes("hai")) {
+    reply = "Halo juga! Selamat datang di website Dies Natalis SMAN 1 Ngadiluwih 💖";
+  }
+
+  addMessage("AI Sekolah", reply);
 }
