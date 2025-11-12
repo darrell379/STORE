@@ -1,193 +1,65 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dies Natalis SMAN 1 Ngadiluwih</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="particles">
 
-body {
-  background: linear-gradient(135deg, #ff6ec7, #ffc371);
-  overflow-x: hidden;
-  color: #fff;
-}
+  <!-- 🔊 Tombol Musik -->
+  <button class="music-btn" id="musicToggle">🔊 Putar Sambutan</button>
 
-/* 🌟 Tombol Musik */
-.music-btn {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 25px;
-  cursor: pointer;
-  z-index: 999;
-  font-size: 14px;
-  transition: 0.3s;
-  backdrop-filter: blur(5px);
-}
+  <!-- 💫 Layar Pembuka -->
+  <div class="intro-screen">
+    <img src="logo-sman1.png" alt="Logo SMAN 1 Ngadiluwih" class="intro-img">
+    <h1 class="intro-title">Selamat Datang di Dies Natalis SMAN 1 Ngadiluwih 🎉</h1>
+  </div>
 
-.music-btn:hover {
-  background: rgba(255, 255, 255, 0.4);
-  transform: scale(1.05);
-}
+  <!-- 🌈 Hero Section -->
+  <header class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>Dies Natalis SMAN 1 Ngadiluwih ✨</h1>
+      <p><strong>MC:</strong> Ajeng Febria | <strong>DJ:</strong> DJ Lancar</p>
+      <p>Perayaan luar biasa penuh semangat, kebersamaan, dan kenangan indah dari seluruh siswa dan guru SMAN 1 Ngadiluwih.</p>
+      <a href="#acara" class="btn">Lihat Susunan Acara</a>
+    </div>
+  </header>
 
-/* ✨ Partikel Background */
-.particles::before, .particles::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(white 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: moveParticles 20s linear infinite;
-  opacity: 0.15;
-  z-index: 0;
-}
+  <!-- 📅 Susunan Acara -->
+  <section id="acara" class="section">
+    <h2>Susunan Acara</h2>
+    <ul class="timeline">
+      <li><span>08.00</span> Pembukaan & Sambutan Kepala Sekolah</li>
+      <li><span>09.00</span> Penampilan Seni Siswa & Tari Tradisional</li>
+      <li><span>10.30</span> Lomba Kreativitas & Fashion Show</li>
+      <li><span>13.00</span> DJ Lancar Performance 🎧</li>
+      <li><span>15.00</span> Penutupan & Foto Bersama</li>
+    </ul>
+  </section>
 
-.particles::after {
-  animation-duration: 35s;
-  opacity: 0.1;
-}
+  <!-- 👩‍🎤 Profil MC -->
+  <section class="profil">
+    <div class="kartu-profil">
+      <img src="ajeng.jpg" alt="Ajeng Febria" class="profil-img">
+      <h3>AJENG FEBRIA</h3>
+      <p>MC utama acara Dies Natalis SMAN 1 Ngadiluwih yang dikenal dengan gaya ceria, komunikatif, dan penuh semangat dalam membawakan acara.</p>
+    </div>
 
-@keyframes moveParticles {
-  from { transform: translate(0, 0); }
-  to { transform: translate(-50px, -50px); }
-}
+    <div class="kartu-profil">
+      <img src="dj-lancar.jpg" alt="DJ Lancar" class="profil-img">
+      <h3>DJ LANCAR</h3>
+      <p>DJ muda berbakat asal Kediri yang akan mengguncang panggung Dies Natalis dengan irama musik penuh energi dan beat memukau! 🎶</p>
+    </div>
+  </section>
 
-/* 💫 Opening Screen */
-.intro-screen {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #ff6ec7, #ffc371);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeOut 2s ease 4s forwards;
-}
+  <!-- 🏫 Footer -->
+  <footer>
+    <p>© 2025 SMAN 1 Ngadiluwih | Dirancang dengan ❤️ untuk Dies Natalis ke-XX</p>
+  </footer>
 
-.intro-img {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  object-fit: cover;
-  animation: zoomIn 2s ease;
-}
-
-.intro-title {
-  margin-top: 20px;
-  font-size: 2em;
-  text-align: center;
-  animation: fadeIn 3s ease;
-}
-
-@keyframes zoomIn {
-  0% { transform: scale(0); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; visibility: hidden; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* 🌈 Hero Section */
-.hero {
-  position: relative;
-  height: 100vh;
-  background: linear-gradient(135deg, #ff5e99, #ffb347);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  animation: fadeInUp 1.5s ease-in-out;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(50px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.btn {
-  display: inline-block;
-  margin-top: 15px;
-  background: #fff;
-  color: #ff5e99;
-  padding: 10px 20px;
-  border-radius: 30px;
-  text-decoration: none;
-  transition: 0.3s;
-  font-weight: bold;
-}
-
-.btn:hover {
-  background: #ff5e99;
-  color: white;
-  transform: scale(1.05);
-}
-
-/* 📅 Section Agenda */
-.section {
-  padding: 60px 20px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  border-radius: 20px;
-  margin: 40px auto;
-  width: 90%;
-  max-width: 800px;
-}
-
-.timeline {
-  list-style: none;
-  margin-top: 20px;
-}
-
-.timeline li {
-  background: rgba(255, 255, 255, 0.2);
-  margin: 10px auto;
-  padding: 10px 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.timeline span {
-  font-weight: bold;
-  color: #ffebf7;
-}
-
-footer {
-  background: rgba(0, 0, 0, 0.3);
-  color: white;
-  text-align: center;
-  padding: 15px 0;
-  margin-top: 30px;
-}
-
-/* Sembunyikan main dulu */
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 1s ease;
-}
+  <script src="script.js"></script>
+</body>
+</html>
