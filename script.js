@@ -1,146 +1,46 @@
-/* GLOBAL UI + FEATURES: loading, music control, theme toggle, chat, fireworks */
-
-// ----- LOADING SCREEN ----- //
 window.addEventListener("load", () => {
-  // ensure canvas sized before hide
-  resizeCanvas();
+  const loading = document.getElementById("loading-screen");
   setTimeout(() => {
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("main-content").classList.remove("hidden");
-    // start music after UI shown (some browsers require user gesture; we'll try)
-    tryPlayMusic();
-    // show chat after a bit
-    setTimeout(() => openChat(), 2200);
-  }, 1800);
+    loading.style.opacity = "0";
+    setTimeout(() => loading.style.display = "none", 500);
+  }, 2500);
 });
 
-// ----- MUSIC CONTROLS ----- //
-const audio = document.getElementById("bg-music");
-const musicToggle = document.getElementById("music-toggle");
-const muteToggle = document.getElementById("mute-toggle");
-let isPlaying = false;
-let isMuted = false;
-
-function tryPlayMusic(){
-  audio.play().then(() => {
-    isPlaying = true;
-    musicToggle.textContent = "⏸ Pause";
-  }).catch(()=> {
-    // autoplay blocked — show play button state
-    isPlaying = false;
-    musicToggle.textContent = "⏯ Play";
-  });
-}
-
-musicToggle.addEventListener("click", () => {
-  if(isPlaying){ audio.pause(); musicToggle.textContent = "⏯ Play"; isPlaying=false; }
-  else { audio.play(); musicToggle.textContent = "⏸ Pause"; isPlaying=true; }
-});
-muteToggle.addEventListener("click", () => {
-  isMuted = !isMuted;
-  audio.muted = isMuted;
-  muteToggle.textContent = isMuted ? "🔈 Muted" : "🔊";
+document.getElementById("playMusic").addEventListener("click", () => {
+  document.getElementById("bgMusic").play();
 });
 
-// ----- THEME / NIGHT MODE ----- //
-const themeToggle = document.getElementById("theme-toggle");
-let darkMode = false;
-themeToggle.addEventListener("click", () => {
-  darkMode = !darkMode;
-  if(darkMode){
-    document.documentElement.style.setProperty('--pink-1','#2b2b3a');
-    document.documentElement.style.setProperty('--pink-2','#11111b');
-    document.body.style.background = "linear-gradient(135deg,#0b0b12,#1a1a2b)";
-    themeToggle.textContent = "☀️ Mode Terang";
-  } else {
-    // restore defaults
-    document.documentElement.style.setProperty('--pink-1','#ffb6d9');
-    document.documentElement.style.setProperty('--pink-2','#ff66a3');
-    document.body.style.background = "linear-gradient(135deg,#ffe6f2,#ffffff)";
-    themeToggle.textContent = "🌙 Mode Malam";
-  }
-});
-
-// ----- SMOOTH SCROLL ----- //
-function scrollToSection(id){
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
-}
-
-// ----- CHAT POPUP (simple simulated) ----- //
-const chatPopup = document.getElementById("chat-popup");
-const chatBody = document.getElementById("chat-body");
+// Mini AI Chat
+const chatOutput = document.getElementById("chat-output");
 const chatInput = document.getElementById("chat-input");
+const sendBtn = document.getElementById("send-btn");
 
-function openChat(){
-  chatPopup.classList.remove('hidden');
-}
-document.getElementById('chat-close')?.addEventListener('click', () => {
-  chatPopup.classList.add('hidden');
+sendBtn.addEventListener("click", () => {
+  const text = chatInput.value.trim();
+  if (!text) return;
+
+  addMessage("Kamu", text);
+  chatInput.value = "";
+
+  setTimeout(() => {
+    const reply = getAIResponse(text);
+    addMessage("Asisten", reply);
+  }, 700);
 });
-chatInput && chatInput.addEventListener('keypress', (e) => {
-  if(e.key === 'Enter' && chatInput.value.trim()){
-    const user = document.createElement('p');
-    user.innerHTML = `<b>Kamu:</b> ${escapeHtml(chatInput.value)}`;
-    chatBody.appendChild(user);
-    chatBody.scrollTop = chatBody.scrollHeight;
-    const reply = document.createElement('p');
-    reply.innerHTML = `<b>Panitia:</b> Terima kasih! Info tiket dan lokasi sudah kami catat. 😉`;
-    setTimeout(()=>{ chatBody.appendChild(reply); chatBody.scrollTop = chatBody.scrollHeight; }, 800);
-    chatInput.value = '';
-  }
-});
-function escapeHtml(str){ return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ----- FIREWORKS (simple particle system) ----- //
-const canvas = document.getElementById('fireworks');
-const ctx = canvas.getContext('2d');
-let W = canvas.width = window.innerWidth;
-let H = canvas.height = window.innerHeight;
-let particles = [];
-
-function resizeCanvas(){
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
+function addMessage(sender, message) {
+  const msg = document.createElement("p");
+  msg.innerHTML = `<strong>${sender}:</strong> ${message}`;
+  chatOutput.appendChild(msg);
+  chatOutput.scrollTop = chatOutput.scrollHeight;
 }
-window.addEventListener('resize', resizeCanvas);
 
-function createFirework(){
-  const cx = Math.random() * W;
-  const cy = Math.random() * H * 0.5;
-  const hue = Math.floor(Math.random() * 360);
-  for(let i=0;i<60;i++){
-    const angle = (i/60) * Math.PI * 2;
-    particles.push({
-      x: cx,
-      y: cy,
-      vx: Math.cos(angle) * (Math.random()*4 + 2),
-      vy: Math.sin(angle) * (Math.random()*4 + 2),
-      life: Math.random()*40+40,
-      hue: hue + Math.random()*40 - 20
-    });
-  }
+function getAIResponse(input) {
+  input = input.toLowerCase();
+  if (input.includes("ajeng")) return "Ajeng Febria adalah penyanyi muda berbakat dengan suara merdu dari Kediri. Ia akan tampil membawakan lagu 'Pelangi di Matamu 2.0' 🎤";
+  if (input.includes("dj lancar")) return "DJ Lancar adalah DJ enerjik yang terkenal dengan remix khas 'Ngadiluwih Beat Party' 🔊";
+  if (input.includes("sman 1 ngadiluwih")) return "SMAN 1 Ngadiluwih adalah sekolah unggulan di Kediri dengan semangat prestasi dan kreativitas tinggi 🏫";
+  if (input.includes("acara") || input.includes("dies natalis")) return "Acara Dies Natalis ini akan menampilkan berbagai penampilan seni, musik, dan kreativitas siswa SMAN 1 Ngadiluwih 🎉";
+  if (input.includes("hai") || input.includes("halo")) return "Hai Bro Deril! Siap meriah bareng Ajeng Febria & DJ Lancar? 😎";
+  return "Wah, pertanyaan bagus! Coba tanyakan lagi seputar acara, Ajeng Febria, DJ Lancar, atau SMAN 1 Ngadiluwih 💡";
 }
-function render(){
-  ctx.fillStyle = 'rgba(0,0,0,0.12)';
-  ctx.fillRect(0,0,W,H);
-  for(let i=particles.length-1;i>=0;i--){
-    const p = particles[i];
-    p.x += p.vx;
-    p.y += p.vy + 0.6; // gravity-ish
-    p.vx *= 0.99;
-    p.vy *= 0.99;
-    p.life--;
-    const alpha = Math.max(0, p.life/80);
-    ctx.beginPath();
-    ctx.fillStyle = `hsla(${p.hue}, 100%, 65%, ${alpha})`;
-    ctx.arc(p.x,p.y, Math.max(1, p.life/20), 0, Math.PI*2);
-    ctx.fill();
-    if(p.life <= 0) particles.splice(i,1);
-  }
-  requestAnimationFrame(render);
-}
-setInterval(createFirework, 1400);
-render();
-
-// ----- Attempt autoplay best-effort, browsers may block until user gesture ----- //
-document.addEventListener('click', tryPlayMusic, {once:true});
