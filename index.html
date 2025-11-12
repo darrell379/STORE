@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dies Natalis SMAN 1 Ngadiluwih 💖🎶</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>💖 Dies Natalis SMAN 1 Ngadiluwih — Ajeng Febria Live</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- LOADING ANIMATION -->
+  <!-- LOADING -->
   <div id="loading">
     <div class="spinner"></div>
-    <h2>Selamat Datang di Dies Natalis SMAN 1 Ngadiluwih 💫</h2>
+    <h2>✨ Bersiaplah — Dies Natalis SMAN 1 Ngadiluwih</h2>
+    <p class="sub">Musik: Ajeng Febria • Live Stage • DJ Lancar</p>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- FIREWORKS CANVAS -->
+  <canvas id="fireworks"></canvas>
+
+  <!-- AUDIO (replace audio/ajeng-febria-pelangi.mp3 with your file) -->
+  <audio id="bg-music" loop>
+    <!-- Put your Ajeng Febria mp3 at audio/ajeng-febria-pelangi.mp3 -->
+    <source src="audio/ajeng-febria-pelangi.mp3" type="audio/mpeg">
+    <!-- fallback free sample (will play if local file missing) -->
+    <source src="https://cdn.pixabay.com/audio/2023/03/16/audio_65a60e0b75.mp3" type="audio/mpeg">
+    Browsermu tidak mendukung audio.
+  </audio>
+
+  <!-- MAIN -->
   <div id="main-content" class="hidden">
+
     <header>
-      <h1>💖 Dies Natalis SMAN 1 Ngadiluwih 🎓</h1>
+      <div class="brand">
+        <img src="images/logo-placeholder.png" alt="Logo SMAN1" />
+        <h1>Dies Natalis SMAN 1 Ngadiluwih</h1>
+      </div>
+
+      <div class="header-controls">
+        <button id="theme-toggle" aria-label="Toggle theme">🌙 Mode Malam</button>
+        <button id="music-toggle" aria-label="Play/Pause music">⏯ Play</button>
+        <button id="mute-toggle" aria-label="Mute/Unmute">🔊</button>
+      </div>
+
       <nav>
         <ul>
           <li><a href="#home">Beranda</a></li>
-          <li><a href="#about">Tentang Sekolah</a></li>
-          <li><a href="#artists">Bintang Tamu</a></li>
+          <li><a href="#about">Sekolah</a></li>
+          <li><a href="#artists">Bintang</a></li>
           <li><a href="#services">Layanan</a></li>
           <li><a href="#event">Acara</a></li>
           <li><a href="#contact">Kontak</a></li>
@@ -30,78 +54,103 @@
       </nav>
     </header>
 
-    <!-- HERO SECTION -->
-    <section id="home" class="hero fade-in">
-      <div class="hero-content">
-        <h2>🎊 Selamat Datang di Dies Natalis SMAN 1 Ngadiluwih 🎊</h2>
-        <p>Pesta meriah penuh warna, musik, dan kebersamaan!  
-        Saksikan penampilan <b>Ajeng Febria</b> dan <b>DJ Lancar</b> secara langsung!</p>
-        <button onclick="scrollToSection('event')">Lihat Jadwal Acara 🎫</button>
+    <!-- HERO (split: left content, right image of school) -->
+    <section id="home" class="hero">
+      <div class="hero-left">
+        <h2>🎉 Pesta Dies Natalis — SMAN 1 Ngadiluwih</h2>
+        <p class="lead">Tema: <strong>"Bersinar Bersama di Langit Prestasi"</strong></p>
+        <p>Tanggal: <strong>Sabtu, 23 November 2025</strong> • Lokasi: Lapangan Utama SMAN 1 Ngadiluwih</p>
+        <div class="cta">
+          <button onclick="scrollToSection('event')">Lihat Jadwal 🎫</button>
+          <a class="ticket" href="#">Beli Tiket Sekarang</a>
+        </div>
+
+        <div class="mini-cards">
+          <div class="mc">
+            <h4>Ajeng Febria</h4>
+            <p>Vokal spesial — hits: "Pelangi di Matamu 2.0"</p>
+          </div>
+          <div class="mc">
+            <h4>DJ Lancar</h4>
+            <p>Party Mix — energik dan penuh beat</p>
+          </div>
+        </div>
       </div>
-      <div class="hero-image"></div>
+
+      <div class="hero-right" aria-hidden="true">
+        <!-- background image covers half screen -->
+      </div>
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="slide-up">
+    <section id="about" class="panel">
       <h2>Tentang SMAN 1 Ngadiluwih</h2>
-      <p>SMAN 1 Ngadiluwih adalah sekolah unggulan di Kediri yang terkenal dengan prestasi akademik, kreativitas, dan semangat kekeluargaan.  
-      Dalam perayaan Dies Natalis kali ini, sekolah menghadirkan tema <b>"Gemilang Bersama, Berprestasi Tanpa Batas"</b> ✨</p>
+      <p>SMAN 1 Ngadiluwih: sekolah unggulan di Kediri yang menekankan prestasi, kreativitas, dan kolaborasi. Dies Natalis kali ini menampilkan pentas seni, konser bintang tamu, bazaar, dan kompetisi antar jurusan.</p>
     </section>
 
     <!-- ARTISTS -->
-    <section id="artists" class="fade-in">
-      <h2>🎤 Bintang Tamu Spesial</h2>
-      <div class="artists-container">
-        <div class="artist-card">
-          <img src="https://i.imgur.com/Z1K3QYz.png" alt="Ajeng Febria">
+    <section id="artists" class="panel">
+      <h2>🎤 Bintang Tamu</h2>
+      <div class="artists">
+        <article class="artist">
+          <img src="images/ajeng-placeholder.jpg" alt="Ajeng Febria">
           <h3>Ajeng Febria</h3>
-          <p>Penyanyi muda berbakat yang dikenal lewat lagu <b>"Pelangi di Matamu 2.0"</b>.  
-          Akan menampilkan vibes romantis dan penuh semangat di panggung SMAN 1 Ngadiluwih!</p>
-        </div>
-        <div class="artist-card">
-          <img src="https://i.imgur.com/V7OfyqH.png" alt="DJ Lancar">
+          <p>Penyanyi muda berbakat — gaya pop romantis. Siap membawakan setlist spesial dan acoustic medley.</p>
+          <a class="btn" href="#">Lihat Lagu & Profil</a>
+        </article>
+
+        <article class="artist">
+          <img src="images/dj-placeholder.jpg" alt="DJ Lancar">
           <h3>DJ Lancar</h3>
-          <p>Remixer handal dengan lagu andalan <b>"Beat Ngadiluwih Night"</b>.  
-          Siap bikin suasana makin menggila dengan mix spesial Dies Natalis!</p>
-        </div>
+          <p>Remix energik dan crowd control — mix dance & EDM. Closing party akan lebih hidup bersama DJ Lancar.</p>
+          <a class="btn" href="#">Lihat Mixset</a>
+        </article>
       </div>
     </section>
 
     <!-- SERVICES -->
-    <section id="services" class="slide-up">
+    <section id="services" class="panel">
       <h2>✨ Layanan Pengunjung</h2>
-      <div class="services-list">
-        <div class="service">🎟️ Pemesanan Tiket Online</div>
-        <div class="service">🍔 Area Kuliner & Booth Merch</div>
-        <div class="service">📸 Spot Selfie & Photobooth</div>
-        <div class="service">🎁 Undian Hadiah & Souvenir</div>
-        <div class="service">💬 Bantuan Live Chat 24 Jam</div>
+      <div class="service-grid">
+        <div class="service-card">🎟️ Pemesanan Tiket Online</div>
+        <div class="service-card">🍔 Zona Kuliner & Booth</div>
+        <div class="service-card">📸 Photobooth & Spot Selfie</div>
+        <div class="service-card">🎁 Doorprize & Lucky Draw</div>
+        <div class="service-card">🚌 Shuttle Antar Jemput</div>
+        <div class="service-card">💬 Live Chat Bantuan</div>
       </div>
     </section>
 
     <!-- EVENT -->
-    <section id="event" class="fade-in">
+    <section id="event" class="panel">
       <h2>📅 Jadwal Acara</h2>
-      <ul>
-        <li><b>17.00</b> - Pembukaan & Parade Siswa</li>
-        <li><b>18.00</b> - Band Sekolah & Tari Modern</li>
-        <li><b>19.30</b> - Penampilan Spesial: <b>Ajeng Febria</b></li>
-        <li><b>21.00</b> - <b>DJ Lancar</b> Party Mix Live!</li>
-        <li><b>22.00</b> - Fireworks & Closing Ceremony 🎇</li>
-      </ul>
+      <ol class="timeline">
+        <li><strong>17:00</strong> Pembukaan & Parade Siswa</li>
+        <li><strong>18:00</strong> Band Sekolah + Tarian</li>
+        <li><strong>19:30</strong> Ajeng Febria — Live Performance</li>
+        <li><strong>21:00</strong> DJ Lancar — Party Mix</li>
+        <li><strong>22:30</strong> Fireworks & Closing</li>
+      </ol>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="slide-up">
-      <h2>📞 Kontak Panitia</h2>
-      <p>📍 Jl. Raya Ngadiluwih No. 7, Kediri</p>
-      <p>📱 WhatsApp: 0812-3456-7890</p>
-      <p>📧 Email: diesnatalis@sman1ngadiluwih.sch.id</p>
+    <section id="contact" class="panel">
+      <h2>Kontak Panitia</h2>
+      <p>Alamat: Jl. Raya Ngadiluwih No.7, Kediri • WA: 0812-3456-7890 • Email: diesnatalis@sman1ngadiluwih.sch.id</p>
     </section>
 
     <footer>
-      <p>© 2025 SMAN 1 Ngadiluwih | By OSIS & Panitia Dies Natalis 💖</p>
+      <p>© 2025 SMAN 1 Ngadiluwih • Dies Natalis • Dibuat oleh Panitia</p>
     </footer>
+  </div>
+
+  <!-- CHAT POPUP -->
+  <div id="chat-popup" class="hidden">
+    <div id="chat-header">💬 Chat Panitia <span id="chat-close">✕</span></div>
+    <div id="chat-body"><p><b>Panitia:</b> Halo Bro Deril! Mau info tiket atau lokasi?</p></div>
+    <div id="chat-input-wrap">
+      <input id="chat-input" type="text" placeholder="Ketik pesan... (Enter untuk kirim)">
+    </div>
   </div>
 
   <script src="script.js"></script>
