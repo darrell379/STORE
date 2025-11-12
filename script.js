@@ -1,9 +1,13 @@
-// 🌟 Efek sambutan suara Google
-const welcomeMessage = new SpeechSynthesisUtterance(
-  "Selamat datang di perayaan Dies Natalis SMA Negeri 1 Ngadiluwih. Nikmati kemeriahannya!"
-);
-welcomeMessage.lang = "id-ID";
+function showSection(id) {
+    document.querySelectorAll('.content').forEach(el => el.classList.add('hidden'));
+    document.querySelector(`#${id}`).classList.remove('hidden');
+    document.querySelector('#content-section').classList.remove('hidden');
+    document.querySelector('#content-section').scrollIntoView({ behavior: 'smooth' });
+}
 
-document.getElementById("musicToggle").addEventListener("click", () => {
-  speechSynthesis.speak(welcomeMessage);
+// Animasi masuk
+window.addEventListener('load', () => {
+    document.body.style.opacity = 0;
+    document.body.style.transition = 'opacity 2s';
+    setTimeout(() => { document.body.style.opacity = 1; }, 300);
 });
