@@ -1,65 +1,60 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dies Natalis SMAN 1 Ngadiluwih</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dies Natalis SMAN 1 Ngadiluwih 🎉</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="particles">
+<body>
+    <div class="hearts"></div>
 
-  <!-- 🔊 Tombol Musik -->
-  <button class="music-btn" id="musicToggle">🔊 Putar Sambutan</button>
+    <header class="hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 class="animate-pop">Dies Natalis SMAN 1 Ngadiluwih 🎉</h1>
+            <p class="animate-fade">Dirayakan dengan semangat dan kebersamaan!</p>
+            <p><strong>MC:</strong> Ajeng Febria | <strong>DJ:</strong> DJ Lancar</p>
+            <a href="#menu" class="btn animate-bounce">Jelajahi Acara</a>
+        </div>
+    </header>
 
-  <!-- 💫 Layar Pembuka -->
-  <div class="intro-screen">
-    <img src="logo-sman1.png" alt="Logo SMAN 1 Ngadiluwih" class="intro-img">
-    <h1 class="intro-title">Selamat Datang di Dies Natalis SMAN 1 Ngadiluwih 🎉</h1>
-  </div>
+    <section id="menu" class="menu-section">
+        <h2>Pilih Informasi</h2>
+        <div class="menu-buttons">
+            <button class="menu-btn" onclick="showSection('sman1')">Tentang SMAN 1 Ngadiluwih</button>
+            <button class="menu-btn" onclick="showSection('ajeng')">Profil Ajeng Febria</button>
+            <button class="menu-btn" onclick="showSection('dj')">Profil DJ Lancar</button>
+        </div>
+    </section>
 
-  <!-- 🌈 Hero Section -->
-  <header class="hero">
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <h1>Dies Natalis SMAN 1 Ngadiluwih ✨</h1>
-      <p><strong>MC:</strong> Ajeng Febria | <strong>DJ:</strong> DJ Lancar</p>
-      <p>Perayaan luar biasa penuh semangat, kebersamaan, dan kenangan indah dari seluruh siswa dan guru SMAN 1 Ngadiluwih.</p>
-      <a href="#acara" class="btn">Lihat Susunan Acara</a>
-    </div>
-  </header>
+    <section id="content-section" class="content-section hidden">
+        <div id="sman1" class="content hidden">
+            <h3>SMAN 1 Ngadiluwih</h3>
+            <p>Sekolah Menengah Atas Negeri 1 Ngadiluwih merupakan salah satu sekolah terbaik di Kabupaten Kediri. 
+            Dikenal dengan prestasi akademik dan non-akademik yang gemilang, serta lingkungan belajar yang nyaman dan bersahabat.</p>
+            <p>Dies Natalis kali ini mengangkat tema <strong>"Bersatu dalam Kreasi dan Prestasi"</strong>, menampilkan semangat kolaborasi antara guru dan siswa dalam mewujudkan generasi hebat Indonesia!</p>
+        </div>
 
-  <!-- 📅 Susunan Acara -->
-  <section id="acara" class="section">
-    <h2>Susunan Acara</h2>
-    <ul class="timeline">
-      <li><span>08.00</span> Pembukaan & Sambutan Kepala Sekolah</li>
-      <li><span>09.00</span> Penampilan Seni Siswa & Tari Tradisional</li>
-      <li><span>10.30</span> Lomba Kreativitas & Fashion Show</li>
-      <li><span>13.00</span> DJ Lancar Performance 🎧</li>
-      <li><span>15.00</span> Penutupan & Foto Bersama</li>
-    </ul>
-  </section>
+        <div id="ajeng" class="content hidden">
+            <h3>Ajeng Febria 💃</h3>
+            <p>MC paling energik dan berkarisma dari SMAN 1 Ngadiluwih! Dikenal karena pembawaannya yang ramah, penuh semangat, 
+            dan mampu membuat seluruh acara semakin hidup.</p>
+            <p>Ajeng juga aktif dalam berbagai kegiatan sekolah, termasuk organisasi OSIS dan lomba pidato tingkat kabupaten.</p>
+        </div>
 
-  <!-- 👩‍🎤 Profil MC -->
-  <section class="profil">
-    <div class="kartu-profil">
-      <img src="ajeng.jpg" alt="Ajeng Febria" class="profil-img">
-      <h3>AJENG FEBRIA</h3>
-      <p>MC utama acara Dies Natalis SMAN 1 Ngadiluwih yang dikenal dengan gaya ceria, komunikatif, dan penuh semangat dalam membawakan acara.</p>
-    </div>
+        <div id="dj" class="content hidden">
+            <h3>DJ Lancar 🎧</h3>
+            <p>DJ profesional yang membawa suasana pesta semakin meriah! Dengan gaya khas dan remix yang membakar semangat, 
+            DJ Lancar siap mengguncang panggung Dies Natalis tahun ini!</p>
+            <p>Penampilan spesialnya akan menjadi puncak acara yang tidak boleh dilewatkan!</p>
+        </div>
+    </section>
 
-    <div class="kartu-profil">
-      <img src="dj-lancar.jpg" alt="DJ Lancar" class="profil-img">
-      <h3>DJ LANCAR</h3>
-      <p>DJ muda berbakat asal Kediri yang akan mengguncang panggung Dies Natalis dengan irama musik penuh energi dan beat memukau! 🎶</p>
-    </div>
-  </section>
+    <footer>
+        <p>© 2025 SMAN 1 Ngadiluwih | Website Dies Natalis by Bro Deril 😎</p>
+    </footer>
 
-  <!-- 🏫 Footer -->
-  <footer>
-    <p>© 2025 SMAN 1 Ngadiluwih | Dirancang dengan ❤️ untuk Dies Natalis ke-XX</p>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
