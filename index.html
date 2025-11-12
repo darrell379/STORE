@@ -3,68 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dies Natalis SMAN 1 Ngadiluwih</title>
+  <title>Dies Natalis SMAN 1 Ngadiluwih 🎉</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- LOADING ANIMATION -->
-  <div id="loading-screen">
-    <div class="loader"></div>
-    <h2>Menyiapkan acara paling meriah 🎉</h2>
-  </div>
-
-  <!-- HEADER -->
   <header>
-    <h1>Dies Natalis SMAN 1 Ngadiluwih</h1>
-    <p>Mengundang <strong>Ajeng Febria</strong> & <strong>DJ Lancar</strong></p>
+    <h1>🎊 Dies Natalis SMAN 1 Ngadiluwih 🎊</h1>
+    <p>Mengundang bintang tamu spesial: Ajeng Febria & DJ Lancar</p>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main>
     <section class="intro">
       <div class="text">
-        <h2>Selamat Datang di Perayaan Terbesar Tahun Ini!</h2>
-        <p>Acara Dies Natalis SMAN 1 Ngadiluwih adalah wujud semangat kebersamaan dan kreativitas anak muda. Hadirkan keceriaan, musik, dan kenangan tak terlupakan!</p>
-        <button id="playMusic">Putar Lagu Ajeng Febria 🎵</button>
+        <h2>Selamat Datang di Website Resmi Dies Natalis SMAN 1 Ngadiluwih!</h2>
+        <p>
+          Perayaan Dies Natalis tahun ini hadir dengan semangat baru! Nikmati
+          berbagai acara menarik, penampilan istimewa dari Ajeng Febria, dan irama
+          penuh energi dari DJ Lancar. Website ini dibuat untuk memberikan pengalaman
+          interaktif kepada seluruh pengunjung!
+        </p>
       </div>
       <div class="image">
-        <img src="sman1ngadiluwih.jpg" alt="SMAN 1 Ngadiluwih">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/SMAN_1_Ngadiluwih.jpg/800px-SMAN_1_Ngadiluwih.jpg" alt="SMAN 1 Ngadiluwih">
       </div>
     </section>
 
     <section class="school-info">
       <h2>Tentang SMAN 1 Ngadiluwih 🏫</h2>
-      <p>SMAN 1 Ngadiluwih adalah sekolah unggulan di Kabupaten Kediri yang dikenal dengan semangat prestasi, budaya positif, dan solidaritas tinggi antar siswa. Setiap tahun, Dies Natalis menjadi momen spesial untuk menyalurkan kreativitas dan bakat siswa dalam berbagai bidang seni, musik, dan teknologi.</p>
+      <p>
+        SMAN 1 Ngadiluwih merupakan salah satu sekolah unggulan di Kabupaten Kediri
+        yang selalu berinovasi dalam dunia pendidikan. Dengan semangat "Berkarakter,
+        Berprestasi, dan Berbudaya", sekolah ini melahirkan generasi muda yang kreatif
+        dan berdaya saing tinggi.
+      </p>
     </section>
 
-    <section class="artists">
-      <h2>Bintang Tamu Spesial 🌟</h2>
+    <section class="artist-section">
       <div class="artist-card">
-        <h3>Ajeng Febria</h3>
-        <p>Ajeng Febria adalah penyanyi muda berbakat asal Kediri dengan suara lembut dan karakter khas. Lagu populernya <strong>"Pelangi di Matamu 2.0"</strong> akan menemani momen spesial di acara Dies Natalis ini.</p>
+        <h2>🎤 Ajeng Febria</h2>
+        <p>
+          Penyanyi muda berbakat dengan suara lembut dan gaya elegan. Dikenal lewat
+          lagu "Pelangi di Matamu 2.0", Ajeng Febria siap menggetarkan panggung Dies
+          Natalis dengan penampilan istimewanya!
+        </p>
+        <audio controls>
+          <source src="ajeng-febria.mp3" type="audio/mpeg">
+          Browser Anda tidak mendukung pemutar audio.
+        </audio>
       </div>
+
       <div class="artist-card">
-        <h3>DJ Lancar</h3>
-        <p>DJ Lancar dikenal sebagai DJ paling enerjik di Jawa Timur. Dengan remix khas bertema “Ngadiluwih Beat Party”, ia akan membuat seluruh panggung bergetar oleh irama yang menghentak!</p>
+        <h2>🎧 DJ Lancar</h2>
+        <p>
+          DJ energik asal Kediri yang dikenal dengan gaya musik EDM lokal bertema
+          “Ngadiluwih Beat Party”. Siap mengguncang panggung dengan remix eksklusif
+          spesial untuk acara ini!
+        </p>
       </div>
     </section>
 
-    <section class="ai-section">
-      <h2>Asisten Cerdas 💬</h2>
-      <p>Tanya apa saja tentang acara, Ajeng Febria, DJ Lancar, atau SMAN 1 Ngadiluwih! Asisten kami siap menjawab layaknya AI sungguhan.</p>
-      <div class="chatbox">
-        <div id="chat-output"></div>
-        <input type="text" id="chat-input" placeholder="Ketik pertanyaanmu di sini..." />
-        <button id="send-btn">Kirim</button>
-      </div>
+    <section class="chatbox">
+      <h2>💬 Tanya AI Sekolah!</h2>
+      <p>Ketik pertanyaanmu di bawah, nanti AI sekolah akan menjawab layaknya asisten virtual.</p>
+      <div id="chat-output"></div>
+      <input type="text" id="chat-input" placeholder="Tulis pertanyaanmu di sini...">
+      <button id="send-btn">Kirim</button>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 SMAN 1 Ngadiluwih | Dies Natalis Meriah bersama Ajeng Febria & DJ Lancar</p>
+    <p>© 2025 SMAN 1 Ngadiluwih | Website Interaktif Dies Natalis</p>
   </footer>
 
-  <audio id="bgMusic" src="ajeng-febria-pelangi.mp3"></audio>
   <script src="script.js"></script>
 </body>
 </html>
