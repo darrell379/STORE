@@ -1,121 +1,257 @@
-// helper for scrolling
-function scrollTo(sel){ document.querySelector(sel).scrollIntoView({behavior:'smooth'}); }
+/* ================= Loader / Boot ================= */
+const percentEl = document.getElementById('percent');
+const barEl = document.getElementById('bar');
+const loaderWrap = document.getElementById('loaderWrap');
+const app = document.getElementById('app');
 
-// NAV mobile toggle
-const menuToggle = document.getElementById('menu-toggle');
-menuToggle && menuToggle.addEventListener('click', ()=> {
-  const nav = document.querySelector('.nav-links');
-  if(nav.style.display === 'flex') nav.style.display = 'none'; else nav.style.display = 'flex';
-});
-
-// Modal
-function openModal(title, text){
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-text').textContent = text;
-  document.getElementById('modal').classList.remove('hidden');
+let progress = 0;
+function fakeLoadStep(){
+  progress += Math.floor(Math.random()*7)+6;
+  if(progress > 100) progress = 100;
+  percentEl.textContent = progress + '%';
+  barEl.style.width = progress + '%';
+  if(progress < 100){
+    setTimeout(fakeLoadStep, 180 + Math.random()*260);
+  } else {
+    setTimeout(() => {
+      loaderWrap.style.opacity = '0';
+      loaderWrap.style.pointerEvents = 'none';
+      app.hidden = false;
+      setTimeout(()=> loaderWrap.style.display='none', 600);
+      initPage();
+    }, 500);
+  }
 }
-function closeModal(){
-  document.getElementById('modal').classList.add('hidden');
-}
+fakeLoadStep();
 
-// toggle detail quick-scroll
-function toggleDetail(id){
-  const el = document.getElementById(id);
-  if(el) el.scrollIntoView({behavior:'smooth'});
-}
-
-// audio control
-const bgAudio = document.getElementById('bgAudio');
-const playBtn = document.getElementById('playBtn');
-let playing = false;
-playBtn.addEventListener('click', async () => {
-  try {
-    if(!playing){ await bgAudio.play(); playBtn.textContent = '⏸ Pause'; playing = true; }
-    else { bgAudio.pause(); playBtn.textContent = '▶️ Putar Musik'; playing = false; }
-  } catch(e){ alert('Autoplay diblokir — klik halaman lalu coba lagi.'); }
-});
-
-// Chat AI logic (simple + math)
-const chatOutput = document.getElementById('chatOutput');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendBtn');
-
-function appendMsg(role, text){
-  const p = document.createElement('div');
-  p.className = 'msg';
-  p.innerHTML = <strong>${role}:</strong> ${text};
-  chatOutput.appendChild(p);
-  chatOutput.scrollTop = chatOutput.scrollHeight;
+/* ================= Initialize page features ================= */
+function initPage(){
+  initParticles();
+  initNav();
+  initHeroSlides();
+  initSectionObserver();
+  initMapInteractions();
+  initCelebrate();
 }
 
-sendBtn.addEventListener('click', handleChat);
-chatInput.addEventListener('keydown', (e)=> { if(e.key === 'Enter') handleChat(); });
+/* ================= Particles background ================= */
+function initParticles(){
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = innerWidth;
+  let H = canvas.height = innerHeight;
+  window.addEventListener('resize', ()=>{W = canvas.width = innerWidth; H = canvas.height = innerHeight});
 
-function handleChat(){
-  const question = (chatInput.value || '').trim();
-  if(!question) return;
-  appendMsg('Kamu', question);
-  chatInput.value = '';
-  setTimeout(()=> { const ans = aiAnswer(question); appendMsg('AI Sekolah', ans); }, 600);
+  const particles = [];
+  const COUNT = Math.max(60, Math.floor((W*H)/90000)); // scale safely
+  for(let i=0;i<COUNT;i++){
+    particles.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: Math.random()*1.8 + 0.6,
+      vx: (Math.random()-0.5)*0.45,
+      vy: (Math.random()-0.5)*0.45,
+      hue: 120 + Math.random()*60,
+      alpha: 0.06 + Math.random()*0.25
+    });
+  }
+
+  let mouse = {x:-9999,y:-9999};
+  window.addEventListener('mousemove', (e)=>{mouse.x=e.clientX;mouse.y=e.clientY});
+  window.addEventListener('mouseleave', ()=>{mouse.x=-9999;mouse.y=-9999});
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // subtle vignette
+    const g = ctx.createLinearGradient(0,0,W,H);
+    g.addColorStop(0, 'rgba(2,20,12,0.09)');
+    g.addColorStop(1, 'rgba(0,0,0,0.16)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,W,H);
+
+    for(let p of particles){
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < -10) p.x = W + 10;
+      if(p.x > W + 10) p.x = -10;
+      if(p.y < -10) p.y = H + 10;
+      if(p.y > H + 10) p.y = -10;
+
+      // attraction to mouse
+      const dx = p.x - mouse.x; const dy = p.y - mouse.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 120){
+        p.vx += (dx/dist)*0.03;
+        p.vy += (dy/dist)*0.03;
+      } else {
+        p.vx *= 0.995; p.vy *= 0.995;
+      }
+
+      // draw dot
+      ctx.beginPath();
+      ctx.fillStyle = hsla(${p.hue}, 70%, 60%, ${p.alpha});
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // lines (light)
+    for(let i=0;i<COUNT;i++){
+      for(let j=i+1;j<i+4;j++){
+        const a = particles[i]; const b = particles[j];
+        if(!b) continue;
+        const dx = a.x-b.x; const dy = a.y-b.y; const d = Math.sqrt(dx*dx + dy*dy);
+        if(d < 80){
+          ctx.beginPath();
+          ctx.strokeStyle = rgba(110,255,170,${0.06*(1 - d/80)});
+          ctx.lineWidth = 1;
+          ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
 }
 
-// safe evaluate basic math expressions
-function safeEval(expr){
-  // allow digits, spaces and +-*/().^ and percent
-  if(!/^[0-9+\-*/().%\s]+$/.test(expr)) return null;
-  try {
-    // replace % with /100
-    const safe = expr.replace(/%/g, '/100');
-    // eslint-disable-next-line no-eval
-    const res = eval(safe);
-    if(Number.isFinite(res)) return res;
-    return null;
-  } catch { return null; }
+/* ================= Navigation & smooth scroll ================= */
+function initNav(){
+  document.querySelectorAll('.nav-btn, .glass-btn').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const t = btn.dataset.target;
+      if(t) scrollToSection(t);
+    });
+  });
+  function scrollToSection(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.scrollIntoView({behavior:'smooth', block:'start'});
+    // active state
+    document.querySelectorAll('.nav-btn').forEach(n=>n.classList.remove('active'));
+    const nav = Array.from(document.querySelectorAll('.nav-btn')).find(n=>n.dataset.target===id);
+    if(nav) nav.classList.add('active');
+  }
 }
 
-function aiAnswer(input){
-  const q = input.toLowerCase();
-
-  // math? check if contains digit and operator
-  if(/[0-9]/.test(q) && /[\+\-\*\/\%]/.test(q)){
-    const val = safeEval(q.replace(/[^0-9+\-*/().% ]/g, ''));
-    if(val !== null) return Hasilnya: ${val};
-    // try extract numbers + words for simple problems like "berapa 12 dikali 3"
-    const mapOp = { 'kali':'','x':'','dikalikan':'*','dibagi':'/','bagi':'/','tambah':'+','kurang':'-'};
-    let replaced = q;
-    Object.keys(mapOp).forEach(k=> replaced = replaced.replaceAll(k, mapOp[k]));
-    const val2 = safeEval(replaced.replace(/[^0-9+\-*/().% ]/g, ''));
-    if(val2 !== null) return Hasilnya: ${val2};
-    return "Maaf, saya belum bisa menghitung itu. Coba format angka dan operator (mis. 12*8 atau 10 + 5).";
+/* ================= Hero slides ================= */
+function initHeroSlides(){
+  const slides = document.querySelectorAll('.hero-section .slide');
+  const dots = document.querySelectorAll('.dot');
+  if(slides.length === 0) return;
+  let si = 0;
+  function show(i){
+    slides.forEach((s, idx)=> s.classList.toggle('active', idx===i));
+    dots.forEach((d, idx)=> d.classList.toggle('active', idx===i));
+    si = i;
   }
-
-  // info commands
-  if(q.includes('sman 1') || q.includes('sekolah') || q.includes('ngadiluwih')) {
-    return "SMAN 1 Ngadiluwih adalah sekolah unggulan di Kabupaten Kediri, fokus pada prestasi akademik, seni, dan karakter. Dies Natalis: acara tahunan dengan pentas seni, konser, dan bazaar.";
-  }
-  if(q.includes('ajeng') || q.includes('ajeng febria')) {
-    return "Ajeng Febria: penyanyi muda berbakat dari Kediri, terkenal dengan lagu 'Pelangi di Matamu 2.0'. Akan tampil membawakan setlist spesial di acara.";
-  }
-  if(q.includes('dj') || q.includes('lancar') || q.includes('dj lancar')) {
-    return "DJ Lancar: DJ enerjik yang membawa suasana pesta dengan remix dan beat dance—siap menjadi penutup acara dengan party mix yang hits.";
-  }
-  if(q.includes('dies natalis') || q.includes('acara')) {
-    return "Dies Natalis adalah perayaan ulang tahun sekolah berisi parade, pentas seni, konser, bazaar, dan kegiatan kompetitif antar siswa.";
-  }
-  if(q.includes('tiket') || q.includes('ticket') || q.includes('harga')) {
-    return "Informasi tiket: cek booth resmi sekolah atau hubungi panitia via WA: 0812-3456-7890. (Ini contoh; tiket belum tersedia lewat web demo).";
-  }
-  if(q.includes('halo') || q.includes('hai') || q.includes('halo bro')) {
-    return "Halo! Ada yang bisa kubantu? Kamu bisa tanya tentang sekolah, artis, jadwal, atau minta bantuan mengerjakan soal.";
-  }
-
-  // fallback
-  return "Pertanyaan bagus! Coba tanyakan tentang 'Sman 1 Ngadiluwih', 'Ajeng Febria', 'DJ Lancar', 'dies natalis', atau '12*8' untuk menghitung.";
+  // fallback if slides not present — still handle dots
+  show(0);
+  setInterval(()=> show((si+1) % Math.max(slides.length, 1)), 4200);
+  dots.forEach((d,i)=> d.addEventListener('click', ()=> show(i)));
 }
 
-// small UX: prefill placeholders images if not present (checks optional)
-(function precheckImages(){
-  const heroImg = document.querySelector('.hero-image');
-  // if file missing, replace with Wikimedia sample (already recommended)
-  // (No network checks to keep simple)
-})();
+/* ================= Observe sections appear ================= */
+function initSectionObserver(){
+  const secs = document.querySelectorAll('.section');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting) en.target.classList.add('visible');
+    });
+  }, {threshold: 0.18});
+  secs.forEach(s=> obs.observe(s));
+}
+
+/* ================= Map 3D interactions ================= */
+function initMapInteractions(){
+  const map = document.getElementById('map3d');
+  if(!map) return;
+  let dragging = false, lastX=0, lastY=0, rotX=14, rotY=-18;
+  map.style.transform = rotateX(${rotX}deg) rotateY(${rotY}deg);
+  map.addEventListener('pointerdown', (e)=>{
+    dragging=true; lastX=e.clientX; lastY=e.clientY; map.setPointerCapture(e.pointerId);
+  });
+  window.addEventListener('pointerup', ()=> dragging=false);
+  window.addEventListener('pointermove', (e)=>{
+    if(!dragging) return;
+    const dx = e.clientX - lastX, dy = e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    rotY += dx * 0.08; rotX -= dy * 0.06;
+    rotX = Math.max(-10, Math.min(60, rotX));
+    map.style.transform = rotateX(${rotX}deg) rotateY(${rotY}deg);
+  });
+  const tiltToggle = document.getElementById('tiltToggle');
+  if(tiltToggle) tiltToggle.addEventListener('change', (e)=>{
+    if(!e.target.checked) map.style.transform = rotateX(0deg) rotateY(0deg);
+    else map.style.transform = rotateX(${rotX}deg) rotateY(${rotY}deg);
+  });
+  const reset = document.getElementById('resetView');
+  if(reset) reset.addEventListener('click', ()=>{ rotX=14; rotY=-18; map.style.transform = rotateX(${rotX}deg) rotateY(${rotY}deg); });
+}
+
+/* ================= Modal / Profile / Message ================= */
+function openInfo(name){
+  const tpl = document.getElementById('modal-template');
+  const clone = tpl.content.cloneNode(true);
+  const backdrop = clone.querySelector('.modal-backdrop');
+  const close = clone.querySelector('.modal-close');
+  const content = clone.querySelector('.modal-content');
+
+  if(name === 'ajeng'){
+    content.innerHTML = `<h2>Ajeng Febria — Profil Lengkap</h2>
+      <p><strong>Peran:</strong> Ketua OSIS, Koreografer, Aktivis Seni</p>
+      <p><strong>Ringkasan:</strong> Ajeng memimpin proyek-proyek seni yang melibatkan ratusan siswa. Ia menekankan kreativitas berbasis tradisi dan teknologi.</p>
+      <ul><li>Jurusan: IPA</li><li>Prestasi: Juara Tari Provinsi 2023</li><li>Program: Mentor Seni & Workshop Tari</li></ul>`;
+  } else if(name === 'dj'){
+    content.innerHTML = `<h2>DJ Lancar — Profil & Karya</h2>
+      <p><strong>Peran:</strong> DJ event sekolah, Produser & Inisiator Komunitas Musik</p>
+      <p><strong>Ringkasan:</strong> DJ Lancar menyatukan komunitas musik siswa melalui workshop, produksi, dan penampilan live.</p>
+      <ul><li>Genre: EDM / Chill House</li><li>Aktivitas: Workshop Mixing & Produksi</li><li>Kolaborasi: Multimedia & Tari</li></ul>`;
+  } else {
+    content.innerHTML = <p>Informasi belum tersedia.</p>;
+  }
+
+  close.addEventListener('click', ()=> document.body.removeChild(backdrop));
+  backdrop.addEventListener('click', (e)=> { if(e.target === backdrop) document.body.removeChild(backdrop); });
+  document.body.appendChild(backdrop);
+}
+
+function openMessage(name){
+  const msg = prompt('Ketik pesan / permintaan untuk ' + (name==='ajeng' ? 'Ajeng' : 'DJ Lancar') + ':');
+  if(msg && msg.trim()){
+    const tpl = document.getElementById('modal-template');
+    const clone = tpl.content.cloneNode(true);
+    const backdrop = clone.querySelector('.modal-backdrop');
+    const close = clone.querySelector('.modal-close');
+    const content = clone.querySelector('.modal-content');
+    close.addEventListener('click', ()=> document.body.removeChild(backdrop));
+    content.innerHTML = `<h3>Pesan untuk ${name === 'ajeng' ? 'Ajeng' : 'DJ Lancar'}</h3>
+      <p>Pesan:</p><blockquote>${escapeHtml(msg)}</blockquote><p><em>Simulasi: pesan tersimpan (tidak benar-benar dikirim)</em></p>`;
+    document.body.appendChild(backdrop);
+  }
+}
+function escapeHtml(s){ return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+
+/* ================= Celebrate / Confetti ================= */
+function initCelebrate(){
+  const btn = document.getElementById('celebrateBtn');
+  if(!btn) return;
+  btn.addEventListener('click', ()=> confettiBurst());
+}
+function confettiBurst(){
+  const cvs = document.createElement('canvas'); cvs.style.position='fixed'; cvs.style.inset=0; cvs.style.zIndex=9998; cvs.style.pointerEvents='none';
+  const ctx = cvs.getContext('2d'); document.body.appendChild(cvs);
+  cvs.width = innerWidth; cvs.height = innerHeight;
+  const pieces = []; const colors = ['#bfffe0','#67ff9b','#4ef38b','#d6ffd9','#aaffc7'];
+  for(let i=0;i<160;i++){
+    pieces.push({x: Math.random()*cvs.width, y: -20 - Math.random()*200, vx: (Math.random()-0.5)*6, vy: Math.random()*6+2, r: Math.random()*8+4, col: colors[Math.floor(Math.random()*colors.length)], rot: Math.random()*360, vr: (Math.random()-0.5)*10});
+  }
+  function frame(){
+    ctx.clearRect(0,0,cvs.width,cvs.height);
+    for(const p of pieces){ p.x+=p.vx; p.y+=p.vy; p.vy+=0.12; p.rot+=p.vr; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle=p.col; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6); ctx.restore(); }
+    for(let i=pieces.length-1;i>=0;i--) if(pieces[i].y > cvs.height + 40) pieces.splice(i,1);
+    if(pieces.length) requestAnimationFrame(frame); else document.body.removeChild(cvs);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ================= Misc ================= */
+window.addEventListener('keydown', (e)=> { if(e.key === 'Escape') document.querySelectorAll('.modal-backdrop').forEach(b=> b.parentElement.removeChild(b)); });
