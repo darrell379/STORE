@@ -1,98 +1,135 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dies Natalis • SMAN 1 Ngadiluwih</title>
-
-  <!-- Styles -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dies Natalis SMAN 1 Ngadiluwih</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Three.js (used for 3D denah) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js" defer></script>
 </head>
 <body>
 
-  <!-- LOADING OVERLAY -->
-  <div id="loading-screen" class="loading-screen" aria-hidden="false">
-    <div class="loading-inner">
-      <div class="loading-brand">
-        <div class="badge">SMAN 1</div>
-        <div class="brand-text">
-          <div class="school">Dies Natalis • SMAN 1 Ngadiluwih</div>
-          <div class="tag">Generasi Emas — Melangkah ke Masa Depan</div>
-        </div>
-      </div>
-
-      <!-- patterned green-black background inside loader -->
-      <div class="loading-visual">
-        <!-- circular progress -->
-        <svg class="progress-svg" viewBox="0 0 36 36" aria-hidden="true">
-          <path class="circle-bg" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831"></path>
-          <path id="progressStroke" class="circle-bar" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831"></path>
-        </svg>
-
-        <!-- numeric -->
-        <div id="progressNum" class="progress-num">0%</div>
-
-        <!-- linear bar -->
-        <div class="loading-bar">
-          <div id="barFill" class="bar-fill"></div>
-        </div>
-      </div>
-
-      <div id="loaderSub" class="loader-sub">Memuat aset & efek…</div>
+  <!-- LOADING SCREEN -->
+  <div id="loaderWrap" class="loader-wrap">
+    <div class="loader">
+      <div id="percent">0%</div>
+      <div class="progress"><div id="bar"></div></div>
+      <p>Memuat efek & konten interaktif...</p>
     </div>
   </div>
 
-  <!-- MAIN APP (hidden until loading finished) -->
-  <div id="app" class="app hidden">
-    <header class="site-header">
-      <div class="brand">
-        <div class="badge-small">SMAN1</div>
-        <div>
-          <div class="name">SMAN 1 Ngadiluwih</div>
-          <div class="subtitle">Dies Natalis • Premium</div>
-        </div>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">SMAN 1 NGADILUWIH</div>
+    <nav>
+      <ul>
+        <li><a href="#home">Beranda</a></li>
+        <li><a href="#profil">Profil Sekolah</a></li>
+        <li><a href="#sejarah">Sejarah</a></li>
+        <li><a href="#denah">Denah 3D</a></li>
+        <li><a href="#prestasi">Prestasi</a></li>
+        <li><a href="#ajeng">Ajeng Febria</a></li>
+        <li><a href="#dj">DJ Lancar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- SLIDE ANIMATION -->
+  <section id="home" class="section hero-section">
+    <div class="slide active">
+      <h1>Selamat Datang di Dies Natalis</h1>
+      <p>SMAN 1 Ngadiluwih — Sekolah Unggulan dan Berprestasi</p>
+    </div>
+    <div class="slide">
+      <h1>Berinovasi & Berkarya</h1>
+      <p>Perayaan penuh kreativitas siswa terbaik SMAN 1 Ngadiluwih</p>
+    </div>
+    <div class="slide">
+      <h1>Menginspirasi Generasi</h1>
+      <p>Membangun masa depan dengan ilmu dan karakter</p>
+    </div>
+  </section>
+
+  <!-- PROFIL -->
+  <section id="profil" class="section">
+    <h2>Profil Singkat SMAN 1 Ngadiluwih</h2>
+    <p>SMAN 1 Ngadiluwih adalah sekolah negeri unggulan di Kabupaten Kediri, Jawa Timur. 
+      Berdiri di atas lahan yang luas dengan lingkungan asri, sekolah ini telah menjadi pusat pendidikan yang mencetak generasi cerdas dan berkarakter.</p>
+    <div class="info-grid">
+      <div class="card-info">
+        <h3>Lokasi</h3>
+        <p>Jl. Raya Ngadiluwih No. 88, Ngadiluwih, Kabupaten Kediri, Jawa Timur.</p>
       </div>
+      <div class="card-info">
+        <h3>Kepala Sekolah</h3>
+        <p>Drs. H. Budi Santoso, M.Pd.</p>
+      </div>
+      <div class="card-info">
+        <h3>Visi Sekolah</h3>
+        <p>Mewujudkan peserta didik yang unggul dalam prestasi, berkarakter, berwawasan lingkungan, dan berdaya saing global.</p>
+      </div>
+    </div>
+  </section>
 
-      <nav class="main-nav">
-        <button class="nav-btn active" data-page="home">Beranda</button>
-        <button class="nav-btn" data-page="info">Informasi</button>
-        <button class="nav-btn" data-page="denah">Denah 3D</button>
-        <button class="nav-btn" data-page="musik">Musik</button>
-      </nav>
-    </header>
+  <!-- SEJARAH -->
+  <section id="sejarah" class="section parallax">
+    <h2>Sejarah Berdirinya SMAN 1 Ngadiluwih</h2>
+    <p>SMAN 1 Ngadiluwih didirikan pada tahun 1982 sebagai upaya pemerintah meningkatkan akses pendidikan menengah di daerah Kediri Selatan. 
+      Seiring waktu, sekolah ini berkembang menjadi lembaga pendidikan yang dikenal dengan berbagai prestasi akademik, olahraga, dan seni.</p>
+    <p>Pada tahun 2000-an, SMAN 1 Ngadiluwih mulai bertransformasi menjadi sekolah berbasis teknologi dan karakter, 
+      menghadirkan berbagai program inovatif seperti kelas digital, ekstrakurikuler coding, serta kegiatan kewirausahaan siswa.</p>
+  </section>
 
-    <main class="main">
-      <section id="home" class="page active">
-        <h1>Selamat Datang di Dies Natalis SMAN 1 Ngadiluwih</h1>
-        <p class="lead">Rayakan semangat, kreativitas, dan prestasi bersama kami.</p>
-      </section>
+  <!-- DENAH 3D -->
+  <section id="denah" class="section">
+    <h2>Denah Virtual 3D SMAN 1 Ngadiluwih</h2>
+    <div class="map-3d">
+      <div class="building building-a"></div>
+      <div class="building building-b"></div>
+      <div class="field"></div>
+    </div>
+  </section>
 
-      <section id="info" class="page">
-        <h2>Informasi Sekolah</h2>
-        <p>Alamat: Jl. Sekolah No.1, Ngadiluwih, Kabupaten Kediri — Kepala Sekolah: Drs. H. Sugiarto, M.Pd (contoh)</p>
-      </section>
+  <!-- PRESTASI -->
+  <section id="prestasi" class="section">
+    <h2>Prestasi dan Fasilitas</h2>
+    <div class="prestasi-grid">
+      <div class="card-info">
+        <h3>Prestasi Akademik</h3>
+        <p>Juara 1 Olimpiade Sains Provinsi Jawa Timur 2024</p>
+      </div>
+      <div class="card-info">
+        <h3>Fasilitas Unggulan</h3>
+        <p>Laboratorium modern, ruang multimedia, lapangan serbaguna, dan taman baca digital.</p>
+      </div>
+      <div class="card-info">
+        <h3>Ekstrakurikuler</h3>
+        <p>Pramuka, Musik, Robotika, Karya Ilmiah, Basket, Tari Tradisional, dan Paskibra.</p>
+      </div>
+    </div>
+  </section>
 
-      <section id="denah" class="page">
-        <h2>Denah 3D SMAN 1 Ngadiluwih</h2>
-        <div id="map3D" class="map3D"></div>
-        <p class="muted">Denah interaktif: klik & drag untuk rotasi, gulir untuk zoom.</p>
-      </section>
+  <!-- AJENG FEBRIA -->
+  <section id="ajeng" class="section dark">
+    <h2>Ajeng Febria — Inspirasi Siswa SMAN 1 Ngadiluwih</h2>
+    <p>Ajeng Febria adalah siswi berprestasi di bidang seni dan akademik. Ia dikenal karena 
+      kepemimpinannya dalam OSIS dan kontribusinya pada berbagai lomba seni tingkat nasional.</p>
+    <button class="tap-btn" onclick="openInfo('ajeng')">Lihat Profil Lengkap</button>
+  </section>
 
-      <section id="musik" class="page">
-        <h2>Music Hub</h2>
-        <p>Player mini ada di header (mini-player). Untuk full player gunakan halaman musik.</p>
-      </section>
-    </main>
+  <!-- DJ LANCAR -->
+  <section id="dj" class="section dark">
+    <h2>DJ Lancar — Musik dan Kreativitas</h2>
+    <p>DJ Lancar dikenal sebagai siswa kreatif di bidang musik elektronik. Ia kerap tampil di acara sekolah, 
+      menciptakan suasana semangat dengan remix khasnya.</p>
+    <button class="tap-btn" onclick="openInfo('dj')">Lihat Info Lengkap</button>
+  </section>
 
-    <footer class="site-footer">
-      © <span id="year"></span> SMAN 1 Ngadiluwih — Dies Natalis
-    </footer>
-  </div>
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 SMAN 1 Ngadiluwih | Website Dies Natalis Interaktif</p>
+  </footer>
 
-  <!-- Scripts -->
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
