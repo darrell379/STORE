@@ -88,7 +88,7 @@ function initParticles(){
 
       // draw dot
       ctx.beginPath();
-      ctx.fillStyle = hsla(${p.hue}, 70%, 60%, ${p.alpha});
+      ctx.fillStyle = `hsla(${p.hue}, 70%, 60%, ${p.alpha})`;
       ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
       ctx.fill();
     }
@@ -101,7 +101,7 @@ function initParticles(){
         const dx = a.x-b.x; const dy = a.y-b.y; const d = Math.sqrt(dx*dx + dy*dy);
         if(d < 80){
           ctx.beginPath();
-          ctx.strokeStyle = rgba(110,255,170,${0.06*(1 - d/80)});
+          ctx.strokeStyle = `rgba(110,255,170,${0.06*(1 - d/80)})`;
           ctx.lineWidth = 1;
           ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
         }
@@ -165,7 +165,7 @@ function initMapInteractions(){
   const map = document.getElementById('map3d');
   if(!map) return;
   let dragging = false, lastX=0, lastY=0, rotX=14, rotY=-18;
-  map.style.transform = rotateX(${rotX}deg) rotateY(${rotY}deg);
+  map.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
   map.addEventListener('pointerdown', (e)=>{
     dragging=true; lastX=e.clientX; lastY=e.clientY; map.setPointerCapture(e.pointerId);
   });
@@ -176,15 +176,15 @@ function initMapInteractions(){
     lastX = e.clientX; lastY = e.clientY;
     rotY += dx * 0.08; rotX -= dy * 0.06;
     rotX = Math.max(-10, Math.min(60, rotX));
-    map.style.transform = rotateX(${rotX}deg) rotateY(${rotY}deg);
+    map.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
   });
   const tiltToggle = document.getElementById('tiltToggle');
   if(tiltToggle) tiltToggle.addEventListener('change', (e)=>{
-    if(!e.target.checked) map.style.transform = rotateX(0deg) rotateY(0deg);
-    else map.style.transform = rotateX(${rotX}deg) rotateY(${rotY}deg);
+    if(!e.target.checked) map.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    else map.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
   });
   const reset = document.getElementById('resetView');
-  if(reset) reset.addEventListener('click', ()=>{ rotX=14; rotY=-18; map.style.transform = rotateX(${rotX}deg) rotateY(${rotY}deg); });
+  if(reset) reset.addEventListener('click', ()=>{ rotX=14; rotY=-18; map.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`; });
 }
 
 /* ================= Modal / Profile / Message ================= */
@@ -206,7 +206,7 @@ function openInfo(name){
       <p><strong>Ringkasan:</strong> DJ Lancar menyatukan komunitas musik siswa melalui workshop, produksi, dan penampilan live.</p>
       <ul><li>Genre: EDM / Chill House</li><li>Aktivitas: Workshop Mixing & Produksi</li><li>Kolaborasi: Multimedia & Tari</li></ul>`;
   } else {
-    content.innerHTML = <p>Informasi belum tersedia.</p>;
+    content.innerHTML = `<p>Informasi belum tersedia.</p>`;
   }
 
   close.addEventListener('click', ()=> document.body.removeChild(backdrop));
