@@ -1,54 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dies Natalis SMAN 1 Ngadiluwih</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dies Natalis • SMAN 1 Ngadiluwih</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Three.js (used for 3D denah) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js" defer></script>
 </head>
 <body>
-  <!-- LOADING SCREEN -->
-  <div id="loading-screen">
-    <div class="loader">
-      <span id="loading-text">0%</span>
-      <div class="loading-bar"><div class="fill"></div></div>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-screen" class="loading-screen" aria-hidden="false">
+    <div class="loading-inner">
+      <div class="loading-brand">
+        <div class="badge">SMAN 1</div>
+        <div class="brand-text">
+          <div class="school">Dies Natalis • SMAN 1 Ngadiluwih</div>
+          <div class="tag">Generasi Emas — Melangkah ke Masa Depan</div>
+        </div>
+      </div>
+
+      <!-- patterned green-black background inside loader -->
+      <div class="loading-visual">
+        <!-- circular progress -->
+        <svg class="progress-svg" viewBox="0 0 36 36" aria-hidden="true">
+          <path class="circle-bg" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831"></path>
+          <path id="progressStroke" class="circle-bar" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831"></path>
+        </svg>
+
+        <!-- numeric -->
+        <div id="progressNum" class="progress-num">0%</div>
+
+        <!-- linear bar -->
+        <div class="loading-bar">
+          <div id="barFill" class="bar-fill"></div>
+        </div>
+      </div>
+
+      <div id="loaderSub" class="loader-sub">Memuat aset & efek…</div>
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
-  <div id="main-content" class="hidden">
-    <header>
-      <h1>Dies Natalis SMAN 1 Ngadiluwih</h1>
-      <p>Generasi Emas, Melangkah ke Masa Depan Cemerlang</p>
+  <!-- MAIN APP (hidden until loading finished) -->
+  <div id="app" class="app hidden">
+    <header class="site-header">
+      <div class="brand">
+        <div class="badge-small">SMAN1</div>
+        <div>
+          <div class="name">SMAN 1 Ngadiluwih</div>
+          <div class="subtitle">Dies Natalis • Premium</div>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <button class="nav-btn active" data-page="home">Beranda</button>
+        <button class="nav-btn" data-page="info">Informasi</button>
+        <button class="nav-btn" data-page="denah">Denah 3D</button>
+        <button class="nav-btn" data-page="musik">Musik</button>
+      </nav>
     </header>
 
-    <section id="info">
-      <h2>Tentang SMAN 1 Ngadiluwih</h2>
-      <p>SMAN 1 Ngadiluwih berdiri pada tahun 1982 dan menjadi salah satu SMA unggulan di Kabupaten Kediri.
-      Sekolah ini memiliki visi “Berkarakter, Berprestasi, dan Berwawasan Lingkungan”. 
-      Dengan berbagai fasilitas modern seperti laboratorium komputer, perpustakaan digital, lapangan futsal, dan studio seni, 
-      SMAN 1 Ngadiluwih terus berkomitmen mencetak generasi berprestasi.</p>
-    </section>
+    <main class="main">
+      <section id="home" class="page active">
+        <h1>Selamat Datang di Dies Natalis SMAN 1 Ngadiluwih</h1>
+        <p class="lead">Rayakan semangat, kreativitas, dan prestasi bersama kami.</p>
+      </section>
 
-    <section id="denah">
-      <h2>Denah Lokasi 3D SMAN 1 Ngadiluwih</h2>
-      <div id="map3D"></div>
-      <p><strong>Alamat:</strong> Jl. Ngadiluwih–Wlingi No.1, Ngadiluwih, Kediri, Jawa Timur</p>
-    </section>
+      <section id="info" class="page">
+        <h2>Informasi Sekolah</h2>
+        <p>Alamat: Jl. Sekolah No.1, Ngadiluwih, Kabupaten Kediri — Kepala Sekolah: Drs. H. Sugiarto, M.Pd (contoh)</p>
+      </section>
 
-    <section id="dies">
-      <h2>Perayaan Dies Natalis 2025</h2>
-      <p>Dies Natalis SMAN 1 Ngadiluwih tahun ini dimeriahkan dengan berbagai kegiatan seperti lomba antar kelas,
-      pameran kreativitas, dan pertunjukan musik dari Ajeng Febria serta DJ Lancar.</p>
-      <button id="musicPageBtn">🎶 Dengarkan Musik Dies Natalis</button>
-    </section>
+      <section id="denah" class="page">
+        <h2>Denah 3D SMAN 1 Ngadiluwih</h2>
+        <div id="map3D" class="map3D"></div>
+        <p class="muted">Denah interaktif: klik & drag untuk rotasi, gulir untuk zoom.</p>
+      </section>
 
-    <footer>
-      <p>© 2025 SMAN 1 Ngadiluwih | Website by Bro Deril 😎</p>
+      <section id="musik" class="page">
+        <h2>Music Hub</h2>
+        <p>Player mini ada di header (mini-player). Untuk full player gunakan halaman musik.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      © <span id="year"></span> SMAN 1 Ngadiluwih — Dies Natalis
     </footer>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Scripts -->
+  <script src="script.js" defer></script>
 </body>
 </html>
