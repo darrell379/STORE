@@ -199,7 +199,7 @@ function openInfo(name){
     content.innerHTML = `<h2>Ajeng Febria — Profil Lengkap</h2>
       <p><strong>Peran:</strong> Ketua OSIS, Koreografer, Aktivis Seni</p>
       <p><strong>Ringkasan:</strong> Ajeng memimpin proyek-proyek seni yang melibatkan ratusan siswa. Ia menekankan kreativitas berbasis tradisi dan teknologi.</p>
-      <ul><li>Jurusan: IPA</li><li>Prestasi: Juara Tari Provinsi 2023</li><li>Program: Mentor Seni & Workshop Tari</li></ul>`;
+      <ul><li>Nama panggung: Ajeng Febria</li><li>nama panggilan: Ajeng</li><li>Tempat asal:Blitar, Jawa Timur</li><li>Usia: 19 Tahun</li><li>Profesi: Penyanyi</li><li>Genre Musik: Dangdut</li><li> Media Afilisiasi: Maska Music digital</li><li>Media Sosial: @ajeng_febriaa (Instagram) @ajengfebria01 (TikTok)</li></ul>
   } else if(name === 'dj'){
     content.innerHTML = `<h2>DJ Lancar — Profil & Karya</h2>
       <p><strong>Peran:</strong> DJ event sekolah, Produser & Inisiator Komunitas Musik</p>
