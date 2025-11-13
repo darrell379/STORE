@@ -1,136 +1,86 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dies Natalis SMAN 1 Ngadiluwih 🎉</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dies Natalis SMAN 1 Ngadiluwih</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="logo">🎀 SMAN 1 Ngadiluwih</div>
-    <ul class="nav-links">
-      <li><a href="#home">Beranda</a></li>
-      <li><a href="#sejarah">Sejarah</a></li>
-      <li><a href="#artists">Bintang</a></li>
-      <li><a href="#services">Layanan</a></li>
-      <li><a href="#chat">AI Chat</a></li>
-      <li><a href="#contact">Kontak</a></li>
-    </ul>
-    <button id="menu-toggle" class="hamburger">☰</button>
-  </nav>
-
-  <!-- HERO -->
-  <header id="home" class="hero">
-    <div class="hero-content">
-      <h1>🎊 Dies Natalis SMAN 1 Ngadiluwih</h1>
-      <p class="lead">Meriah & Gaul — Bersama Ajeng Febria & DJ Lancar. Yuk rayakan semangat kreativitas dan kebersamaan!</p>
-
-      <div class="hero-cta">
-        <button onclick="scrollTo('#artists')">Lihat Bintang</button>
-        <button id="playBtn">▶️ Putar Musik</button>
-      </div>
-
-      <div class="hero-cards">
-        <div class="card" onclick="toggleDetail('sejarah')">
-          <h4>Sejarah Sekolah</h4>
-          <p>Sejarah singkat & klik untuk detail</p>
+    <!-- ANIMASI LOADING -->
+    <div id="loading-screen">
+        <div class="loader">
+            <h1>Dies Natalis SMAN 1 Ngadiluwih</h1>
+            <div class="progress-bar">
+                <div id="progress"></div>
+            </div>
+            <p id="percent">0%</p>
         </div>
-        <div class="card" onclick="toggleDetail('info-artists')">
-          <h4>Profil Artis</h4>
-          <p>Ajeng Febria & DJ Lancar</p>
-        </div>
-      </div>
     </div>
 
-    <div class="hero-image" aria-hidden="true"></div>
-  </header>
+    <!-- BACKGROUND GRID -->
+    <div class="animated-bg"></div>
 
-  <!-- SEJARAH -->
-  <section id="sejarah" class="panel">
-    <h2>📜 Sejarah Singkat SMAN 1 Ngadiluwih</h2>
-    <div class="panel-inner">
-      <p><strong>Didirikan:</strong> Awal mula sekolah ini bermula dari ... (contoh ilustrasi) —  
-      Pada dekade lalu, SMAN 1 Ngadiluwih berkembang dari sekolah menengah biasa menjadi sekolah unggulan di Kabupaten Kediri berkat dedikasi guru, dukungan warga, dan prestasi siswa di bidang akademik serta seni.</p>
-      <p><strong>Misi:</strong> Mencetak generasi berkarakter, berprestasi, dan berbudaya.</p>
-      <details>
-        <summary>Sejarah detail (klik untuk baca lebih)</summary>
-        <ol>
-          <li>Awal mula: berdiri sebagai sekolah negeri tingkat menengah atas tahun X.</li>
-          <li>Perkembangan: peningkatan fasilitas laboratorium, program ekstrakurikuler, dan prestasi lomba di tingkat daerah.</li>
-          <li>Kini: menjadi pusat kegiatan lokal dan rutin menyelenggarakan Dies Natalis yang meriah.</li>
-        </ol>
-      </details>
-    </div>
-  </section>
+    <!-- NAVBAR INTERAKTIF -->
+    <nav class="navbar">
+        <ul>
+            <li data-target="home">🏫 Beranda</li>
+            <li data-target="info">📖 Info Sekolah</li>
+            <li data-target="ajeng">💃 Ajeng Febria</li>
+            <li data-target="dj">🎧 DJ Lancar</li>
+        </ul>
+    </nav>
 
-  <!-- ARTISTS -->
-  <section id="artists" class="panel">
-    <h2>🎤 Bintang Tamu</h2>
-    <div class="artists-grid">
-      <article class="artist">
-        <img src="images/ajeng-placeholder.jpg" alt="Ajeng Febria">
-        <h3>Ajeng Febria</h3>
-        <p>Penyanyi muda berbakat, hits: "Pelangi di Matamu 2.0". Akan tampil dengan medley spesial untuk Dies Natalis.</p>
-        <button onclick="openModal('Ajeng Febria', 'Penyanyi muda berbakat...')">Lihat Profil</button>
-      </article>
+    <!-- HALAMAN UTAMA -->
+    <main id="content" class="hidden">
+        <!-- SECTION: HOME -->
+        <section id="home" class="section active">
+            <header>
+                <h1>🎉 Dies Natalis SMAN 1 Ngadiluwih 🎓</h1>
+                <p>Semangat Muda, Kreatif, dan Menginspirasi!</p>
+            </header>
+        </section>
 
-      <article class="artist">
-        <img src="images/dj-placeholder.jpg" alt="DJ Lancar">
-        <h3>DJ Lancar</h3>
-        <p>DJ enerjik dengan beat khas "Ngadiluwih Beat Party" — penutup acara yang energik dan keren.</p>
-        <button onclick="openModal('DJ Lancar', 'DJ enerjik...')">Lihat Profil</button>
-      </article>
-    </div>
-  </section>
+        <!-- SECTION: INFO SEKOLAH -->
+        <section id="info" class="section">
+            <h2>🏫 Tentang SMAN 1 Ngadiluwih</h2>
+            <p>
+                SMA Negeri 1 Ngadiluwih merupakan sekolah unggulan di Kabupaten Kediri, berdiri sejak tahun 1984.
+                Sekolah ini berkomitmen melahirkan generasi cerdas, berkarakter, dan siap bersaing di dunia global.
+            </p>
 
-  <!-- SERVICES -->
-  <section id="services" class="panel">
-    <h2>✨ Layanan Pengunjung</h2>
-    <div class="service-grid">
-      <div class="service">🎟️ Pembelian tiket online</div>
-      <div class="service">📸 Photobooth & spot selfie</div>
-      <div class="service">🍔 Zona kuliner</div>
-      <div class="service">🚌 Shuttle & info lokasi</div>
-      <div class="service">💬 Chat AI & bantuan soal</div>
-    </div>
-  </section>
+            <h3>Sejarah Singkat</h3>
+            <p>
+                Didirikan dengan semangat membangun pendidikan di wilayah selatan Kediri, SMAN 1 Ngadiluwih terus berkembang
+                menjadi sekolah dengan fasilitas lengkap, kegiatan akademik dan non-akademik yang berprestasi.
+            </p>
+        </section>
 
-  <!-- CHAT AI -->
-  <section id="chat" class="panel chat-panel">
-    <h2>🧠 AI Sekolah — Tanya apa saja (termasuk soal)</h2>
-    <div class="chatbox">
-      <div id="chatOutput" class="chat-output" aria-live="polite"></div>
-      <div class="chat-controls">
-        <input id="chatInput" type="text" placeholder="Contoh: 'Siapa Ajeng Febria?' atau '12*8' atau 'Jelaskan sejarah sekolah'">
-        <button id="sendBtn">Kirim</button>
-      </div>
-      <p class="hint">AI dapat menjawab info tentang sekolah, artis, jadwal, & mengerjakan operasi matematika sederhana.</p>
-    </div>
-  </section>
+        <!-- SECTION: AJENG FEBRIA -->
+        <section id="ajeng" class="section">
+            <h2>💃 Tentang Ajeng Febria</h2>
+            <p>
+                Ajeng Febria adalah siswi inspiratif dari SMAN 1 Ngadiluwih yang dikenal karena prestasinya di bidang seni dan organisasi.
+                Klik tombol di bawah ini untuk mengenal lebih jauh tentang profil dan karyanya.
+            </p>
+            <button class="tap-btn" onclick="openInfo('Ajeng Febria')">Tap Info Ajeng Febria</button>
+        </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="panel">
-    <h2>📞 Kontak Panitia</h2>
-    <p>Email: diesnatalis@sman1ngadiluwih.sch.id • WA: 0812-3456-7890</p>
-  </section>
+        <!-- SECTION: DJ LANCAR -->
+        <section id="dj" class="section">
+            <h2>🎧 Tentang DJ Lancar</h2>
+            <p>
+                DJ Lancar adalah figur hiburan ikonik dalam acara Dies Natalis SMAN 1 Ngadiluwih, menghadirkan musik semangat dan vibes yang luar biasa!
+            </p>
+            <button class="tap-btn" onclick="openInfo('DJ Lancar')">Tap Info DJ Lancar</button>
+        </section>
 
-  <!-- MODAL -->
-  <div id="modal" class="modal hidden">
-    <div class="modal-body">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      <h3 id="modal-title"></h3>
-      <p id="modal-text"></p>
-    </div>
-  </div>
+        <!-- FOOTER -->
+        <footer>
+            <p>&copy; 2025 SMAN 1 Ngadiluwih | Dies Natalis</p>
+        </footer>
+    </main>
 
-  <!-- AUDIO -->
-  <audio id="bgAudio" loop>
-    <source src="audio/ajeng-febria.mp3" type="audio/mpeg">
-    <source src="https://cdn.pixabay.com/audio/2023/03/16/audio_65a60e0b75.mp3" type="audio/mpeg">
-  </audio>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
