@@ -1,322 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dies Natalis • SMAN 1 Ngadiluwih (Premium)</title>
-
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Meta for mobile -->
-  <meta name="theme-color" content="#001a0f">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dies Natalis SMAN 1 Ngadiluwih</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-
-  <!-- LOADING / HERO OVERLAY -->
-  <div id="loading-screen" class="loading-screen" aria-hidden="false">
-    <div class="loading-inner">
-      <div class="logo">
-        <div class="logo-badge">SMAN1</div>
-        <div class="logo-text">
-          <div class="school">Dies Natalis • SMAN 1 Ngadiluwih</div>
-          <div class="tag">Generasi Emas — Melangkah ke Masa Depan</div>
-        </div>
-      </div>
-
-      <div class="progress-wrap">
-        <svg viewBox="0 0 36 36" class="progress-svg">
-          <path class="bg" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831"></path>
-          <path class="bar" id="barPath" d="M18 2.0845a15.9155 15.9155 0 1 1 0 31.831"></path>
-        </svg>
-        <div id="progressNum" class="progress-num">0%</div>
-      </div>
-
-      <div id="loader-sub" class="loader-sub">Memuat aset & efek…</div>
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen">
+    <div class="loader">
+      <span id="loading-text">0%</span>
+      <div class="loading-bar"><div class="fill"></div></div>
     </div>
-    <div id="confetti-root" class="confetti-root" aria-hidden="true"></div>
   </div>
 
-  <!-- BACKGROUND LAYER (photo + particles) -->
-  <div id="bgPhoto" class="bg-photo"></div>
-  <canvas id="particles" class="particles"></canvas>
-
-  <!-- APP -->
-  <div id="app" class="app" aria-hidden="true">
-    <header class="site-header">
-      <div class="brand">
-        <div class="badge">SMAN 1</div>
-        <div>
-          <div class="name">SMAN 1 Ngadiluwih</div>
-          <div class="subtitle">Dies Natalis • Premium Experience</div>
-        </div>
-      </div>
-
-      <nav class="main-nav">
-        <button class="nav-btn active" data-page="home">Beranda</button>
-        <button class="nav-btn" data-page="info">Informasi</button>
-        <button class="nav-btn" data-page="sejarah">Sejarah</button>
-        <button class="nav-btn" data-page="denah">Denah 3D</button>
-        <button class="nav-btn" data-page="ajeng">Ajeng Febria</button>
-        <button class="nav-btn" data-page="dj">DJ Lancar</button>
-        <button class="nav-btn" data-page="musik">Musik</button>
-      </nav>
-
-      <div class="header-actions">
-        <div class="mini-player" id="miniPlayer">
-          <button id="miniPlay" title="Play/Pause">▶</button>
-          <div class="mini-meta">
-            <div id="miniTitle">DJ Lancar — Semangat Dies</div>
-            <div id="miniArtist">SMAN1 • Exclusive</div>
-          </div>
-        </div>
-        <button id="themeToggle" class="theme-toggle" title="Ganti warna tema">🎨</button>
-      </div>
+  <!-- MAIN CONTENT -->
+  <div id="main-content" class="hidden">
+    <header>
+      <h1>Dies Natalis SMAN 1 Ngadiluwih</h1>
+      <p>Generasi Emas, Melangkah ke Masa Depan Cemerlang</p>
     </header>
 
-    <main class="main">
-      <!-- HOME (Beranda) -->
-      <section id="home" class="page active">
-        <div class="hero">
-          <h1 class="hero-title">Merayakan Semangat, Prestasi, dan Kreativitas</h1>
-          <p class="hero-sub">Dies Natalis SMAN 1 Ngadiluwih • <span id="diesYear">ke-43</span></p>
+    <section id="info">
+      <h2>Tentang SMAN 1 Ngadiluwih</h2>
+      <p>SMAN 1 Ngadiluwih berdiri pada tahun 1982 dan menjadi salah satu SMA unggulan di Kabupaten Kediri.
+      Sekolah ini memiliki visi “Berkarakter, Berprestasi, dan Berwawasan Lingkungan”. 
+      Dengan berbagai fasilitas modern seperti laboratorium komputer, perpustakaan digital, lapangan futsal, dan studio seni, 
+      SMAN 1 Ngadiluwih terus berkomitmen mencetak generasi berprestasi.</p>
+    </section>
 
-          <div class="hero-cta">
-            <button class="btn primary" data-scroll="info">Jelajahi Sekolah</button>
-            <button class="btn outline" data-scroll="sejarah">Lihat Sejarah</button>
-          </div>
+    <section id="denah">
+      <h2>Denah Lokasi 3D SMAN 1 Ngadiluwih</h2>
+      <div id="map3D"></div>
+      <p><strong>Alamat:</strong> Jl. Ngadiluwih–Wlingi No.1, Ngadiluwih, Kediri, Jawa Timur</p>
+    </section>
 
-          <div class="events-strip">
-            <div class="event">
-              <div class="event-date">15 Nov 2025</div>
-              <div class="event-title">Upacara Pembukaan & Parade</div>
-            </div>
-            <div class="event">
-              <div class="event-date">16 Nov 2025</div>
-              <div class="event-title">Bazar Kreatif & Pameran</div>
-            </div>
-            <div class="event">
-              <div class="event-date">17 Nov 2025</div>
-              <div class="event-title">Malam Puncak: Ajeng Febria & DJ Lancar</div>
-            </div>
-          </div>
+    <section id="dies">
+      <h2>Perayaan Dies Natalis 2025</h2>
+      <p>Dies Natalis SMAN 1 Ngadiluwih tahun ini dimeriahkan dengan berbagai kegiatan seperti lomba antar kelas,
+      pameran kreativitas, dan pertunjukan musik dari Ajeng Febria serta DJ Lancar.</p>
+      <button id="musicPageBtn">🎶 Dengarkan Musik Dies Natalis</button>
+    </section>
 
-          <div class="countdown" id="countdown">
-            <div><span id="cd-days">00</span><small>Hari</small></div>
-            <div><span id="cd-hours">00</span><small>Jam</small></div>
-            <div><span id="cd-min">00</span><small>Menit</small></div>
-            <div><span id="cd-sec">00</span><small>Detik</small></div>
-          </div>
-        </div>
-
-        <div class="home-panels">
-          <!-- quick cards with interactive micro-animations -->
-          <article class="panel" data-page="info">
-            <h3>Profil Sekolah</h3>
-            <p>Teknologi, seni, dan lingkungan hijau — SMAN 1 Ngadiluwih berkembang menjadi pusat inovasi pembelajaran.</p>
-            <small>Fasilitas: Smart Class • Lab Sains • Studio Musik • Lapangan Serbaguna</small>
-          </article>
-
-          <article class="panel" data-page="ajeng">
-            <h3>Ajeng Febria</h3>
-            <p>Talenta tari & vokal yang memimpin panggung seni sekolah. Tap untuk profil lengkap & galeri.</p>
-          </article>
-
-          <article class="panel" data-page="dj">
-            <h3>DJ Lancar</h3>
-            <p>Beatmaker lokal & penghibur acara — siap memeriahkan malam puncak.</p>
-          </article>
-
-          <article class="panel" data-page="musik">
-            <h3>Music Hub</h3>
-            <p>Player ala Spotify mini: playlist kurasi, visualizer, dan play-on-demand antarhalaman.</p>
-          </article>
-        </div>
-      </section>
-
-      <!-- INFO -->
-      <section id="info" class="page">
-        <div class="panel-large">
-          <h2>Informasi SMAN 1 Ngadiluwih</h2>
-          <div class="info-grid">
-            <div class="info-block">
-              <h4>Alamat & Lokasi</h4>
-              <p>Jl. Sekolah No.1, Ngadiluwih, Kabupaten Kediri, Jawa Timur — Koordinat: -7.XXXX, 111.XXXX</p>
-              <button class="btn small" id="openMap">Buka di Maps</button>
-            </div>
-
-            <div class="info-block">
-              <h4>Kepala Sekolah</h4>
-              <p><strong>Drs. H. Sugiarto, M.Pd</strong> — Visi: Mencetak insan berintegritas & berdaya saing digital.</p>
-            </div>
-
-            <div class="info-block">
-              <h4>Prestasi Terpilih</h4>
-              <ul>
-                <li>Juara Lomba Fisika Tingkat Provinsi (2023)</li>
-                <li>Pemenang Festival Tari Regional (2022)</li>
-                <li>Innovative Coding Club — 10 startup pelajar 2024</li>
-              </ul>
-            </div>
-
-            <div class="info-block">
-              <h4>Fasilitas Unggulan</h4>
-              <ul>
-                <li>Laboratorium Sains Modern</li>
-                <li>Smart Classroom & WiFi Zona</li>
-                <li>Studio Musik & Ruang Karya</li>
-                <li>Taman edukasi & kebun eksperimen</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="gallery-cta">
-            <button class="btn outline" id="openGallery">Lihat Galeri Sekolah</button>
-            <small class="muted">Foto di background berasal dari koleksi (ganti dengan foto resmi sekolah jika ada).</small>
-          </div>
-        </div>
-      </section>
-
-      <!-- SEJARAH -->
-      <section id="sejarah" class="page">
-        <div class="panel-large">
-          <h2>Sejarah Singkat</h2>
-          <div class="timeline">
-            <div class="t-item"><div class="t-year">1982</div><div class="t-body">Pendirian sekolah — dasar pembangunan gedung awal.</div></div>
-            <div class="t-item"><div class="t-year">1997</div><div class="t-body">Penambahan laboratorium & perluasan bangunan.</div></div>
-            <div class="t-item"><div class="t-year">2014</div><div class="t-body">Digitalisasi administrasi & program pembelajaran berbasis IT.</div></div>
-            <div class="t-item"><div class="t-year">2023</div><div class="t-body">Revitalisasi fasilitas, launching studio musik & inkubator kreativitas.</div></div>
-          </div>
-
-          <blockquote class="quote">"Dies Natalis adalah momen refleksi dan peneguhan komitmen pendidikan." — Drs. H. Sugiarto, M.Pd</blockquote>
-        </div>
-      </section>
-
-      <!-- DENAH 3D (CSS Simple) -->
-      <section id="denah" class="page">
-        <div class="panel-large">
-          <h2>Denah 3D (Model Sederhana)</h2>
-          <div class="denah-wrap">
-            <div class="denah-ground">
-              <div class="b main">Gedung Utama</div>
-              <div class="b lab">Laboratorium</div>
-              <div class="b field">Lapangan Serbaguna</div>
-              <div class="b gate">Pintu Utama</div>
-            </div>
-          </div>
-          <p class="muted">Model sederhana: untuk versi interaktif penuh dapat dikonversi ke Three.js/GlTF.</p>
-        </div>
-      </section>
-
-      <!-- AJENG -->
-      <section id="ajeng" class="page">
-        <div class="panel-large artist-page">
-          <div class="artist-left">
-            <img id="ajengPhoto" src="ajeng.jpg" alt="Ajeng Febria (foto contoh)" />
-            <div class="artist-meta">
-              <h3>Ajeng Febria</h3>
-              <p class="role">Penari • Vokalis • Aktivis Seni</p>
-              <div class="artist-actions">
-                <button class="btn" data-action="openProfile" data-person="ajeng">Buka Aplikasi Ajeng</button>
-                <button class="btn outline" data-action="gallery" data-person="ajeng">Galeri Pertunjukan</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="artist-right">
-            <h4>Ringkasan Profil</h4>
-            <p>Ajeng Febria adalah ikon seni di SMAN 1 Ngadiluwih. Aktif memimpin ekstrakurikuler tari & vokal, membina kelompok kreasi, serta sering tampil pada event regional.</p>
-
-            <h4>Prestasi</h4>
-            <ul>
-              <li>Juara I Tari Antar Sekolah 2022</li>
-              <li>Pemenang Lomba Vokal SMA Tingkat Kabupaten 2023</li>
-            </ul>
-
-            <h4>Story (Inovasi)</h4>
-            <p>Ajeng memimpin program "Seni untuk Kesejahteraan" — workshop tari & seni pertunjukan untuk komunitas lokal, memakai pendekatan digital untuk dokumentasi & promosi.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- DJ -->
-      <section id="dj" class="page">
-        <div class="panel-large artist-page">
-          <div class="artist-left">
-            <img id="djPhoto" src="djlancar.jpg" alt="DJ Lancar (foto contoh)" />
-            <div class="artist-meta">
-              <h3>DJ Lancar</h3>
-              <p class="role">Beatmaker • Live DJ • Kurator Acara</p>
-              <div class="artist-actions">
-                <button class="btn" data-action="openProfile" data-person="dj">Buka Aplikasi DJ</button>
-                <button class="btn outline" data-action="play" data-person="dj">Putar Sample</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="artist-right">
-            <h4>Ringkasan</h4>
-            <p>DJ Lancar menggabungkan unsur musik tradisi dan elektronik sehingga menciptakan suasana yang akrab namun energik di setiap acara sekolah.</p>
-
-            <h4>Playlist & Event</h4>
-            <ol>
-              <li>Opening Mix — Energi Pagi</li>
-              <li>Party Set — Malam Puncak</li>
-              <li>Chill Close — Penutup</li>
-            </ol>
-          </div>
-        </div>
-        <audio id="djSample" src="sample-dj-loop.mp3" preload="none"></audio>
-      </section>
-
-      <!-- MUSIK (Spotify-like mini) -->
-      <section id="musik" class="page">
-        <div class="panel-large music-page">
-          <div class="player-left">
-            <img id="cover" src="cover-placeholder.jpg" alt="cover" />
-            <div class="player-controls">
-              <button id="prevBtn" class="ctrl">⟨</button>
-              <button id="playBtn" class="ctrl">▶</button>
-              <button id="nextBtn" class="ctrl">⟩</button>
-              <input id="seek" type="range" min="0" max="100" value="0" />
-              <div class="time"><span id="curTime">0:00</span> / <span id="durTime">0:00</span></div>
-            </div>
-          </div>
-
-          <div class="player-right">
-            <h3 id="trackTitle">DJ Lancar — Semangat Dies</h3>
-            <p id="trackArtist">SMAN1 Exclusive</p>
-
-            <div class="playlist" id="playlist">
-              <!-- playlist items injected by JS -->
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <footer class="site-footer">
-      <div>© <span id="year"></span> SMAN 1 Ngadiluwih — Dies Natalis</div>
-      <div class="footer-right">
-        <button id="openGalleryFooter" class="btn small">Galeri</button>
-      </div>
+    <footer>
+      <p>© 2025 SMAN 1 Ngadiluwih | Website by Bro Deril 😎</p>
     </footer>
   </div>
 
-  <!-- MODAL -->
-  <div id="modal" class="modal" aria-hidden="true">
-    <div class="modal-card">
-      <button id="modalClose" class="modal-close">×</button>
-      <div id="modalInner"></div>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script src="music.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
