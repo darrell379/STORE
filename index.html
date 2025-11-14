@@ -6,6 +6,7 @@
   <title>Dies Natalis — SMAN 1 Ngadiluwih (Futuristik Elegan — Panel)</title>
   <link rel="stylesheet" href="style.css">
 </head>
+  <script type="module" src="js/denah3d.js"></script>
 <body>
   <!-- Particle background -->
   <canvas id="particleCanvas" class="bg-canvas" aria-hidden="true"></canvas>
@@ -149,9 +150,26 @@
   <div class="photo3d-wrap">
     <canvas id="mapPhotoCanvas"></canvas>
     <!-- optional overlay for captions -->
-    <div id="map3d" class="map3d" aria-label="Denah 3D SMAN 1 Ngadiluwih">
-  <img id="denahImage" src="denah_photo.png" alt="Denah SMAN 1 Ngadiluwih" style="width:100%;height:auto;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
-</div>
+   <section id="denah3d" style="margin-top:80px;">
+  <h2 class="judul">Denah 3D Interaktif</h2>
+
+  <div id="denah3d-container"
+       style="
+       width:100%;
+       height:350px;
+       border-radius:12px;
+       overflow:hidden;
+       position:relative;
+       background:#0d0d0d;
+       border:1px solid rgba(255,255,255,0.1);
+       ">
+  </div>
+
+  <p style="text-align:center;margin-top:6px;color:#00ffbf;">
+    Klik & drag untuk memutar • Scroll untuk zoom
+  </p>
+</section>
+
 
 
 
