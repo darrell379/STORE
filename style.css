@@ -101,3 +101,10 @@ h1{font-size:38px;margin:6px 0;color:var(--accent-2)}
   .site-header{left:8px;right:8px;top:8px}
   .main-nav{display:none}
 }
+.photo3d-wrap { position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+#mapPhotoCanvas { display:block; width:100%; height:100%; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,0.6); transform-style:preserve-3d; cursor:grab; }
+#mapPhotoCanvas:active { cursor:grabbing; }
+.map-photo-caption { position:absolute; left:12px; bottom:12px; padding:8px 10px; border-radius:8px; background:rgba(0,0,0,0.45); color:var(--accent-2); font-weight:700; font-size:13px; pointer-events:none; }
+
+/* ensure map container min size */
+.map3d { min-width:320px; min-height:240px; }
