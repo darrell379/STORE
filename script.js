@@ -276,3 +276,18 @@ window.addEventListener('keydown', (e)=> {
 });
 
 /* End of script.js */
+/* ============================= */
+/*        DENAH POPUP JS         */
+/* ============================= */
+
+function openDenah() {
+    const popup = document.getElementById("denahPopup");
+    const img = document.getElementById("popupImg");
+    img.src = "assets/denah_foto3d.png";
+    popup.style.display = "block";
+}
+
+function closeDenah() {
+    document.getElementById("denahPopup").style.display = "none";
+}
+
