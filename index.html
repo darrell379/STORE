@@ -144,24 +144,25 @@
       </section>
 
       <!-- DENAH panel -->
-      <section id="panel-denah" class="panel" data-name="denah" role="region" aria-label="Denah 3D">
-        <div class="panel-inner">
-          <h2>Denah 3D Interaktif</h2>
-          <div class="denah-wrap">
-            <div id="map3d" class="map3d" tabindex="0" aria-label="Denah 3D SMAN 1 Ngadiluwih">
-              <div class="building main">Gedung Utama</div>
-              <div class="building lab">Laboratorium</div>
-              <div class="building lib">Perpustakaan</div>
-              <div class="field">Lapangan</div>
-            </div>
-            <div class="map-controls">
-              <label><input type="checkbox" id="tiltToggle" checked> Mode 3D</label>
-              <button class="glass-btn" id="resetView">Reset View</button>
-              <p class="map-instr">Klik & drag denah untuk memutar; gunakan tombol reset untuk mengembalikan.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section id="denah" class="section">
+    <h2 class="section-title">Denah 3D SMAN 1 Ngadiluwih</h2>
+
+    <div class="denah-container">
+        <img src="assets/denah_foto3d.png" 
+             alt="Denah SMAN 1 Ngadiluwih" 
+             class="denah-img" 
+             onclick="openDenah()">
+
+        <p class="denah-caption">Klik untuk memperbesar denah</p>
+    </div>
+
+    <!-- Popup -->
+    <div id="denahPopup" class="popup">
+        <span class="close" onclick="closeDenah()">&times;</span>
+        <img class="popup-content" id="popupImg">
+    </div>
+</section>
+
 
       <!-- PRESTASI panel -->
       <section id="panel-prestasi" class="panel" data-name="prestasi" role="region" aria-label="Prestasi">
