@@ -101,3 +101,7 @@ h1{font-size:38px;margin:6px 0;color:var(--accent-2)}
   .site-header{left:8px;right:8px;top:8px}
   .main-nav{display:none}
 }
+/* debug & ensure map visibility */
+#map3d { min-width: 320px !important; min-height: 240px !important; z-index: 6; display:block; }
+.denah-tooltip { pointer-events:none; }
+#denah-debug { display:block; }
