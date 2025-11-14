@@ -1,5 +1,9 @@
-/* script.js — lengkap (loader, particles, panels, modal, confetti, denah foto3D interaktif) */
-/* PASTIKAN: index.html punya elemen #loader (#loaderPercent, #loaderBar), #app, #map3d, dan <template id="modal-template"> */
+// merged_denah_script.js
+// Gabungan: script.js (loader, particles, panels, modal, confetti, denah foto3D) + Denah 3D Three.js
+// Pastikan file ini di-<script type="module" src="merged_denah_script.js"></script>
+
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js";
 
 /* ---------------- Helpers ---------------- */
 const $ = (s, ctx=document) => ctx.querySelector(s);
@@ -173,7 +177,6 @@ async function loadDenah(){
         const j = await r.json();
         const rooms = Array.isArray(j.rooms) ? j.rooms : (Array.isArray(j) ? j : (Array.isArray(j) ? j : null));
         if(rooms && rooms.length){ dbgSet(`denah_parsed.json dimuat (${rooms.length} ruangan)`); return rooms; }
-        // in case file itself is array
         if(Array.isArray(j) && j.length){ dbgSet(`denah_parsed.json (array) dimuat (${j.length})`); return j; }
       } else dbgSet(`Gagal fetch ${p} (status ${r.status})`);
     }catch(e){ dbgSet('Fetch error: ' + (e.message||e)); console.warn('fetch denah error', e); }
@@ -245,17 +248,21 @@ async function initMap3D(){
     try { rooms = await loadDenah(); } catch(e){ rooms = denahRoomsEmbedded; dbgSet('loadDenah error — pakai embedded'); }
     if(!rooms || !rooms.length) rooms = denahRoomsEmbedded;
 
-    // ensure canvas exists
+    // prepare wrapper
+    const wrap = container.querySelector('.photo3d-wrap') || (function(){ const w = document.createElement('div'); w.className='photo3d-wrap'; container.appendChild(w); return w; })();
+
+    // ensure canvas exists for photo3D
     let canvas = document.getElementById('mapPhotoCanvas');
     if(!canvas){
-      // create wrapper only if not already present
-      const wrap = container.querySelector('.photo3d-wrap') || (function(){ const w = document.createElement('div'); w.className='photo3d-wrap'; container.appendChild(w); return w; })();
       canvas = document.createElement('canvas'); canvas.id = 'mapPhotoCanvas'; wrap.appendChild(canvas);
-      // caption optional
       if(!$('#mapPhotoCaption')){ const c = document.createElement('div'); c.id='mapPhotoCaption'; c.className='map-photo-caption'; c.textContent='Denah 3D (klik & drag untuk tilt, scroll untuk zoom)'; wrap.appendChild(c); }
     }
 
-    // resize & DPR-aware draw
+    // create 3D container for Three.js (denah3d)
+    let denah3dContainer = document.getElementById('denah3d-container');
+    if(!denah3dContainer){ denah3dContainer = document.createElement('div'); denah3dContainer.id = 'denah3d-container'; denah3dContainer.style.cssText = 'width:100%;height:360px;margin-top:12px;border-radius:12px;overflow:hidden;background:#060d08'; wrap.appendChild(denah3dContainer); }
+
+    // resize & DPR-aware draw for photo canvas
     function resizeCanvas(){
       const rect = canvas.getBoundingClientRect();
       const DPR = window.devicePixelRatio || 1;
@@ -264,11 +271,17 @@ async function initMap3D(){
       canvas.style.width = rect.width + 'px';
       canvas.style.height = rect.height + 'px';
       drawMapPhoto(canvas, rooms);
+      // also update 3D renderer size
+      if(denah3d && denah3d.renderer){
+        denah3d.renderer.setSize(denah3dContainer.clientWidth, denah3dContainer.clientHeight);
+        denah3d.camera.aspect = denah3dContainer.clientWidth / denah3dContainer.clientHeight;
+        denah3d.camera.updateProjectionMatrix();
+      }
     }
     window.addEventListener('resize', debounce(()=> resizeCanvas(), 120));
     resizeCanvas();
 
-    // interactions: drag tilt, wheel zoom, dblclick reset
+    // interactions: drag tilt, wheel zoom, dblclick reset (for photo canvas)
     let down=false, lastX=0, lastY=0, rotX=8, rotY=-12, scale=1;
     function applyCssTransform(){ canvas.style.transform = `perspective(1200px) translateZ(0px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`; }
     canvas.style.transformOrigin = '50% 50%';
@@ -291,6 +304,66 @@ async function initMap3D(){
     let badge = document.getElementById(badgeId);
     if(!badge){ badge = document.createElement('div'); badge.id = badgeId; badge.style.cssText = 'position:fixed;left:18px;bottom:18px;padding:8px 10px;border-radius:8px;background:rgba(2,8,4,0.6);color:#bfffe0;z-index:99999;font-weight:700'; document.body.appendChild(badge); }
     badge.textContent = `Denah (foto3D) — ${rooms.length} ruangan`;
+
+    /* --------- INIT Three.js denah (photo3D -> mesh placeholder) --------- */
+    // create 3D scene with simple box as example — can replace with GLTF or photo-mapped planes later
+    let denah3d = null;
+    (function initThree(){
+      try{
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x060d08);
+
+        const camera = new THREE.PerspectiveCamera(55, denah3dContainer.clientWidth / denah3dContainer.clientHeight, 0.1, 1000);
+        camera.position.set(0, 40, 60);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha:true });
+        renderer.setSize(denah3dContainer.clientWidth, denah3dContainer.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        denah3dContainer.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; controls.dampingFactor = 0.08; controls.rotateSpeed = 0.4; controls.zoomSpeed = 1.0;
+
+        // grid (floor)
+        const grid = new THREE.GridHelper(80, 20, 0x00ffbf, 0x00332e);
+        grid.position.y = 0;
+        scene.add(grid);
+
+        // placeholder building mesh (use photo material or GLTF in future)
+        const material = new THREE.MeshStandardMaterial({ color: 0x1affb2, roughness:0.6, metalness:0.05 });
+        const ruang = new THREE.Mesh(new THREE.BoxGeometry(12, 6, 8), material);
+        ruang.position.set(0, 3, 0);
+        scene.add(ruang);
+
+        // lights
+        const light1 = new THREE.DirectionalLight(0xffffff, 1.2);
+        light1.position.set(50, 80, 50);
+        scene.add(light1);
+        const light2 = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(light2);
+
+        // handle resize
+        window.addEventListener('resize', ()=>{
+          renderer.setSize(denah3dContainer.clientWidth, denah3dContainer.clientHeight);
+          camera.aspect = denah3dContainer.clientWidth / denah3dContainer.clientHeight;
+          camera.updateProjectionMatrix();
+        });
+
+        // animate
+        let rafId = null;
+        function animate(){
+          rafId = requestAnimationFrame(animate);
+          controls.update();
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        // expose for resizing from outer scope
+        denah3d = { scene, camera, renderer, controls, dispose: ()=>{ cancelAnimationFrame(rafId); renderer.domElement && renderer.domElement.parentElement && renderer.domElement.parentElement.removeChild(renderer.domElement); }};
+        dbgSet('Denah 3D (Three.js) siap');
+      }catch(e){ console.error('initThree error', e); dbgSet('initThree gagal'); }
+    })();
+
   }catch(e){ console.error('initMap3D', e); dbgSet('initMap3D error'); }
 }
 
@@ -391,12 +464,10 @@ function initConfetti(){
 /* close modals with ESC */
 window.addEventListener('keydown', (e)=> { if(e.key === 'Escape') document.querySelectorAll('.modal-backdrop').forEach(b => b.parentElement && b.parentElement.removeChild(b)); });
 
-/* ----------------- End of script.js ----------------- */
+/* ----------------- End of merged_denah_script.js ----------------- */
 
 /* USAGE:
-  - Ganti file script.js di website dengan kode ini.
-  - Pastikan index.html punya: #loader (#loaderPercent,#loaderBar), #app, #map3d.
+  - Pasang <script type="module" src="merged_denah_script.js"></script> di index.html.
+  - Pastikan index.html punya: #loader (#loaderPercent,#loaderBar), #app, #map3d, <template id="modal-template">, #particleCanvas, dan tombol dengan id #celebrateBtn jika ingin confetti.
   - (Opsional) Upload denah_parsed.json ke root repo untuk memuat langsung dari file.
-  - Setelah ganti: refresh page, buka panel "Denah" — foto denah 3D interaktif akan tampil.
 */
-
