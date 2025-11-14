@@ -100,4 +100,25 @@ h1{font-size:38px;margin:6px 0;color:var(--accent-2)}
   .panel{padding-top:90px}
   .site-header{left:8px;right:8px;top:8px}
   .main-nav{display:none}
+/* ===== Denah 3D styles (tambahan) ===== */
+.denah-wrap { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+.map3d { width: 720px; height: 480px; background: linear-gradient(180deg,#042a18,#01120a); border-radius:14px; position:relative; transform-style:preserve-3d; perspective:1200px; padding:18px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); overflow:hidden; }
+.map3d-inner { position:absolute; inset:10px; transform-style:preserve-3d; transition: transform 300ms cubic-bezier(.2,.9,.2,1); }
+.denah-room { position:absolute; display:flex; align-items:center; justify-content:center; text-align:center; font-weight:700; font-size:12px;
+  border-radius:8px; padding:6px; box-sizing:border-box;
+  background: linear-gradient(180deg, rgba(110,255,170,0.12), rgba(2,20,12,0.18));
+  border: 1px solid rgba(103,255,155,0.08); color: #eaffef; cursor:pointer; transition: transform .15s ease, box-shadow .15s ease; }
+.denah-room:hover { transform: translateZ(12px) scale(1.02); box-shadow: 0 18px 40px rgba(8,40,20,0.55); }
+.denah-tooltip { position: absolute; pointer-events:none; background: rgba(3,20,12,0.96); color: var(--accent-2); padding:8px 10px; border-radius:8px; font-size:13px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 10px 30px rgba(0,0,0,0.5); z-index:99999; transform: translate(-50%, -120%); white-space:nowrap; }
+
+/* map controls */
+.map-controls { display:flex; flex-direction:column; gap:8px; min-width:200px; }
+.map-instr { color: rgba(191,238,210,0.7); font-size:13px; margin-top:8px; }
+
+/* responsive */
+@media (max-width:900px){
+  .map3d { width: 92vw; height: 60vh; }
+  .map-controls { width: 100%; }
+  .denah-wrap{flex-direction:column;}
 }
+
