@@ -1,221 +1,234 @@
-<!doctype html>
+# index.html
+
+```html
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dies Natalis — SMAN 1 Ngadiluwih (Futuristik Elegan)</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dies Natalis SMAN 1 Ngadiluwih</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Particle background -->
-  <canvas id="particleCanvas" class="bg-canvas" aria-hidden="true"></canvas>
-  <div class="grid-overlay" aria-hidden="true"></div>
-
-  <!-- Loading overlay (kehilangan = reveal content) -->
-  <div id="loader" class="loader-wrap" role="status" aria-live="polite">
-    <div class="loader-card" role="img" aria-label="Loading Dies Natalis">
-      <div class="loader-top">
-        <div class="loader-logo">SN1</div>
-        <div class="loader-title">DIES NATALIS • SMAN 1 NGADILUWIH</div>
-      </div>
-      <div class="percent" id="loaderPercent">0%</div>
-      <div class="progress"><div id="loaderBar" class="bar"></div></div>
-      <div class="loader-note">Memuat aset futuristik, data sekolah, dan efek interaktif...</div>
-      <div class="loader-hint">Tip: Klik logo untuk konfeti setelah muncul laman</div>
-    </div>
-  </div>
-
-  <!-- APP CONTENT -->
-  <div id="app" class="app" aria-hidden="true">
-    <header class="site-header">
-      <div class="brand">
-        <div class="logo-mini" id="headerLogo">SN1</div>
-        <div class="brand-text">
-          <div class="title">Dies Natalis</div>
-          <div class="subtitle">SMAN 1 Ngadiluwih</div>
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen">
+        <div class="loader-title">DIES NATALIS SMAN 1 NGADILUWIH</div>
+        <div class="loader-bar">
+            <div class="loader-progress" id="loader-progress"></div>
         </div>
-      </div>
-      <nav class="main-nav" aria-label="Main menu">
-        <a href="#home">Beranda</a>
-        <a href="#profil">Profil</a>
-        <a href="#sejarah">Sejarah</a>
-        <a href="#denah">Denah</a>
-        <a href="#prestasi">Prestasi</a>
-        <a href="#ajeng">Ajeng Febria</a>
-        <a href="#dj">DJ Lancar</a>
-      </nav>
-      <div class="header-actions">
-        <button id="celebrateBtn" class="accent-btn">Rayakan!</button>
-      </div>
+        <div class="loader-number" id="loader-number">0%</div>
+    </div>
+
+    <!-- BACKGROUND ANIMATION CANVAS -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- MAIN CONTENT -->
+    <header class="hero">
+        <h1 class="welcome">WELCOME TO DIES NATALIS SMAN 1 NGADILUWIH</h1>
+        <p class="sub">Futuristik • Elegan • Interaktif</p>
     </header>
 
-    <main>
-      <!-- HERO / Welcome -->
-      <section id="home" class="section hero visible">
-        <div class="hero-inner">
-          <div class="hero-left">
-            <div class="welcome-badge">WELCOME</div>
-            <h1 class="hero-title">Selamat Dies Natalis <span class="glow">SMAN 1 NGADILUWIH</span></h1>
-            <p class="hero-sub">Bersinergi — Berinovasi — Berprestasi. Terus maju, berakar pada nilai kebangsaan, membawa kreativitas ke panggung dunia.</p>
-            <div class="hero-cta">
-              <button class="glass-btn" data-target="profil">Tentang Sekolah</button>
-              <button class="glass-btn" data-target="ajeng">Tentang Ajeng</button>
-              <button class="glass-btn" data-target="dj">Tentang DJ</button>
-            </div>
+    <section class="content-section" id="info-sman">
+        <h2>Profil SMAN 1 Ngadiluwih</h2>
+        <p>SMAN 1 Ngadiluwih merupakan salah satu sekolah unggulan di Kabupaten Kediri yang berdiri sejak tahun 1984. Sekolah ini berada di Jl. Raya Ngadiluwih No. 75 dengan lingkungan yang asri, fasilitas lengkap, serta budaya akademik yang kuat.</p>
+        <p>Berbagai prestasi telah diraih SMAN 1 Ngadiluwih dalam bidang akademik, olahraga, seni, dan teknologi. Dengan visi menjadi sekolah berkarakter, berprestasi, dan berwawasan global, SMAN 1 Ngadiluwih terus berkembang mengikuti kebutuhan zaman.</p>
+        <p><b>Kepala Sekolah:</b> Drs. H. Sutrisno, M.Pd</p>
+    </section>
 
-            <div class="hero-features">
-              <div class="feat"><div class="num">1982</div><div class="lbl">Tahun Berdiri</div></div>
-              <div class="feat"><div class="num">Drs. H. Budi Santoso, M.Pd</div><div class="lbl">Kepala Sekolah</div></div>
-              <div class="feat"><div class="num">~3.000+</div><div class="lbl">Alumni</div></div>
-            </div>
-          </div>
+    <section class="content-section">
+        <h2>Sejarah Singkat SMAN 1 Ngadiluwih</h2>
+        <p>SMAN 1 Ngadiluwih awalnya dibangun sebagai sekolah negeri tingkat menengah atas untuk memenuhi kebutuhan pendidikan masyarakat Ngadiluwih dan sekitarnya. Dengan perkembangan jumlah siswa, sekolah ini mengalami beberapa renovasi besar hingga memiliki gedung modern yang kita kenal sekarang.</p>
+        <p>Pada tahun 2000-an, SMAN 1 Ngadiluwih mulai aktif dalam kompetisi nasional dan menjalin kerja sama dengan berbagai institusi pendidikan lain. Kini, sekolah ini menjadi salah satu ikon pendidikan di Kediri.</p>
+    </section>
 
-          <div class="hero-right">
-            <div class="greeting-card card-glow">
-              <div class="greet-title">Ucapan Sambutan Dies Natalis</div>
-              <div class="greet-text">
-                Dengan penuh rasa syukur, kami menyambut Dies Natalis SMAN 1 Ngadiluwih — momen kebersamaan untuk memamerkan bakat, ilmu, dan karya generasi muda. Terima kasih kepada seluruh warga sekolah dan masyarakat.
-              </div>
-              <div class="greet-from">— Kepala Sekolah & Panitia Dies</div>
-            </div>
-
-            <div class="social-row">
-              <a href="#" class="social" aria-label="Instagram">IG</a>
-              <a href="#" class="social" aria-label="YouTube">YT</a>
-              <a href="#" class="social" aria-label="Email">Mail</a>
-            </div>
-          </div>
+    <section class="content-section grid-2">
+        <div>
+            <h2>Ajeng Febria – Ikon Inspiratif SMAN 1 Ngadiluwih</h2>
+            <p>Ajeng Febria adalah salah satu siswi paling dikenal di SMAN 1 Ngadiluwih. Dengan prestasi akademik dan non-akademik yang sangat mencolok, Ajeng menjadi inspirasi bagi para siswa lainnya.</p>
+            <p>Ajeng aktif dalam berbagai kegiatan seperti OSIS, lomba kecantikan remaja, hingga modeling. Kini, Ajeng menjadi simbol semangat muda yang kreatif, percaya diri, dan berkarakter.</p>
         </div>
-      </section>
-
-      <!-- Profil -->
-      <section id="profil" class="section">
-        <h2>Profil Lengkap — SMAN 1 Ngadiluwih</h2>
-        <p class="lead">SMAN 1 Ngadiluwih adalah lembaga pendidikan menengah yang menanamkan nilai akademik sekaligus karakter — menjadi rujukan pendidikan di Kabupaten Kediri.</p>
-
-        <div class="info-grid">
-          <article class="card-info">
-            <h3>Sejarah & Latar</h3>
-            <p>Didirikan pada 1982, sekolah tumbuh dari komunitas kecil menjadi institusi komprehensif. Dengan pendekatan pembelajaran modern, sekolah menggabungkan kurikulum lokal dan teknologi.</p>
-          </article>
-
-          <article class="card-info">
-            <h3>Visi & Misi</h3>
-            <p><strong>Visi:</strong> Sekolah unggulan berprestasi dan berkarakter.<br><strong>Misi:</strong> Meningkatkan mutu belajar, karakter, inovasi, dan penguasaan teknologi.</p>
-          </article>
-
-          <article class="card-info">
-            <h3>Fasilitas</h3>
-            <ul>
-              <li>Laboratorium IPA & Komputer</li>
-              <li>Studio Musik & Ruang Multimedia</li>
-              <li>Perpustakaan Digital & Lapangan Serbaguna</li>
-            </ul>
-          </article>
-
-          <article class="card-info">
-            <h3>Lokasi & Kontak</h3>
-            <p>Jl. Raya Ngadiluwih No. 88, Ngadiluwih, Kediri, Jawa Timur. Tel: (0354) xxxx-xxxx • email: info@sman1ngadiluwih.sch.id</p>
-          </article>
+        <div>
+            <img src="ajeng.jpg" class="photo" alt="Ajeng Febria" />
         </div>
-      </section>
+    </section>
 
-      <!-- Sejarah -->
-      <section id="sejarah" class="section parallax">
-        <h2>Sejarah Perkembangan</h2>
-        <div class="parallax">
-          <p><strong>1982:</strong> Pendirian sebagai proyek pendidikan daerah.</p>
-          <p><strong>1995–2005:</strong> Perluasan gedung & fasilitas laboratorium.</p>
-          <p><strong>2006–sekarang:</strong> Transformasi digital, kelas coding, dan program kewirausahaan siswa.</p>
+    <section class="content-section grid-2">
+        <div>
+            <h2>DJ Lancar – Musik, Kreativitas, dan Energi Anak Muda</h2>
+            <p>DJ Lancar dikenal di lingkungan SMAN 1 Ngadiluwih sebagai pelajar berbakat dalam bidang musik elektronik. Gaya mixing yang khas dan kemampuan menghidupkan suasana membuatnya sering tampil di berbagai acara sekolah.</p>
+            <p>Dalam perayaan Dies Natalis, DJ Lancar selalu menjadi pusat perhatian karena musiknya yang energik dan penuh kreativitas.</p>
         </div>
-      </section>
-
-      <!-- Denah 3D -->
-      <section id="denah" class="section">
-        <h2>Denah Virtual 3D</h2>
-        <div class="map-wrap">
-          <div id="map3d" class="map3d" tabindex="0" aria-label="Denah 3D SMAN 1 Ngadiluwih">
-            <div class="building main">Gedung Utama</div>
-            <div class="building lab">Laboratorium</div>
-            <div class="building lib">Perpustakaan</div>
-            <div class="field">Lapangan</div>
-          </div>
-          <div class="map-controls">
-            <label><input type="checkbox" id="tiltToggle" checked> Mode 3D</label>
-            <button class="glass-btn" id="resetView">Reset View</button>
-          </div>
+        <div>
+            <img src="djlancar.jpg" class="photo" alt="DJ Lancar" />
         </div>
-      </section>
+    </section>
 
-      <!-- Prestasi -->
-      <section id="prestasi" class="section">
-        <h2>Prestasi & Program Unggulan</h2>
-        <div class="prestasi-grid">
-          <div class="card"><h4>Prestasi Akademik</h4><p>Juara Olimpiade Sains Provinsi; Tim KTI Berprestasi.</p></div>
-          <div class="card"><h4>Prestasi Seni & Olahraga</h4><p>Juara Tari Provinsi; Juara Basket Antar-Sekolah.</p></div>
-          <div class="card"><h4>Program</h4><p>Kelas coding, workshop kewirausahaan, literasi digital, supporting startup siswa.</p></div>
-        </div>
-      </section>
+    <section class="content-section">
+        <h2>Denah 3D SMAN 1 Ngadiluwih</h2>
+        <div class="map-3d">(Model 3D Placeholder)</div>
+    </section>
 
-      <!-- Ajeng Febria -->
-      <section id="ajeng" class="section dark">
-        <h2>Ajeng Febria — Profil & Kontribusi</h2>
-        <div class="profile-card">
-          <img src="https://via.placeholder.com/320x320?text=Ajeng+Febria" alt="Ajeng Febria">
-          <div class="profile-text">
-            <h3>Ajeng Febria</h3>
-            <p class="person-lead">Ketua OSIS 2025 — koreografer, pemimpin proyek budaya dan seni yang berdampak pada komunitas sekolah.</p>
-            <div class="rich-desc">
-              <p><strong>Kiprah:</strong> Penggagas Ngadiluwih Digital Festival; mentor seni untuk siswa baru.</p>
-              <p><strong>Prestasi:</strong> Juara Tari Tingkat Provinsi 2023; finalis debat bahasa Inggris 2024.</p>
-              <p><strong>Program:</strong> Workshop tari & kolaborasi multimedia, seni ruang publik, dan pembinaan kepemudaan.</p>
-            </div>
-            <div class="person-actions">
-              <button class="glass-btn" onclick="openInfo('ajeng')">Lihat Profil Lengkap</button>
-              <button class="glass-btn" onclick="openMessagePrompt('ajeng')">Kirim Ucapan</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- DJ Lancar -->
-      <section id="dj" class="section dark">
-        <h2>DJ Lancar — Musik & Inovasi Suara</h2>
-        <div class="profile-card reverse">
-          <div class="profile-text">
-            <h3>DJ Lancar</h3>
-            <p class="person-lead">Produser & DJ yang menghidupkan acara sekolah — fokus pada EDM & Chill House, pembina komunitas musik siswa.</p>
-            <div class="rich-desc">
-              <p><strong>Kegiatan:</strong> Workshop mixing produksi, perform live, kolaborasi musik & multimedia.</p>
-              <p><strong>Prestasi:</strong> Penampilan andalan Dies Natalis 2022 & 2024; membentuk komunitas kreatif siswa.</p>
-              <p><strong>Dampak:</strong> Menguatkan budaya acara sekolah dan menjadi penghubung antar-genre musik siswa.</p>
-            </div>
-            <div class="person-actions">
-              <button class="glass-btn" onclick="openInfo('dj')">Lihat Info Lengkap</button>
-              <button class="glass-btn" onclick="openMessagePrompt('dj')">Request Lagu</button>
-            </div>
-          </div>
-          <img src="https://via.placeholder.com/320x320?text=DJ+Lancar" alt="DJ Lancar">
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div>© 2025 SMAN 1 Ngadiluwih — Dies Natalis Futuristik Elegan</div>
-      <div class="footer-meta">Kontak: info@sman1ngadiluwih.sch.id • Tel: (0354) xxxx-xxxx</div>
-    </footer>
-  </div>
-
-  <!-- Modal template (used by JS) -->
-  <template id="modal-template">
-    <div class="modal-backdrop" role="dialog" aria-modal="true">
-      <div class="modal-card">
-        <button class="modal-close" aria-label="Tutup">&times;</button>
-        <div class="modal-content"></div>
-      </div>
-    </div>
-  </template>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+```
+
+---
+
+# style.css
+
+```css
+body {
+    margin: 0;
+    background: #08130c;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* LOADING */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0b1f13, #0e2618);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.loader-title {
+    font-size: 26px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+.loader-bar {
+    width: 60%;
+    height: 18px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.2);
+    overflow: hidden;
+}
+.loader-progress {
+    height: 100%;
+    width: 0%;
+    background: #2fff87;
+    transition: width 0.05s ease-in-out;
+}
+.loader-number {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+/* PARTICLE CANVAS */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.hero {
+    text-align: center;
+    padding: 120px 20px;
+}
+.welcome {
+    font-size: 48px;
+    color: #2fff87;
+    text-shadow: 0 0 20px #2fff87;
+}
+.sub {
+    font-size: 20px;
+    opacity: 0.7;
+}
+
+.content-section {
+    padding: 60px 40px;
+    max-width: 1000px;
+    margin: auto;
+}
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+.photo {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 0 25px #2fff87;
+}
+
+.map-3d {
+    background: #0a1a12;
+    height: 300px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px #2fff87;
+}
+```
+
+---
+
+# script.js
+
+```javascript
+// LOADING ANIMATION
+let progress = 0;
+const loaderBar = document.getElementById("loader-progress");
+const loaderNum = document.getElementById("loader-number");
+const loadingScreen = document.getElementById("loading-screen");
+
+let loadingInterval = setInterval(() => {
+    progress++;
+    loaderBar.style.width = progress + "%";
+    loaderNum.textContent = progress + "%";
+
+    if (progress >= 100) {
+        clearInterval(loadingInterval);
+        setTimeout(() => {
+            loadingScreen.style.opacity = "0";
+            setTimeout(() => loadingScreen.style.display = "none", 600);
+        }, 300);
+    }
+}, 30);
+
+// PARTICLE BACKGROUND
+const canvas = document.getElementById("particle-canvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 100; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 1,
+        speedX: (Math.random() - 0.5) * 1.2,
+        speedY: (Math.random() - 0.5) * 1.2
+    });
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+        ctx.fillStyle = "#2fff87";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+    });
+    requestAnimationFrame(animateParticles);
+}
+animateParticles();
+```
