@@ -1,103 +1,169 @@
-/* REPLACE script.js with this file (robust loader + particles + denah embedded) */
-/* Helpers */
+/* script.js — lengkap (loader, particles, panels, modal, confetti, denah foto3D interaktif) */
+/* PASTIKAN: index.html punya elemen #loader (#loaderPercent, #loaderBar), #app, #map3d, dan <template id="modal-template"> */
+
+/* ---------------- Helpers ---------------- */
 const $ = (s, ctx=document) => ctx.querySelector(s);
 const $$ = (s, ctx=document) => Array.from((ctx||document).querySelectorAll(s));
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
 
-/* DEBUG OVERLAY */
+/* --------------- Debug overlay ------------- */
 (function createDebug(){
   if($('#__debug_denah')) return;
   const d = document.createElement('div');
   d.id = '__debug_denah';
-  d.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:999999;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.6);color:#bfffe0;font-family:Inter,Arial,sans-serif;font-size:13px;max-width:260px';
+  d.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:999999;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.6);color:#bfffe0;font-family:Inter,Arial,sans-serif;font-size:13px;max-width:300px';
   d.innerHTML = '<strong>Status:</strong> Inisialisasi...';
   document.body.appendChild(d);
 })();
-function dbgSet(txt){ const el = $('#__debug_denah'); if(el) el.innerHTML = `<strong>Status:</strong> ${txt}`; console.log('[DENAH]', txt); }
+function dbgSet(txt){ const el = $('#__debug_denah'); if(el) el.innerHTML = `<strong>Status:</strong> ${txt}`; console.log('[APP]', txt); }
 
-/* ===== Robust loader (RAF + fallback interval) ===== */
+/* ---------------- LOADER (robust) ---------------- */
 const loaderEl = $('#loader');
 const loaderPercentEl = $('#loaderPercent');
 const loaderBarEl = $('#loaderBar');
-let prog = 0, rafActive = true, fallbackInterval = null;
-function setProg(v){ prog = Math.max(prog, Math.min(100, Math.round(v))); if(loaderPercentEl) loaderPercentEl.textContent = prog + '%'; if(loaderBarEl) loaderBarEl.style.width = prog + '%'; }
-function finishLoading(){ try{ if(loaderEl){ loaderEl.style.transition = 'opacity .6s, transform .6s'; loaderEl.style.opacity = '0'; loaderEl.style.transform = 'translateY(-12px)'; setTimeout(()=> loaderEl.parentElement && loaderEl.parentElement.removeChild(loaderEl), 650); } revealApp(); }catch(e){ console.error(e); revealApp(); } }
 
-let last = performance.now();
+let _prog = 0, _rafActive = true, _fallbackInterval = null;
+function setProg(v){ _prog = Math.max(0, Math.min(100, Math.round(v))); if(loaderPercentEl) loaderPercentEl.textContent = _prog + '%'; if(loaderBarEl) loaderBarEl.style.width = _prog + '%'; }
+function finishLoader(){ try{ if(loaderEl){ loaderEl.style.transition = 'opacity .6s, transform .6s'; loaderEl.style.opacity = '0'; loaderEl.style.transform = 'translateY(-12px)'; setTimeout(()=> loaderEl.parentElement && loaderEl.parentElement.removeChild(loaderEl), 650); } revealApp(); }catch(e){ console.error(e); revealApp(); } }
+
+let _last = performance.now();
 function loaderRAF(){
   try{
-    const now = performance.now(); const dt = Math.min(60, now - last); last = now;
-    const rem = 100 - prog;
+    const now = performance.now(); const dt = Math.min(60, now - _last); _last = now;
+    const rem = 100 - _prog;
     let step = Math.max(1, Math.round(rem * 0.02) + Math.floor(Math.random()*2));
     step = Math.max(1, Math.round(step * (dt/35)));
-    setProg(prog + step);
-    if(prog < 100 && rafActive) requestAnimationFrame(loaderRAF);
-    else if(prog >= 100) finishLoading();
+    setProg(_prog + step);
+    if(_prog < 100 && _rafActive) requestAnimationFrame(loaderRAF);
+    else if(_prog >= 100) finishLoader();
   }catch(e){
-    console.error('loaderRAF error', e); startIntervalFallback();
+    console.error('loaderRAF error', e);
+    startFallbackInterval();
   }
 }
-function startIntervalFallback(){
-  if(fallbackInterval) return;
+function startFallbackInterval(){
+  if(_fallbackInterval) return;
   dbgSet('Fallback loader aktif');
-  fallbackInterval = setInterval(()=> {
+  _fallbackInterval = setInterval(()=> {
     try{
-      const inc = Math.max(1, Math.ceil((100 - prog) * 0.04));
-      setProg(prog + inc);
-      if(prog >= 100){ clearInterval(fallbackInterval); finishLoading(); }
-    }catch(e){ console.error(e); clearInterval(fallbackInterval); setProg(100); finishLoading(); }
+      const inc = Math.max(1, Math.ceil((100 - _prog) * 0.04));
+      setProg(_prog + inc);
+      if(_prog >= 100){ clearInterval(_fallbackInterval); finishLoader(); }
+    }catch(e){ console.error(e); clearInterval(_fallbackInterval); setProg(100); finishLoader(); }
   }, 45);
 }
-try { requestAnimationFrame(loaderRAF); setTimeout(()=> { if(prog <= 2) startIntervalFallback(); }, 2800); dbgSet('Loader dimulai'); } catch(e){ console.error(e); startIntervalFallback(); }
 
-/* reveal */
+try{ requestAnimationFrame(loaderRAF); setTimeout(()=>{ if(_prog <= 2) startFallbackInterval(); }, 2800); dbgSet('Loader dimulai'); }catch(e){ console.error(e); startFallbackInterval(); }
+
+/* --------------- reveal app & init features --------------- */
 function revealApp(){
   const app = $('#app');
-  if(!app) { dbgSet('APP DOM tidak ditemukan'); return; }
-  app.setAttribute('aria-hidden','false'); app.style.opacity = '0'; app.style.transition = 'opacity .6s';
+  if(!app){ dbgSet('APP DOM tidak ditemukan'); return; }
+  app.setAttribute('aria-hidden','false');
+  app.style.opacity = '0';
+  app.style.transition = 'opacity .6s';
   requestAnimationFrame(()=> app.style.opacity = '1');
-  try{ initParticles(); }catch(e){ console.error(e); }
-  try{ initPanelNav(); initPanelButtons(); initSectionObservers(); }catch(e){ console.error(e); }
-  try{ initMap3D(); }catch(e){ console.error(e); }
-  try{ initConfetti(); }catch(e){ console.error(e); }
-  dbgSet('Aplikasi siap — mencoba render denah...');
+  try{ initParticles(); }catch(e){ console.error('particles failed', e); }
+  try{ initPanelNav(); initPanelButtons(); initSectionObservers(); }catch(e){ console.error('panel init failed', e); }
+  try{ initMap3D(); }catch(e){ console.error('map init failed', e); }
+  try{ initConfetti(); }catch(e){ console.error('confetti failed', e); }
+  dbgSet('Aplikasi siap — memuat denah...');
 }
 
-/* ========== Particles (unchanged) ========== */
+/* ---------------- PARTICLES BACKGROUND ---------------- */
 function initParticles(){
   try{
     const canvas = $('#particleCanvas'); if(!canvas) return;
-    const ctx = canvas.getContext('2d'); let W=canvas.width=innerWidth, H=canvas.height=innerHeight;
-    window.addEventListener('resize', ()=> { W=canvas.width=innerWidth; H=canvas.height=innerHeight; });
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width = innerWidth, H = canvas.height = innerHeight;
+    window.addEventListener('resize', ()=> { W = canvas.width = innerWidth; H = canvas.height = innerHeight; });
     const COUNT = Math.max(60, Math.floor((W*H)/90000));
     const parts = Array.from({length:COUNT}).map(()=>({ x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.6+0.6, vx:(Math.random()-0.5)*0.6, vy:(Math.random()-0.5)*0.6, hue:120+Math.random()*60, alpha:0.06+Math.random()*0.28 }));
-    let mx=-9999,my=-9999; window.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; }); window.addEventListener('mouseleave', ()=>{ mx=-9999; my=-9999; });
-    (function f(){ ctx.clearRect(0,0,W,H); const g=ctx.createLinearGradient(0,0,W,H); g.addColorStop(0,'rgba(2,20,12,0.08)'); g.addColorStop(1,'rgba(0,0,0,0.14)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-      for(const p of parts){ p.x+=p.vx; p.y+=p.vy; if(p.x<-10) p.x=W+10; if(p.x>W+10) p.x=-10; if(p.y<-10) p.y=H+10; if(p.y>H+10) p.y=-10; const dx=p.x-mx, dy=p.y-my, d=Math.sqrt(dx*dx+dy*dy); if(d<120){ p.vx+=(dx/d)*0.03; p.vy+=(dy/d)*0.03 } else { p.vx*=0.995; p.vy*=0.995 } ctx.beginPath(); ctx.fillStyle=`hsla(${p.hue},72%,60%,${p.alpha})`; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); }
-      for(let i=0;i<parts.length;i++){ for(let j=i+1;j<i+4;j++){ const a=parts[i], b=parts[j]; if(!b) continue; const dx=a.x-b.x, dy=a.y-b.y, dist=Math.sqrt(dx*dx+dy*dy); if(dist<80){ ctx.beginPath(); ctx.strokeStyle=`rgba(110,255,170,${0.06*(1-dist/80)})`; ctx.lineWidth=1; ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } } }
-      requestAnimationFrame(f);
+    let mx=-9999,my=-9999;
+    window.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
+    window.addEventListener('mouseleave', ()=>{ mx=-9999; my=-9999; });
+    (function frame(){
+      ctx.clearRect(0,0,W,H);
+      const g = ctx.createLinearGradient(0,0,W,H); g.addColorStop(0,'rgba(2,20,12,0.08)'); g.addColorStop(1,'rgba(0,0,0,0.14)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+      for(const p of parts){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < -10) p.x = W + 10; if(p.x > W+10) p.x = -10;
+        if(p.y < -10) p.y = H + 10; if(p.y > H+10) p.y = -10;
+        const dx = p.x - mx, dy = p.y - my, d = Math.sqrt(dx*dx + dy*dy);
+        if(d < 120){ p.vx += (dx/d)*0.03; p.vy += (dy/d)*0.03; } else { p.vx *= 0.995; p.vy *= 0.995; }
+        ctx.beginPath(); ctx.fillStyle = `hsla(${p.hue},72%,60%,${p.alpha})`; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      }
+      for(let i=0;i<parts.length;i++){
+        for(let j=i+1;j<i+4;j++){
+          const a = parts[i], b = parts[j]; if(!b) continue;
+          const dx = a.x-b.x, dy = a.y-b.y, dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < 80){ ctx.beginPath(); ctx.strokeStyle = `rgba(110,255,170,${0.06*(1-dist/80)})`; ctx.lineWidth = 1; ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); }
+        }
+      }
+      requestAnimationFrame(frame);
     })();
     dbgSet('Particles aktif');
-  }catch(e){ console.error('particles err', e); }
+  }catch(e){ console.error('initParticles error', e); }
 }
 
-/* ========== Panel nav minimal ========== */
-function initPanelNav(){ try{ $$('.nav-btn').forEach(b=>b.addEventListener('click', ()=> activatePanel(b.dataset.panel))); $('#brandBtn')?.addEventListener('click', ()=> activatePanel('home')); activatePanel(window.location.hash ? window.location.hash.replace('#','') : 'home'); dbgSet('Panel siap'); }catch(e){console.error(e);} }
-let currentPanel='home';
-function activatePanel(name){ $$('.panel').forEach(p=>{ const nm=p.dataset.name; if(nm===name){ p.classList.add('active'); p.classList.remove('prev-left'); } else { if(p.dataset.name===currentPanel) p.classList.add('prev-left'); else p.classList.remove('prev-left'); p.classList.remove('active'); } }); currentPanel=name; try{ history.replaceState(null,'','#'+name); }catch(e){} }
+/* ---------------- Panel nav & helpers ---------------- */
+function initPanelNav(){
+  try{
+    $$('.nav-btn').forEach(b => b.addEventListener('click', ()=> activatePanel(b.dataset.panel)));
+    $('#brandBtn')?.addEventListener('click', ()=> activatePanel('home'));
+    activatePanel(window.location.hash ? window.location.hash.replace('#','') : 'home');
+    dbgSet('Panel nav siap');
+  }catch(e){ console.error(e); }
+}
+let currentPanel = 'home';
+function activatePanel(name){
+  $$('.panel').forEach(p => {
+    const nm = p.dataset.name;
+    if(nm === name){ p.classList.add('active'); p.classList.remove('prev-left'); }
+    else { if(p.dataset.name === currentPanel) p.classList.add('prev-left'); else p.classList.remove('prev-left'); p.classList.remove('active'); }
+  });
+  currentPanel = name;
+  try{ history.replaceState(null,'','#'+name); }catch(e){}
+}
+function initPanelButtons(){ try{ $$('[data-panel]').forEach(btn => btn.addEventListener('click', ()=> activatePanel(btn.dataset.panel))); }catch(e){} }
+function initSectionObservers(){ try{ $$('.panel').forEach(panel=>{ const items = panel.querySelectorAll('.card, .person-content, .sejarah-rich, .profile-grid > article'); const io = new IntersectionObserver(entries => { entries.forEach(en => { if(en.isIntersecting) en.target.classList.add('visible'); }); }, {threshold:0.12}); items.forEach(it => io.observe(it)); }); }catch(e){} }
 
-/* small helpers */
-function initPanelButtons(){ try{ $$('[data-panel]').forEach(btn=>btn.addEventListener('click', ()=> activatePanel(btn.dataset.panel))); }catch(e){} }
-function initSectionObservers(){ try{ $$('.panel').forEach(panel=>{ const items = panel.querySelectorAll('.card, .person-content, .sejarah-rich, .profile-grid > article'); const io = new IntersectionObserver(entries=>entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('visible'); }), {threshold:0.12}); items.forEach(it=>io.observe(it)); }); }catch(e){} }
-
-/* modal */
-function openProfileModal(key){ try{ const dmap = { ajeng:{title:'Ajeng Febria', html:'<p>Profil Ajeng</p>'}, dj:{title:'DJ Lancar', html:'<p>Profil DJ</p>'}, default:{title:'SMAN1', html:'<p>Info sekolah</p>'} }; const d = dmap[key]||dmap.default; const tpl = $('#modal-template'); if(!tpl) return; const clone = tpl.content.cloneNode(true); const backdrop = clone.querySelector('.modal-backdrop'); const close = clone.querySelector('.modal-close'); const content = clone.querySelector('.modal-content'); content.innerHTML = `<h3>${d.title}</h3>${d.html}`; close.addEventListener('click', ()=> backdrop.parentElement.removeChild(backdrop)); backdrop.addEventListener('click', e=> { if(e.target === backdrop) backdrop.parentElement.removeChild(backdrop); }); document.body.appendChild(backdrop); }catch(e){console.error(e);} }
+/* ---------------- Modal / message ---------------- */
+function openProfileModal(key){
+  try{
+    const data = {
+      ajeng: { title:'Ajeng Febria — Profil Lengkap', html:`<p><strong>Peran:</strong> Ketua OSIS 2025, Koreografer & Penggerak Seni</p><p>Ajeng menginisiasi festival digital sekolah dan pembinaan seni.</p>` },
+      dj: { title:'DJ Lancar — Profil & Karya', html:`<p><strong>Peran:</strong> DJ & Produser acara sekolah</p><p>Workshop mixing & produksi.</p>` },
+      default: { title:'SMAN 1 Ngadiluwih', html:`<p>Info lengkap tersedia pada panel Profil & Sejarah.</p>` }
+    };
+    const d = data[key] || data.default;
+    const tpl = $('#modal-template'); if(!tpl) return;
+    const clone = tpl.content.cloneNode(true); const backdrop = clone.querySelector('.modal-backdrop'); const close = clone.querySelector('.modal-close'); const content = clone.querySelector('.modal-content');
+    content.innerHTML = `<h3 style="margin-top:0;color:#67ff9b">${d.title}</h3>${d.html}`;
+    close.addEventListener('click', ()=> backdrop.parentElement.removeChild(backdrop));
+    backdrop.addEventListener('click', e=> { if(e.target === backdrop) backdrop.parentElement.removeChild(backdrop); });
+    document.body.appendChild(backdrop);
+  }catch(e){ console.error(e); }
+}
 window.openProfileModal = openProfileModal;
-function openMessagePrompt(target){ try{ const who = target.includes('ajeng') ? 'Ajeng' : (target.includes('dj') ? 'DJ' : 'Penerima'); const msg = prompt(`Kirim pesan ke ${who}:`); if(!msg) return; const tpl = $('#modal-template'); if(!tpl) return; const clone = tpl.content.cloneNode(true); const backdrop = clone.querySelector('.modal-backdrop'); const close = clone.querySelector('.modal-close'); const content = clone.querySelector('.modal-content'); content.innerHTML = `<h3>Pesan terkirim</h3><p>${escapeHtml(msg)}</p><div style="text-align:right"><button class="glass-btn modal-ok">Tutup</button></div>`; document.body.appendChild(backdrop); backdrop.querySelector('.modal-ok')?.addEventListener('click', ()=> backdrop.parentElement.removeChild(backdrop)); }catch(e){console.error(e);} }
-function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
 
-/* ========== DENAH LOADING: try JSON then fallback (embedded full list) ========== */
+function openMessagePrompt(target){
+  try{
+    const who = target.includes('ajeng') ? 'Ajeng Febria' : (target.includes('dj') ? 'DJ Lancar' : 'Penerima');
+    const msg = prompt(`Tulis pesan / ucapan untuk ${who}:`);
+    if(!msg) return;
+    const tpl = $('#modal-template'); if(!tpl) return;
+    const clone = tpl.content.cloneNode(true); const backdrop = clone.querySelector('.modal-backdrop'); const close = clone.querySelector('.modal-close'); const content = clone.querySelector('.modal-content');
+    content.innerHTML = `<h3 style="margin-top:0;color:#67ff9b">Pesan Terkirim</h3><p>Pesan untuk <strong>${who}</strong>:</p><blockquote style="background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;">${escapeHtml(msg)}</blockquote><div style="text-align:right;margin-top:12px"><button class="glass-btn modal-ok">Tutup</button></div>`;
+    document.body.appendChild(backdrop);
+    close.addEventListener('click', ()=> backdrop.parentElement.removeChild(backdrop));
+    backdrop.querySelector('.modal-ok')?.addEventListener('click', ()=> backdrop.parentElement.removeChild(backdrop));
+  }catch(e){ console.error(e); }
+}
+
+/* ---------------- Denah load (try JSON else embedded) ---------------- */
 async function loadDenah(){
-  // try variations of path
   const paths = ['denah_parsed.json','./denah_parsed.json','/denah_parsed.json'];
   for(const p of paths){
     try{
@@ -105,23 +171,18 @@ async function loadDenah(){
       const r = await fetch(p, {cache:'no-store'});
       if(r.ok){
         const j = await r.json();
-        if(j && (Array.isArray(j.rooms) || Array.isArray(j))){
-          dbgSet(`denah_parsed.json dimuat (${ (j.rooms||j).length } ruangan)`);
-          return Array.isArray(j.rooms)? j.rooms : j;
-        }
-      } else {
-        dbgSet(`Gagal fetch ${p} (status ${r.status})`);
-      }
-    }catch(e){
-      console.warn('fetch error', e);
-      dbgSet('Fetch error: ' + (e.message||e));
-    }
+        const rooms = Array.isArray(j.rooms) ? j.rooms : (Array.isArray(j) ? j : (Array.isArray(j) ? j : null));
+        if(rooms && rooms.length){ dbgSet(`denah_parsed.json dimuat (${rooms.length} ruangan)`); return rooms; }
+        // in case file itself is array
+        if(Array.isArray(j) && j.length){ dbgSet(`denah_parsed.json (array) dimuat (${j.length})`); return j; }
+      } else dbgSet(`Gagal fetch ${p} (status ${r.status})`);
+    }catch(e){ dbgSet('Fetch error: ' + (e.message||e)); console.warn('fetch denah error', e); }
   }
-  dbgSet('Pakai fallback embedded denah (Excel) — langsung render');
+  dbgSet('Pakai fallback embedded denah Excel');
   return denahRoomsEmbedded;
 }
 
-/* --- EMBEDDED full list (63 entri) --- */
+/* ---------- EMBEDDED denah (63 entri) ---------- */
 const denahRoomsEmbedded = [
   {name: `POS`, col: 10, row: 5, w: 1, h: 1},
   {name: `PARKIR`, col: 14, row: 5, w: 1, h: 1},
@@ -173,68 +234,169 @@ const denahRoomsEmbedded = [
   {name: `R. 09`, col: 11, row: 20, w: 1, h: 1}
 ];
 
-/* ========== RENDER DENAH ========== */
-function renderDenah(mapEl, rooms){
-  if(!mapEl){ dbgSet('Elemen #map3d tidak ditemukan'); console.warn('#map3d missing'); return; }
-  if(!rooms || !rooms.length){ dbgSet('Data denah kosong'); mapEl.innerHTML = '<div style="padding:18px;color:#bfffe0">Tidak ada data denah.</div>'; return; }
+/* ------------- Photo3D denah: init, draw & interactions ------------- */
+async function initMap3D(){
   try{
-    mapEl.innerHTML = '';
-    const inner = document.createElement('div'); inner.className = 'map3d-inner'; inner.style.position='absolute'; inner.style.left='50%'; inner.style.top='50%'; inner.style.transform='translate(-50%,-50%)'; inner.style.transformStyle='preserve-3d'; mapEl.appendChild(inner);
+    const container = document.getElementById('map3d');
+    if(!container){ dbgSet('#map3d tidak ditemukan'); return; }
 
+    // get rooms: prefer JSON, else embedded
+    let rooms = [];
+    try { rooms = await loadDenah(); } catch(e){ rooms = denahRoomsEmbedded; dbgSet('loadDenah error — pakai embedded'); }
+    if(!rooms || !rooms.length) rooms = denahRoomsEmbedded;
+
+    // ensure canvas exists
+    let canvas = document.getElementById('mapPhotoCanvas');
+    if(!canvas){
+      // create wrapper only if not already present
+      const wrap = container.querySelector('.photo3d-wrap') || (function(){ const w = document.createElement('div'); w.className='photo3d-wrap'; container.appendChild(w); return w; })();
+      canvas = document.createElement('canvas'); canvas.id = 'mapPhotoCanvas'; wrap.appendChild(canvas);
+      // caption optional
+      if(!$('#mapPhotoCaption')){ const c = document.createElement('div'); c.id='mapPhotoCaption'; c.className='map-photo-caption'; c.textContent='Denah 3D (klik & drag untuk tilt, scroll untuk zoom)'; wrap.appendChild(c); }
+    }
+
+    // resize & DPR-aware draw
+    function resizeCanvas(){
+      const rect = canvas.getBoundingClientRect();
+      const DPR = window.devicePixelRatio || 1;
+      canvas.width = Math.max(300, Math.floor(rect.width * DPR));
+      canvas.height = Math.max(200, Math.floor(rect.height * DPR));
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      drawMapPhoto(canvas, rooms);
+    }
+    window.addEventListener('resize', debounce(()=> resizeCanvas(), 120));
+    resizeCanvas();
+
+    // interactions: drag tilt, wheel zoom, dblclick reset
+    let down=false, lastX=0, lastY=0, rotX=8, rotY=-12, scale=1;
+    function applyCssTransform(){ canvas.style.transform = `perspective(1200px) translateZ(0px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`; }
+    canvas.style.transformOrigin = '50% 50%';
+    applyCssTransform();
+    canvas.style.cursor = 'grab';
+
+    canvas.addEventListener('pointerdown', e=>{ down=true; lastX=e.clientX; lastY=e.clientY; canvas.setPointerCapture?.(e.pointerId); canvas.style.cursor='grabbing'; });
+    window.addEventListener('pointerup', ()=>{ down=false; canvas.style.cursor='grab'; });
+    window.addEventListener('pointermove', e=>{ if(!down) return; const dx=e.clientX-lastX, dy=e.clientY-lastY; lastX=e.clientX; lastY=e.clientY; rotY += dx*0.08; rotX -= dy*0.06; rotX = Math.max(-40, Math.min(60, rotX)); applyCssTransform(); });
+
+    canvas.addEventListener('wheel', e=>{ e.preventDefault(); const delta = -e.deltaY || -e.wheelDelta; scale *= (delta > 0 ? 1.06 : 0.94); scale = Math.max(0.6, Math.min(2.5, scale)); applyCssTransform(); }, {passive:false});
+    canvas.addEventListener('dblclick', ()=>{ rotX=8; rotY=-12; scale=1; applyCssTransform(); });
+
+    // convenience: redraw on demand
+    canvas.drawMap = ()=> drawMapPhoto(canvas, rooms);
+
+    dbgSet(`Foto denah siap — ${rooms.length} ruangan`);
+    // show count badge
+    const badgeId='__denah_count_badge';
+    let badge = document.getElementById(badgeId);
+    if(!badge){ badge = document.createElement('div'); badge.id = badgeId; badge.style.cssText = 'position:fixed;left:18px;bottom:18px;padding:8px 10px;border-radius:8px;background:rgba(2,8,4,0.6);color:#bfffe0;z-index:99999;font-weight:700'; document.body.appendChild(badge); }
+    badge.textContent = `Denah (foto3D) — ${rooms.length} ruangan`;
+  }catch(e){ console.error('initMap3D', e); dbgSet('initMap3D error'); }
+}
+
+/* draw stylized denah onto canvas */
+function drawMapPhoto(canvas, rooms){
+  try{
+    const ctx = canvas.getContext('2d');
+    const DPR = window.devicePixelRatio || 1;
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0,0,W,H);
+
+    // background card
+    const g = ctx.createLinearGradient(0,0,W,H); g.addColorStop(0,'#03140b'); g.addColorStop(1,'#05261a');
+    ctx.fillStyle = g;
+    roundRect(ctx, 8*DPR, 8*DPR, W-16*DPR, H-16*DPR, 20*DPR); ctx.fill();
+
+    if(!rooms || !rooms.length){
+      ctx.fillStyle = 'rgba(255,255,255,0.06)';
+      ctx.font = `${16*DPR}px Inter, Arial`; ctx.textAlign='center'; ctx.fillText('Tidak ada data denah', W/2, H/2);
+      return;
+    }
+
+    // compute grid
     const cols = Math.max(...rooms.map(r=>r.col)) - Math.min(...rooms.map(r=>r.col)) + 1;
     const rows = Math.max(...rooms.map(r=>r.row)) - Math.min(...rooms.map(r=>r.row)) + 1;
     const minCol = Math.min(...rooms.map(r=>r.col));
     const minRow = Math.min(...rooms.map(r=>r.row));
-    const rect = mapEl.getBoundingClientRect(); const pad=24;
-    const usableW = Math.max(240, rect.width - pad*2); const usableH = Math.max(160, rect.height - pad*2);
-    const cellW = Math.floor(usableW / Math.max(1, cols)); const cellH = Math.floor(usableH / Math.max(1, rows));
-    const cell = Math.max(44, Math.min(cellW, cellH));
-    inner.style.width = (cols*cell) + 'px'; inner.style.height = (rows*cell) + 'px';
+    const pad = 36*DPR;
+    const usableW = W - pad*2;
+    const usableH = H - pad*2;
+    const cellW = Math.max(24*DPR, Math.floor(usableW / Math.max(1, cols)));
+    const cellH = Math.max(24*DPR, Math.floor(usableH / Math.max(1, rows)));
 
-    // tooltip
-    let tip = null;
-    function showTip(x,y,html){ if(!tip){ tip=document.createElement('div'); tip.className='denah-tooltip'; tip.style.position='fixed'; tip.style.pointerEvents='none'; tip.style.padding='8px 10px'; tip.style.borderRadius='8px'; tip.style.background='rgba(3,20,12,0.96)'; tip.style.color='#67ff9b'; document.body.appendChild(tip);} tip.innerHTML=html; tip.style.left = x + 'px'; tip.style.top = y + 'px'; tip.style.display='block'; }
-    function hideTip(){ if(tip) tip.style.display='none'; }
+    // subtle grid lines
+    ctx.strokeStyle = 'rgba(255,255,255,0.03)'; ctx.lineWidth = Math.max(1, DPR*0.6);
+    for(let c=0;c<=cols;c++){ const x = pad + c*cellW; ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, pad + rows*cellH); ctx.stroke(); }
+    for(let r=0;r<=rows;r++){ const y = pad + r*cellH; ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(pad + cols*cellW, y); ctx.stroke(); }
 
+    // draw rooms
     rooms.forEach(r=>{
-      const d = document.createElement('div'); d.className='denah-room'; d.textContent = r.name;
-      const x = (r.col - minCol) * cell, y = (r.row - minRow) * cell;
-      const w = (r.w||1) * cell - 8, h = (r.h||1)*cell - 8;
-      d.style.position='absolute'; d.style.left=(x+4)+'px'; d.style.top=(y+4)+'px'; d.style.width = w+'px'; d.style.height = h+'px'; d.style.lineHeight = Math.max(14, Math.min(20, h-6)) + 'px';
-      d.addEventListener('click', ()=> openRoomModal(r)); d.addEventListener('mousemove', ev=> showTip(ev.clientX, ev.clientY, `<strong>${escapeHtml(r.name)}</strong>`)); d.addEventListener('mouseleave', hideTip);
-      inner.appendChild(d);
+      const cx = (r.col - minCol) * cellW + pad;
+      const cy = (r.row - minRow) * cellH + pad;
+      const w = (r.w || 1) * cellW - 6*DPR;
+      const h = (r.h || 1) * cellH - 6*DPR;
+      // shadow
+      ctx.fillStyle = 'rgba(8,32,18,0.45)'; roundRect(ctx, cx+4*DPR, cy+4*DPR, w, h, 8*DPR); ctx.fill();
+      // main
+      const grad = ctx.createLinearGradient(cx, cy, cx + w, cy + h); grad.addColorStop(0, 'rgba(90,255,160,0.14)'); grad.addColorStop(1, 'rgba(10,30,20,0.08)');
+      ctx.fillStyle = grad; roundRect(ctx, cx, cy, w, h, 8*DPR); ctx.fill();
+      // border
+      ctx.strokeStyle = 'rgba(100,255,150,0.16)'; ctx.lineWidth = Math.max(1, DPR*0.8); roundRect(ctx, cx, cy, w, h, 8*DPR); ctx.stroke();
+      // label
+      ctx.fillStyle = '#eaffef'; ctx.font = `${12*DPR}px Inter, Arial`; ctx.textAlign='center'; ctx.textBaseline='middle';
+      const label = String(r.name).replace(/\s{2,}/g,' ').trim();
+      ctx.fillText(label, cx + w/2, cy + h/2);
     });
 
-    // tilt drag
-    let rx=14, ry=-18, dragging=false, lastX=0, lastY=0; inner.style.transform = `translate(-50%,-50%) rotateX(${rx}deg) rotateY(${ry}deg)`;
-    mapEl.addEventListener('pointerdown', e=>{ dragging=true; lastX=e.clientX; lastY=e.clientY; mapEl.setPointerCapture?.(e.pointerId);});
-    window.addEventListener('pointerup', ()=> dragging=false);
-    window.addEventListener('pointermove', e=>{ if(!dragging) return; const dx = e.clientX - lastX, dy = e.clientY - lastY; lastX=e.clientX; lastY=e.clientY; ry += dx*0.08; rx -= dy*0.06; rx = Math.max(-30, Math.min(60, rx)); inner.style.transform = `translate(-50%,-50%) rotateX(${rx}deg) rotateY(${ry}deg)`; });
-
-    $('#resetView')?.addEventListener('click', ()=> { rx=14; ry=-18; inner.style.transform = `translate(-50%,-50%) rotateX(${rx}deg) rotateY(${ry}deg)`; });
-    $('#tiltToggle')?.addEventListener('change', e=> { if(!e.target.checked) inner.style.transform = `translate(-50%,-50%) rotateX(0deg) rotateY(0deg)`; else inner.style.transform = `translate(-50%,-50%) rotateX(${rx}deg) rotateY(${ry}deg)`; });
-
-    // show badge with count
-    const badgeId = '__denah_count_badge';
-    let badge = document.getElementById(badgeId);
-    if(!badge){ badge = document.createElement('div'); badge.id = badgeId; badge.style.cssText = 'position:fixed;left:18px;bottom:18px;padding:8px 10px;border-radius:8px;background:rgba(2,8,4,0.6);color:#bfffe0;z-index:99999;font-weight:700'; document.body.appendChild(badge); }
-    badge.textContent = `Denah dirender (${rooms.length} ruangan)`;
-    dbgSet(`Denah dirender — ${rooms.length} ruangan`);
-  }catch(e){ console.error('renderDenah error', e); dbgSet('Render denah error: '+ (e.message||e)); }
+    // watermark
+    ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.font = `${11*DPR}px Inter`; ctx.textAlign='right';
+    ctx.fillText('SMAN 1 Ngadiluwih • Denah', W - 36*DPR, H - 12*DPR);
+  }catch(e){ console.error('drawMapPhoto', e); }
 }
 
-/* modal for room */
-function openRoomModal(r){ try{ const tpl = $('#modal-template'); if(!tpl){ alert(r.name); return; } const clone = tpl.content.cloneNode(true); const backdrop = clone.querySelector('.modal-backdrop'); const close = clone.querySelector('.modal-close'); const content = clone.querySelector('.modal-content'); content.innerHTML = `<h3 style="margin-top:0;color:#67ff9b">${escapeHtml(r.name)}</h3><p>Grid: col ${r.col}, row ${r.row}</p><div style="text-align:right;margin-top:12px"><button class="glass-btn modal-ok">Tutup</button></div>`; close.addEventListener('click', ()=> backdrop.parentElement.removeChild(backdrop)); backdrop.addEventListener('click', e=> { if(e.target === backdrop) backdrop.parentElement.removeChild(backdrop); }); document.body.appendChild(backdrop); backdrop.querySelector('.modal-ok')?.addEventListener('click', ()=> backdrop.parentElement.removeChild(backdrop)); }catch(e){console.error(e);} }
+/* roundRect helper */
+function roundRect(ctx, x, y, w, h, r){
+  const radius = Math.min(r, w/2, h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+radius, y);
+  ctx.arcTo(x+w, y, x+w, y+h, radius);
+  ctx.arcTo(x+w, y+h, x, y+h, radius);
+  ctx.arcTo(x, y+h, x, y, radius);
+  ctx.arcTo(x, y, x+w, y, radius);
+  ctx.closePath();
+}
 
-function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+/* debounce */
+function debounce(fn, wait){ let t; return function(...a){ clearTimeout(t); t = setTimeout(()=> fn.apply(this,a), wait); }; }
 
-/* init map: load denah then render */
-async function initMap3D(){ try{ const el = document.getElementById('map3d'); if(!el){ dbgSet('#map3d tidak ada di DOM'); console.warn('#map3d missing'); return; } const rooms = await loadDenah(); renderDenah(el, rooms); }catch(e){ console.error('initMap3D', e); dbgSet('initMap3D error'); } }
+/* ---------------- Confetti ---------------- */
+function initConfetti(){
+  try{
+    $('#celebrateBtn')?.addEventListener('click', ()=> {
+      const cvs = document.createElement('canvas'); cvs.style.position='fixed'; cvs.style.inset=0; cvs.style.zIndex=99998; cvs.style.pointerEvents='none';
+      const ctx = cvs.getContext('2d'); document.body.appendChild(cvs); cvs.width = innerWidth; cvs.height = innerHeight;
+      const pieces = []; const colors = ['#bfffe0','#67ff9b','#4ef38b','#d6ffd9','#aaffc7'];
+      for(let i=0;i<140;i++){ pieces.push({x:Math.random()*cvs.width,y:-20-Math.random()*300,vx:(Math.random()-0.5)*8,vy:Math.random()*6+2,r:Math.random()*9+4,col:colors[Math.floor(Math.random()*colors.length)],rot:Math.random()*360,vr:(Math.random()-0.5)*12}); }
+      (function step(){
+        ctx.clearRect(0,0,cvs.width,cvs.height);
+        for(const p of pieces){ p.x+=p.vx; p.y+=p.vy; p.vy+=0.12; p.rot+=p.vr; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle=p.col; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6); ctx.restore(); }
+        for(let i=pieces.length-1;i>=0;i--) if(pieces[i].y > cvs.height+40) pieces.splice(i,1);
+        if(pieces.length) requestAnimationFrame(step); else cvs.parentElement && cvs.parentElement.removeChild(cvs);
+      })();
+    });
+    dbgSet('Confetti siap');
+  }catch(e){ console.error(e); }
+}
 
-/* confetti */
-function initConfetti(){ try{ $('#celebrateBtn')?.addEventListener('click', ()=> { const cvs = document.createElement('canvas'); cvs.style.position='fixed'; cvs.style.inset=0; cvs.style.zIndex=99998; cvs.style.pointerEvents='none'; const ctx = cvs.getContext('2d'); document.body.appendChild(cvs); cvs.width = innerWidth; cvs.height = innerHeight; const pieces=[]; const cols=['#bfffe0','#67ff9b','#4ef38b','#d6ffd9','#aaffc7']; for(let i=0;i<140;i++) pieces.push({x:Math.random()*cvs.width,y:-20-Math.random()*300,vx:(Math.random()-0.5)*8,vy:Math.random()*6+2,r:Math.random()*9+4,col:cols[Math.floor(Math.random()*cols.length)],rot:Math.random()*360,vr:(Math.random()-0.5)*12}); (function step(){ ctx.clearRect(0,0,cvs.width,cvs.height); for(const p of pieces){ p.x+=p.vx; p.y+=p.vy; p.vy+=0.12; p.rot+=p.vr; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle=p.col; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6); ctx.restore(); } for(let i=pieces.length-1;i>=0;i--) if(pieces[i].y > cvs.height+40) pieces.splice(i,1); if(pieces.length) requestAnimationFrame(step); else cvs.parentElement && cvs.parentElement.removeChild(cvs); })(); }); dbgSet('Confetti siap'); }catch(e){console.error(e);} }
-
-/* close modals on ESC */
+/* close modals with ESC */
 window.addEventListener('keydown', (e)=> { if(e.key === 'Escape') document.querySelectorAll('.modal-backdrop').forEach(b => b.parentElement && b.parentElement.removeChild(b)); });
 
-/* End of file */
+/* ----------------- End of script.js ----------------- */
+
+/* USAGE:
+  - Ganti file script.js di website dengan kode ini.
+  - Pastikan index.html punya: #loader (#loaderPercent,#loaderBar), #app, #map3d.
+  - (Opsional) Upload denah_parsed.json ke root repo untuk memuat langsung dari file.
+  - Setelah ganti: refresh page, buka panel "Denah" — foto denah 3D interaktif akan tampil.
+*/
+
