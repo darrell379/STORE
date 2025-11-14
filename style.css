@@ -118,6 +118,11 @@ h1{font-size:38px;margin:6px 0;color:var(--accent-2)}
 /* responsive */
 @media (max-width:900px){
   .map3d { width: 92vw; height: 60vh; }
+  /* debug & ensure map visibility */
+#map3d { min-width: 320px !important; min-height: 240px !important; z-index: 6; display:block; }
+.denah-tooltip { pointer-events:none; }
+#denah-debug { display:block; }
+
   .map-controls { width: 100%; }
   .denah-wrap{flex-direction:column;}
 }
