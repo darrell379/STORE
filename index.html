@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dies Natalis — SMAN 1 Ngadiluwih (Futuristik Elegan)</title>
+  <title>Dies Natalis — SMAN 1 Ngadiluwih (Futuristik Elegan — Panel)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
   <canvas id="particleCanvas" class="bg-canvas" aria-hidden="true"></canvas>
   <div class="grid-overlay" aria-hidden="true"></div>
 
-  <!-- Robust Loading overlay -->
+  <!-- Loading overlay -->
   <div id="loader" class="loader-wrap" role="status" aria-live="polite">
     <div class="loader-card" role="img" aria-label="Loading Dies Natalis">
       <div class="loader-top">
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <!-- APP SHELL (hidden until loader selesai) -->
+  <!-- App shell -->
   <div id="app" class="app" aria-hidden="true">
     <header class="site-header">
       <div class="brand" id="brandBtn" tabindex="0" role="button" aria-label="Beranda">
@@ -50,21 +50,22 @@
       </div>
     </header>
 
-    <!-- Panels container -->
+    <!-- Panel container: panels slide left/right -->
     <main class="panels" id="panels">
-      <!-- HOME -->
+      <!-- HOME panel -->
       <section id="panel-home" class="panel active" data-name="home" role="region" aria-label="Beranda">
         <div class="panel-inner hero">
           <div class="left">
             <div class="welcome-badge">WELCOME</div>
             <h1>Selamat Dies Natalis <span class="glow">SMAN 1 NGADILUWIH</span></h1>
-            <p class="lead">Bersinergi — Berinovasi — Berprestasi. Terus maju, berakar pada nilai kebangsaan, membawa kreativitas ke panggung dunia.</p>
+            <p class="lead">Semangat tanpa batas — berbudi sepenuh hati. Terus maju, berakar pada nilai kebangsaan, membawa kreativitas ke panggung dunia.</p>
             <div class="cta-row">
               <button class="glass-btn" data-panel="profil">Tentang Sekolah</button>
               <button class="glass-btn" data-panel="ajeng">Tentang Ajeng</button>
               <button class="glass-btn" data-panel="dj">Tentang DJ</button>
             </div>
           </div>
+
           <div class="right">
             <div class="greeting-card">
               <h3>Ucapan Sambutan</h3>
@@ -73,91 +74,113 @@
             </div>
             <div class="mini-stats">
               <div class="stat"><div class="num">1982</div><div class="lbl">Tahun Berdiri</div></div>
-              <div class="stat"><div class="num">Drs. H. Budi Santoso, M.Pd</div><div class="lbl">Kepala Sekolah</div></div>
+              <div class="stat"><div class="num"> Fristina Husniya Wury,S.Sos,M.Pd</div><div class="lbl">Kepala Sekolah</div></div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- PROFIL -->
-      <section id="panel-profil" class="panel" data-name="profil" role="region" aria-label="Profil">
+      <!-- PROFIL panel -->
+      <section id="panel-profil" class="panel" data-name="profil" role="region" aria-label="Profil Sekolah">
         <div class="panel-inner">
           <h2>Profil Lengkap — SMAN 1 Ngadiluwih</h2>
           <div class="profile-grid">
             <article class="card">
               <h3>Sejarah & Perkembangan</h3>
-              <p>Didirikan 1982, berkembang menjadi institusi komprehensif dengan laboratorium, studio multimedia, dan program unggulan.</p>
+              <p>SMAN 1 Ngadiluwih didirikan 1982 untuk memenuhi kebutuhan pendidikan menengah di wilayah Kediri. Sejak awal, sekolah berkembang dari beberapa ruang kelas menjadi kampus dengan fasilitas lengkap: laboratorium, studio seni, perpustakaan digital, dan lapangan serbaguna.</p>
+              <p>Peralihan kurikulum ke arah literasi digital dan project-based learning pada 2010 memperkuat rekam prestasi akademik dan keterampilan siswa.</p>
             </article>
+
             <article class="card">
               <h3>Visi & Misi</h3>
-              <p><strong>Visi:</strong> Sekolah unggulan berprestasi & berkarakter. <strong>Misi:</strong> Tingkatkan mutu belajar, karakter, inovasi & literasi digital.</p>
+              <p><strong>Visi:</strong> Menjadi lembaga pendidikan unggulan, berkarakter, berprestasi, dan adaptif terhadap perkembangan zaman.</p>
+              <ol>
+                <li>Meningkatkan mutu pembelajaran dan prestasi siswa</li>
+                <li>Mengembangkan karakter kebangsaan dan budi pekerti</li>
+                <li>Mendorong inovasi teknologi dan kewirausahaan siswa</li>
+              </ol>
             </article>
+
             <article class="card">
               <h3>Fasilitas & Inovasi</h3>
               <ul>
-                <li>Lab IPA & Komputer</li>
-                <li>Studio Musik & Ruang Multimedia</li>
-                <li>Perpustakaan Digital & Makerspace</li>
-                <li>Program kerja sama industri & kampus</li>
+                <li>Laboratorium Komputer & IPA berstandar</li>
+                <li>Studio Musik & Ruang Multimedia untuk produksi siswa</li>
+                <li>Perpustakaan Digital & Makerspace (workshop kreatif)</li>
+                <li>Program Kerja Sama Industri & Kampus</li>
               </ul>
             </article>
+
             <article class="card">
               <h3>Akademik & Kurikulum</h3>
-              <p>Kurikulum berbasis proyek, kelas coding, kelas kewirausahaan, dan program akselerasi untuk siswa berprestasi.</p>
+              <p>Kurikulum berbasis projek, kelas coding, kelas kewirausahaan, serta program akselerasi untuk siswa berprestasi. Pembelajaran dilengkapi platform e-learning, penilaian berbasis portofolio, dan pembimbingan karir.</p>
             </article>
           </div>
+
+          <div class="profile-extra">
+            <h3>Testimoni Alumni</h3>
+            <div class="testi">“SMAN 1 Ngadiluwih membentuk saya menjadi pribadi yang disiplin dan kreatif.” — Alumni 2015</div>
+            <div class="testi">“Fasilitas multimedia memudahkan saya mempelajari produksi digital.” — Alumni 2019</div>
+          </div>
         </div>
       </section>
 
-      <!-- SEJARAH -->
-      <section id="panel-sejarah" class="panel" data-name="sejarah" role="region" aria-label="Sejarah">
+      <!-- SEJARAH panel -->
+      <section id="panel-sejarah" class="panel" data-name="sejarah" role="region" aria-label="Sejarah Lengkap">
         <div class="panel-inner">
-          <h2>Sejarah Lengkap</h2>
+          <h2>Sejarah Lengkap SMAN 1 Ngadiluwih</h2>
           <div class="timeline">
-            <div class="event"><div class="year">1982</div><div class="desc">Pendirian sekolah.</div></div>
-            <div class="event"><div class="year">1995</div><div class="desc">Perluasan gedung & lab.</div></div>
+            <div class="event"><div class="year">1982</div><div class="desc">Pendirian sekolah; awal operasi dengan 6 ruang kelas.</div></div>
+            <div class="event"><div class="year">1995</div><div class="desc">Perluasan gedung & laboratorium IPA.</div></div>
+            <div class="event"><div class="year">2008</div><div class="desc">Peluncuran program ekstrakurikuler modern & revitalisasi seni.</div></div>
             <div class="event"><div class="year">2016</div><div class="desc">Implementasi e-learning & kelas coding.</div></div>
-            <div class="event"><div class="year">2023</div><div class="desc">Prestasi provinsi & penguatan kerja sama industri.</div></div>
+            <div class="event"><div class="year">2023</div><div class="desc">Juara provinsi dalam beberapa lomba sains dan seni; penguatan kerja sama industri.</div></div>
+            <div class="event"><div class="year">2025</div><div class="desc">Peringatan Dies Natalis terbaru; transformasi kurikulum berbasis proyek.</div></div>
           </div>
           <div class="sejarah-rich">
-            <p>Kepala sekolah berganti beberapa kali; peningkatan kualitas guru; program beasiswa; community outreach; dan proyek kolaborasi seni & teknologi.</p>
+            <p>Detail lengkap: kepala sekolah berganti 4 kali sejak berdiri; peningkatan kualitas guru melalui sertifikasi; program beasiswa untuk siswa berprestasi; serta program komunitas untuk pemberdayaan masyarakat lokal.</p>
           </div>
         </div>
       </section>
 
-      <!-- DENAH -->
+      <!-- DENAH panel -->
       <section id="panel-denah" class="panel" data-name="denah" role="region" aria-label="Denah 3D">
         <div class="panel-inner">
           <h2>Denah 3D Interaktif</h2>
           <div class="denah-wrap">
-            <div id="map3d" class="map3d" tabindex="0" aria-label="Denah 3D SMAN 1 Ngadiluwih"></div>
+            <div id="map3d" class="map3d" tabindex="0" aria-label="Denah 3D SMAN 1 Ngadiluwih">
+              <div class="building main">Gedung Utama</div>
+              <div class="building lab">Laboratorium</div>
+              <div class="building lib">Perpustakaan</div>
+              <div class="field">Lapangan</div>
+            </div>
             <div class="map-controls">
               <label><input type="checkbox" id="tiltToggle" checked> Mode 3D</label>
               <button class="glass-btn" id="resetView">Reset View</button>
-              <p class="map-instr">Klik & drag denah untuk memutar; klik ruang untuk info.</p>
+              <p class="map-instr">Klik & drag denah untuk memutar; gunakan tombol reset untuk mengembalikan.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- PRESTASI -->
+      <!-- PRESTASI panel -->
       <section id="panel-prestasi" class="panel" data-name="prestasi" role="region" aria-label="Prestasi">
         <div class="panel-inner">
           <h2>Prestasi & Program Unggulan</h2>
           <div class="prestasi-grid">
-            <div class="card"><h4>Prestasi Akademik</h4><p>Juara Olimpiade Sains Provinsi; Tim KTI berprestasi.</p></div>
-            <div class="card"><h4>Prestasi Seni</h4><p>Juara Tari Provinsi; pameran seni tahunan.</p></div>
-            <div class="card"><h4>Program Unggulan</h4><p>Kelas coding, kewirausahaan, workshop multimedia.</p></div>
-            <div class="card"><h4>Fasilitas</h4><p>Studio musik, lab komputer, makerspace, perpustakaan digital.</p></div>
+            <div class="card"><h4>Prestasi Akademik</h4><p>Siswa juara Olimpiade Sains Provinsi; tim KTI berprestasi.</p></div>
+            <div class="card"><h4>Prestasi Seni</h4><p>Juara Tari Provinsi; pameran seni tahunan dengan kolaborasi multimedia.</p></div>
+            <div class="card"><h4>Program Unggulan</h4><p>Kelas coding, kewirausahaan, workshop produksi multimedia, dan pembinaan KIR.</p></div>
+            <div class="card"><h4>Fasilitas Pendukung</h4><p>Studio musik, lab komputer, perpustakaan digital, makerspace.</p></div>
           </div>
         </div>
       </section>
 
-      <!-- AJENG -->
-      <section id="panel-ajeng" class="panel" data-name="ajeng" role="region" aria-label="Ajeng Febria">
+      <!-- AJENG panel (special page) -->
+      <section id="panel-ajeng" class="panel" data-name="ajeng" role="region" aria-label="Halaman Ajeng Febria">
         <div class="panel-inner person-page">
           <div class="hero-person">
-            <img src="ajeng.jpg" alt="Ajeng Febria" class="person-photo">
+            <img src="https://thumb.viva.id/jagodangdut/images/2024/04/20/6623af225e869-ajeng-febria_jagodangdut.jpg" alt="Ajeng Febria" class="person-photo">
             <div class="person-info">
               <h2>Ajeng Febria</h2>
               <p class="tagline">Ketua OSIS 2025 • Koreografer • Penggerak Komunitas Seni</p>
@@ -167,23 +190,29 @@
               </div>
             </div>
           </div>
+
           <div class="person-content">
-            <h3>Biografi</h3>
-            <p>Ajeng memadukan tradisi dan teknologi dalam karyanya; penggagas festival digital; mentor seni siswa baru.</p>
+            <h3>Biografi Singkat</h3>
+            <p>Ajeng memulai karier di dunia seni sejak SMP. Di SMAN 1 Ngadiluwih, Ajeng aktif mengembangkan koreografi yang menggabungkan tarian tradisional dan gerak kontemporer, serta bekerja sama dengan departemen multimedia untuk menciptakan pertunjukan interaktif.</p>
+
             <h3>Prestasi</h3>
             <ul>
-              <li>Juara Tari Provinsi 2023</li>
+              <li>Juara Tari Tingkat Provinsi 2023</li>
               <li>Finalis Debat Bahasa Inggris 2024</li>
+              <li>Pembina program mentoring seni sekolah</li>
             </ul>
+
+            <h3>Program & Kegiatan</h3>
+            <p>Workshop tari, kelas koreografi, kolaborasi multimedia untuk pameran seni sekolah, dan program sosial seni untuk komunitas setempat.</p>
           </div>
         </div>
       </section>
 
-      <!-- DJ -->
-      <section id="panel-dj" class="panel" data-name="dj" role="region" aria-label="DJ Lancar">
+      <!-- DJ panel (special page) -->
+      <section id="panel-dj" class="panel" data-name="dj" role="region" aria-label="Halaman DJ Lancar">
         <div class="panel-inner person-page">
           <div class="hero-person reverse">
-            <img src="djlancar.jpg" alt="DJ Lancar" class="person-photo">
+            <img src="https://via.placeholder.com/720x720?text=DJ+Lancar" alt="DJ Lancar" class="person-photo">
             <div class="person-info">
               <h2>DJ Lancar</h2>
               <p class="tagline">Produser • DJ • Penggerak Komunitas Musik</p>
@@ -193,9 +222,20 @@
               </div>
             </div>
           </div>
+
           <div class="person-content">
             <h3>Perjalanan Musik</h3>
-            <p>DJ Lancar menggabungkan EDM & Chill House; aktif mengadakan workshop mixing & produksi.</p>
+            <p>DJ Lancar memadukan EDM dan Chill House untuk menciptakan suasana positif dalam acara sekolah. Selain perform, ia rutin mengadakan workshop mixing untuk siswa yang tertarik belajar produksi musik.</p>
+
+            <h3>Kegiatan & Karya</h3>
+            <ul>
+              <li>Performa utama pada Dies Natalis 2022 & 2024</li>
+              <li>Workshop produksi musik untuk siswa</li>
+              <li>Kolaborasi dengan tim tari & multimedia</li>
+            </ul>
+
+            <h3>Dampak untuk Sekolah</h3>
+            <p>Membangun komunitas kreatif, menyediakan akses ke perangkat produksi, dan membuka peluang kolaborasi lintas ekstrakurikuler.</p>
           </div>
         </div>
       </section>
