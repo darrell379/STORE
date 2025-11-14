@@ -1,0 +1,510 @@
+{
+  "rooms": [
+    {
+      "name": "POS",
+      "sheet": "Sheet1",
+      "row": 5,
+      "col": 10,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "PARKIR",
+      "sheet": "Sheet1",
+      "row": 5,
+      "col": 14,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "MASJID",
+      "sheet": "Sheet1",
+      "row": 6,
+      "col": 4,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "PARKIR",
+      "sheet": "Sheet1",
+      "row": 9,
+      "col": 11,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "DAPUR",
+      "sheet": "Sheet1",
+      "row": 10,
+      "col": 7,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. OSIS",
+      "sheet": "Sheet1",
+      "row": 11,
+      "col": 2,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.01",
+      "sheet": "Sheet1",
+      "row": 11,
+      "col": 4,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. BK",
+      "sheet": "Sheet1",
+      "row": 11,
+      "col": 6,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. GURU",
+      "sheet": "Sheet1",
+      "row": 11,
+      "col": 7,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. KS",
+      "sheet": "Sheet1",
+      "row": 11,
+      "col": 10,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. KANTOR",
+      "sheet": "Sheet1",
+      "row": 11,
+      "col": 11,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. WK",
+      "sheet": "Sheet1",
+      "row": 11,
+      "col": 12,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "TOILET",
+      "sheet": "Sheet1",
+      "row": 11,
+      "col": 14,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. JAGA",
+      "sheet": "Sheet1",
+      "row": 12,
+      "col": 2,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "UKS",
+      "sheet": "Sheet1",
+      "row": 12,
+      "col": 6,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. TAMU",
+      "sheet": "Sheet1",
+      "row": 12,
+      "col": 10,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "G   CCTV",
+      "sheet": "Sheet1",
+      "row": 12,
+      "col": 12,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "TOKO SEKOLAH",
+      "sheet": "Sheet1",
+      "row": 13,
+      "col": 2,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.02",
+      "sheet": "Sheet1",
+      "row": 13,
+      "col": 4,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. PRAMUKA",
+      "sheet": "Sheet1",
+      "row": 14,
+      "col": 2,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "LAP. TENIS",
+      "sheet": "Sheet1",
+      "row": 14,
+      "col": 8,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "LAB. KOMPUTER",
+      "sheet": "Sheet1",
+      "row": 14,
+      "col": 13,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "TOILET",
+      "sheet": "Sheet1",
+      "row": 15,
+      "col": 2,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. 03 / Lab. Bhs",
+      "sheet": "Sheet1",
+      "row": 15,
+      "col": 4,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. MULTI",
+      "sheet": "Sheet1",
+      "row": 16,
+      "col": 13,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM lab.fisika",
+      "sheet": "Sheet1",
+      "row": 18,
+      "col": 2,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "PERPUS",
+      "sheet": "Sheet1",
+      "row": 18,
+      "col": 4,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. MUSIK",
+      "sheet": "Sheet1",
+      "row": 18,
+      "col": 13,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 19,
+      "col": 1,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.15",
+      "sheet": "Sheet1",
+      "row": 19,
+      "col": 2,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.04",
+      "sheet": "Sheet1",
+      "row": 19,
+      "col": 4,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "lab. Kimia",
+      "sheet": "Sheet1",
+      "row": 19,
+      "col": 13,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KOPERASI SEKOLAH",
+      "sheet": "Sheet1",
+      "row": 20,
+      "col": 0,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 20,
+      "col": 1,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R-14",
+      "sheet": "Sheet1",
+      "row": 20,
+      "col": 2,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.05",
+      "sheet": "Sheet1",
+      "row": 20,
+      "col": 4,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. 06",
+      "sheet": "Sheet1",
+      "row": 20,
+      "col": 7,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.07",
+      "sheet": "Sheet1",
+      "row": 20,
+      "col": 8,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.08",
+      "sheet": "Sheet1",
+      "row": 20,
+      "col": 10,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. 09",
+      "sheet": "Sheet1",
+      "row": 20,
+      "col": 11,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 20,
+      "col": 13,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 21,
+      "col": 13,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KANTIN",
+      "sheet": "Sheet1",
+      "row": 23,
+      "col": 0,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 2,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.13",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 4,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R-12",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 6,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.11",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 7,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "TANGGA",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 8,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 9,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 10,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 11,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 12,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.10",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 13,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "TOILET",
+      "sheet": "Sheet1",
+      "row": 24,
+      "col": 15,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 26,
+      "col": 4,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KMB",
+      "sheet": "Sheet1",
+      "row": 26,
+      "col": 6,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "KBM",
+      "sheet": "Sheet1",
+      "row": 26,
+      "col": 7,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.20",
+      "sheet": "Sheet1",
+      "row": 26,
+      "col": 9,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.19",
+      "sheet": "Sheet1",
+      "row": 26,
+      "col": 10,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.18",
+      "sheet": "Sheet1",
+      "row": 26,
+      "col": 11,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R.17",
+      "sheet": "Sheet1",
+      "row": 26,
+      "col": 12,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R-16",
+      "sheet": "Sheet1",
+      "row": 26,
+      "col": 13,
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "R. DWP",
+      "sheet": "Sheet1",
+      "row": 26,
+      "col": 15,
+      "w": 1,
+      "h": 1
+    }
+  ],
+  "source_file": "DENAH RUANG PSAS 20242025.xlsx",
+  "count": 63
+}
