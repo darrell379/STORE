@@ -288,6 +288,10 @@ function openDenah() {
 }
 
 function closeDenah() {
-    document.getElementById("denahPopup").style.display = "none";
+   // OPEN 3D DENAH  
+function openDenah3D() {
+    window.open("https://chat.z.ai/space/y0rnz93nb001-art", "_blank");
+}
+
 }
 
