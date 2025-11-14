@@ -399,4 +399,12 @@ window.addEventListener('keydown', (e)=> { if(e.key === 'Escape') document.query
   - (Opsional) Upload denah_parsed.json ke root repo untuk memuat langsung dari file.
   - Setelah ganti: refresh page, buka panel "Denah" — foto denah 3D interaktif akan tampil.
 */
+#denah3d-container canvas {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    outline: none;
+}
 
