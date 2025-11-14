@@ -144,24 +144,15 @@
       </section>
 
       <!-- DENAH panel -->
-      <section id="panel-denah" class="panel" data-name="denah" role="region" aria-label="Denah 3D">
-        <div class="panel-inner">
-          <h2>Denah 3D Interaktif</h2>
-          <div class="denah-wrap">
-            <div id="map3d" class="map3d" tabindex="0" aria-label="Denah 3D SMAN 1 Ngadiluwih">
-              <div class="building main">Gedung Utama</div>
-              <div class="building lab">Laboratorium</div>
-              <div class="building lib">Perpustakaan</div>
-              <div class="field">Lapangan</div>
-            </div>
-            <div class="map-controls">
-              <label><input type="checkbox" id="tiltToggle" checked> Mode 3D</label>
-              <button class="glass-btn" id="resetView">Reset View</button>
-              <p class="map-instr">Klik & drag denah untuk memutar; gunakan tombol reset untuk mengembalikan.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <<div id="map3d" class="map3d" tabindex="0" aria-label="Denah 3D SMAN 1 Ngadiluwih">
+  <!-- canvas 'foto' denah 3D interaktif -->
+  <div class="photo3d-wrap">
+    <canvas id="mapPhotoCanvas"></canvas>
+    <!-- optional overlay for captions -->
+    <div id="mapPhotoCaption" class="map-photo-caption">Denah 3D (klik & drag untuk tilt, scroll untuk zoom)</div>
+  </div>
+</div>
+
 
       <!-- PRESTASI panel -->
       <section id="panel-prestasi" class="panel" data-name="prestasi" role="region" aria-label="Prestasi">
